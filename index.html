@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Waunted</title>
+
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+
+<!--css -->
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/libs/font-awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="assets/libs/bootstrap-social.css">		
+<link rel="stylesheet" type="text/css" href="assets/css/homeCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/common.css">
+<link rel="stylesheet" type="text/css" href="assets/css/virtualCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/carouselCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/scoringCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/navboxCSS.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/notificationsCSS.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/createWantCSS.css">
+
+
+
+<!--js-->
+<script src="assets/libs/jquery-1.11.3.min.js"></script>
+<script src="assets/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="assets/libs/angular.min.js"></script>
+<script src="assets/libs/angular-route.min.js"></script>
+<script src="assets/libs/ui-bootstrap-tpls-0.13.3.min.js"></script>
+<script src="assets/libs/angular-drag-and-drop-lists.min.js"></script>
+
+
+</head>
+
+<body ng-app="mainModule">
+	<div ng-controller="navController"
+		ng-include="'app/shared/nav/navView.html'"></div>
+	<div ng-view></div>
+	<div style="height: 300px;"></div>
+	<div ng-controller="dockController"
+		ng-include="'app/shared/dock/dockView.html'"></div>
+</body>
+
+
+<!--Modules-->
+<script src="app/app.module.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-cookies.js"></script>
+
+
+<!-- Controllers -->
+<script src="app/components/home/homeController.js"></script>
+<script src="app/components/virtual/virtualController.js"></script>
+<script src="app/components/product-page/productController.js"></script>
+<script src="app/components/profile/profileController.js"></script>
+<script src="app/components/home/navboxController.js"></script>
+<script src="app/components/create-want-post/createWantController.js"></script>
+<script src="app/components/offerings/offeringsController.js"></script>
+<script src="app/components/notifications/notificationsController.js"></script>
+<script src="app/components/home/carousel/carouselController.js"></script>
+<script src="app/components/settings/settingsController.js"></script>
+<script src="app/components/keywords/keywordsController.js"></script>
+<script src="app/components/scoring/scoringController.js"></script>
+<script src="app/components/how-it-works/howItWorksController.js"></script>
+
+
+<script src="app/shared/nav/navController.js"></script>
+<script src="app/shared/dock/dockController.js"></script>
+
+
+
+<!--Services-->
+
+
+<!--Routes-->
+<script src="app/app.routes.js"></script>
+
+
+
+
+</html>

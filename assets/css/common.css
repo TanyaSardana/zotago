@@ -1,0 +1,78 @@
+
+.whiteBackgroundBlueText{
+	background-color: white; 
+	color: rgb(1, 87, 155);
+}
+
+.whiteText {
+	color: rgb(255, 255, 255);
+}
+
+.customBlueBackground {
+	background-color: rgb(1, 87, 155);
+}
+
+.customBlueText {
+	color: rgb(1, 87, 155);
+}
+
+.btnWaunted{
+	border: 1px solid rgb(1, 87, 155);
+	background-color: #fff;
+	color: rgb(1, 87, 155);
+}
+.btnWaunted:hover{
+	border: 1px solid rgb(1, 87, 155);
+	background-color: rgb(1, 87, 155);
+	color: #fff;
+}
+
+
+.customBlueButton {
+	border: 1px solid rgb(1, 87, 155);
+	background-color: #fff;
+	color: rgb(1, 87, 155);
+}
+.customBlueButton:hover {
+	border: 1px solid rgb(1, 87, 155);
+	background-color: rgb(1, 87, 155);
+	color: #fff;
+}
+
+.overlayBlackColor {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.overlayWhiteColor {
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+.no-border {
+	border: 0;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.tabBtn {
+	padding: 5% 0;
+	border-bottom: 2px solid rgb(1, 87, 155);
+}
+
+.tabBtn.active {
+	border-top: 2px solid rgb(1, 87, 155);
+	border-right: 2px solid rgb(1, 87, 155);
+	border-left: 2px solid rgb(1, 87, 155);
+	border-bottom: 0;
+}
+
+.icon-inside-textbox {
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+	background-position-x: 5px;
+}
+
+
+

@@ -1,0 +1,37 @@
+<div class="container">
+	<div>We'd like to know a little about you to curate your wanted
+		Feed. Select any of the topics below that may interest you.</div>
+	<div
+		style="height: 300px; width: 100%; background-color: #ddd; display: inline-block; position: relative;">
+		<div
+			style="display: inline-block; width: 20%; height: 100%; position: absolute; text-align: center;">
+			<div ng-click="displayTags('backward')"
+				style="position: absolute; margin-top: 50%;font-size:30px;margin-left:50%;"><span class="glyphicon glyphicon-chevron-left"></span></div>
+		</div>
+		<div class="tagContents"
+			style="width: 60%; height: 100%; display: inline-block; position: absolute; margin-left: 20%; text-align: center;padding:10px;">
+			<div ng-repeat="item in tags track by $index" class="label-border"
+				style="display: inline-block; background-color: white;margin: 30px; ">
+				<div>{{item}}</div>
+			</div>
+		</div>
+		<div
+			style="display: inline-block; width: 20%; height: 100%; position: absolute; margin-left: 80%; text-align: center;">
+			<div ng-click="displayTags('forward')" style="margin-top: 50%;font-size:30px;"><span class="glyphicon glyphicon-chevron-right"></span></div>
+		</div>
+	</div>
+
+	<div>You can also choose some of our Trending Tags:</div>
+
+	<div style="text-align: center;">How Tags Work on Waunted</div>
+
+	<div class="col-xs-6 text-center">Helpful text regarding the *
+		and #, relate to virtual closet</div>
+
+	<div class="col-xs-6 text-center">
+		Link to <a href="">How it works</a> page. More information provided
+	</div>
+
+
+
+</div>

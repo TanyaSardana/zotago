@@ -1,0 +1,198 @@
+<div class="container" style="height: {{height}};padding:10px;">
+
+
+	<div class="col-xs-4" style="">
+		<a href="#/"><span><img style="height: 50px;"
+				ng-src="{{company.logo}}"></span></a> <span>{{currentSection |
+			uppercase}}</span>
+	</div>
+
+
+	<div class="col-xs-4" style="">
+		<div class="input-group">
+			<div class="input-group-btn search-panel">
+				<button type="button" class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown">
+					<span id="search_concept">All</span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="">All Departments</a></li>
+					<li><a href="">Appliances</a></li>
+					<li><a href="">Clothing, Shoes & Jewelry</a></li>
+					<li><a href="">Women</a></li>
+				</ul>
+			</div>
+			<input type="hidden" name="search_param" value="all"
+				id="search_param"> <input type="text" class="form-control"
+				name="x" placeholder="Search for terms, #tags, or @usernames">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</div>
+
+
+	<div ng-switch="$parent.isLoggedIn" class="col-xs-4" >
+		<!-- Right hand side of navbar when LOGGED IN-->
+		<div ng-switch-when="true" class="pull-right"
+			style="position: relative; width: 250px; z-index: 1;">
+			<ul ng-mouseenter="showNavbar = true"
+				ng-mouseleave="showNavbar = false" style="list-style: none;">
+				<li class="pull-right cursor-pointer"><img
+					style="height: 40px; border-radius: 50%; margin-right: 5px; width: 40px;"
+					src="https://scontent.cdninstagram.com/hphotos-xpa1/t51.2885-15/s320x320/e15/924668_683498595112820_982162096_n.jpg">{{user.displayName}}<span
+					style="margin-left: 5px;" class="caret"></span></li>
+
+				<li ng-show="showNavbar"
+					style="position: absolute; top: 100%; width: 100%; left: 70px; border: 1px solid #ddd; background-color: white;">
+					<a ng-repeat="item in navbarProfileMenu" ng-href="{{item.href}}">
+						<div class="cursor-pointer" 
+						style="height: 30px; padding: 20px; margin: 5px; text-align: center; line-height: 0px;"
+						ng-class="{'customBlueBackground' : cl , 'whiteText' : cl}"
+						ng-mouseenter="cl = true" ng-mouseleave="cl = false">{{item.name}}
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+
+		<!-- Right hand side of navbar when LOGGED OUT-->
+		<div ng-switch-when="false" class="pull-right"
+			style="position: relative; width: 250px; z-index: 1;">
+			<div>
+				<button data-toggle="modal" data-target="#signupModal"
+					class="btnWaunted" style="margin-right: 5px;">Sign Up</button>
+				<button class="btnWaunted" data-toggle="modal"
+					data-target="#loginModal">Login</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<!-- SignUp Modal -->
+	<div>
+		<div class="modal" id="signupModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<!--Modal's Header-->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div>
+							<div>Waunted</div>
+						</div>
+
+					</div>
+					<!--Modal's Body-->
+					<div style="" class="col-xs-12 modal-body">
+						<div style="max-height: 500px; overflow-y: auto;" class="col-xs-6">
+							<img src="https://pbs.twimg.com/media/CEa9-sdUgAA9eEe.jpg">
+						</div>
+
+						<div class="col-xs-6">
+							<div>Full Name:</div>
+							
+							<div>
+								<input style="width:100%;" ng-model="fullname" type="text">
+							</div>
+							<div>Email:</div>
+							<div>
+								<input style="width:100%;" ng-model="email" type="email">
+							</div>
+							<div>Password:</div>
+							<div>
+								<input style="width:100%;" ng-model="password" type="password">
+							</div>
+							<div style="margin-top:10px;width: 100%;">
+                                <button class="pull-right btnWaunted" ng-click="register(fullname, email, password)">Sign Up</button>
+							</div>
+							<br><br>
+							<div style="display:block;width:100%;text-align: center;">
+								<a class="btn btn-block btn-social btn-facebook">
+							    	<i class="fa fa-facebook"></i> Sign in with Facebook
+							  	</a>
+							  	<a class="btn btn-block btn-social btn-google">
+							    	<i class="fa fa-google"></i> Sign in with Google
+							  	</a>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Login Modal -->
+	<div >
+		<div class="modal" id="loginModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<!--Modal's Header-->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div>
+							Waunted
+						</div>
+
+					</div>
+					<!--Modal's Body-->				
+					<div style="" class="col-xs-12 modal-body">
+						<div style="max-height: 500px; overflow-y: auto;" class="col-xs-6">
+							<img src="https://pbs.twimg.com/media/CEa9-sdUgAA9eEe.jpg">
+						</div>
+
+						<div class="col-xs-6">
+							
+							<div>Email:</div>
+							<div>
+								<input style="width:100%;" ng-model="email" type="email">
+							</div>
+							<div>Password:</div>
+							<div>
+								<input style="width:100%;" ng-model="password" type="password">
+							</div>
+							<div style="margin-top:10px;width: 100%;">
+                                <button class="pull-right btnWaunted" ng-click="login(email, password)">Login</button>
+							</div>
+													
+						</div>
+
+					</div>
+
+
+
+
+
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>

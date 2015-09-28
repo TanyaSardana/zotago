@@ -1,0 +1,32 @@
+.label-border {
+	border: 1px solid rgba(1, 87, 155, 1);
+	text-align: center;
+	padding: 5px 10px 5px 10px;
+}
+
+.arrow-direction-up{
+	height:45px;
+	width:20px;
+	background-color: #ddd;
+	position: absolute;
+	top:20%;
+	left:42.5%;
+}
+.arrow-direction-up::before{
+	content:" ";
+    border-style: solid;
+    border-width: 0px 20px 35px 20px;
+    border-color: transparent transparent #ddd transparent;
+    position: absolute;
+    z-index: 1;
+    top:-20px;
+    left:-10px;
+}
+
+
+
+
+.input-border-bottom, .input-border-bottom:focus{
+	border-width: 0px 0px 1px 0px;
+	outline: none;
+}

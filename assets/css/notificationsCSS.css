@@ -1,0 +1,29 @@
+.arrow-down {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 50px solid rgba(1, 87, 155, 1);
+}
+
+.arrow-left {
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-bottom: 50px solid transparent;
+	border-right: 50px solid rgba(1, 87, 155, 1);
+}
+
+.arrow-right {
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-bottom: 50px solid transparent;
+	border-left: 50px solid rgba(1, 87, 155, 1);
+}
+
+.notificationsMenuList li {
+	border: 1px solid rgb(1, 87, 155);
+	padding: 5px;
+	margin-bottom: 5px;
+}

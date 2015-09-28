@@ -1,0 +1,19 @@
+<div class="container">
+	<div style="" class="row">
+		<div class="col-xs-4 text-center cursor-pointer tabBtn active"
+			ng-class="{'active' : tabs.virtualSelected}"
+			ng-click="setTab(tabs.currentTab,1)">Virtual Closet</div>
+		<div class="col-xs-4 text-center cursor-pointer tabBtn"
+			ng-class="{'active' : tabs.soldSelected}"
+			ng-click="setTab(tabs.currentTab,2)">Sold Items</div>
+		<div class="col-xs-4 text-center cursor-pointer tabBtn"
+			ng-class="{'active' : tabs.addSelected}"
+			ng-click="setTab(tabs.currentTab,3)">Add an item</div>
+	</div>
+
+	<div ng-include src="tabs.currentTabFile"></div>
+
+
+
+</div>
+
