@@ -2,7 +2,7 @@ app.controller('virtualController',['$scope', '$rootScope', function($scope,$roo
 	$rootScope.currentSection = 'Virtual Closet';
 	$scope.tabs = {
 		currentTab : 1,
-		currentTabFile : 'app/components/virtual/virtual-closet/virtual-closet.html',
+		currentTabFile : '/app/components/virtual/virtual-closet/virtual-closet.html',
 		virtualSelected : true,
 		soldSelected : false,
 		addSelected : false,
@@ -48,20 +48,20 @@ app.controller('virtualController',['$scope', '$rootScope', function($scope,$roo
 			$scope.tabs.addSelected = false;
 
 			$scope.tabs.currentTab = 1;
-			$scope.tabs.currentTabFile = 'app/components/virtual/virtual-closet/virtual-closet.html';
+			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
 		}else if(clickedTab == 2 && currentTab != 2){//sold items clicked
 			$scope.tabs.virtualSelected = false;
 			$scope.tabs.soldSelected = true;
 			$scope.tabs.addSelected = false;
 
-			$scope.tabs.currentTabFile = 'app/components/virtual/virtual-closet/virtual-closet.html';
+			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
 			$scope.tabs.currentTab = 2;
 		}else if(clickedTab == 3 && currentTab != 3){//add an item clicked
 			$scope.tabs.virtualSelected = false;
 			$scope.tabs.soldSelected = false;
 			$scope.tabs.addSelected = true;
 
-			$scope.tabs.currentTabFile = 'app/components/virtual/add-item/addItemView.html';
+			$scope.tabs.currentTabFile = '/app/components/virtual/add-item/addItemView.html';
 			$scope.tabs.currentTab = 3;
 		}
 	}
