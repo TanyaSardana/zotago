@@ -1,0 +1,30 @@
+{
+  "name": "zotago",
+  "version": "0.0.0",
+  "homepage": "https://github.com/djeik/zotago",
+  "authors": [
+    "Hassan Ali <helfi92@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.6",
+    "ui-bootstrap": "~0.13.4",
+    "angular-route": "~1.4.6",
+    "font-awesome": "~4.4.0",
+    "bootstrap-social": "~4.10.1",
+    "angular-bootstrap": "angular-ui-bootstrap-bower#~0.13.4"
+  }
+}
