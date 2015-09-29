@@ -29,3 +29,15 @@
 	color: rgb(1, 87, 155);
 	margin: 0 5px;
 }
+
+.want-border-color{
+	border-color: black;
+}
+.sell-border-color{
+	border-color:blue;
+}
+.item-tag-box{
+	border: 1px solid black;
+	padding:2px 5px;
+	margin-right:5px;
+}
