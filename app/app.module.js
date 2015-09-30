@@ -1,1 +1,1 @@
-var app = angular.module('mainModule',['ngRoute','ui.bootstrap']);
+var app = angular.module('mainModule',['ngRoute','ui.bootstrap','ngTagsInput']);

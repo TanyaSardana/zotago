@@ -21,7 +21,13 @@ app.controller('searchBarController',['$scope','$rootScope', function($scope,$ro
 			name : 'tag3',
 		},
 
-	]
+	];
+	$scope.tags = [
+        { text: 'just' },
+        { text: 'some' },
+        { text: 'cool' },
+        { text: 'tags' }
+    ];
 	
 
 	var init = function(){
