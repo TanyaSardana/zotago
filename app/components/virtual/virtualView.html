@@ -1,19 +1,56 @@
 <div class="container">
-	<div style="" class="row">
-		<div class="col-xs-4 text-center cursor-pointer tabBtn active"
-			ng-class="{'active' : tabs.virtualSelected}"
-			ng-click="setTab(tabs.currentTab,1)">Virtual Closet</div>
-		<div class="col-xs-4 text-center cursor-pointer tabBtn"
-			ng-class="{'active' : tabs.soldSelected}"
-			ng-click="setTab(tabs.currentTab,2)">Sold Items</div>
-		<div class="col-xs-4 text-center cursor-pointer tabBtn"
-			ng-class="{'active' : tabs.addSelected}"
-			ng-click="setTab(tabs.currentTab,3)">Add an item</div>
+	<div style="border-top: 1px solid black; padding: 8px 0px;">
+		<div>
+			<span>@literally_joy</span><span class="pull-right"><img
+				style="height: 20px; width: 20px;"
+				src="http://img2.wikia.nocookie.net/__cb20121121152958/star-trek-the-next-generation/images/f/f6/Star-trek-logo-png-5515.jpg">
+				Platinium</span>
+		</div>
+	</div>
+	<div
+		style="position: relative; height: 300px; background-color: rgba(0, 0, 0, 1); padding: 30px; color: white;">
+		<div
+			style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('https://kathleenjshields.files.wordpress.com/2013/09/cover-facebook-abstract.jpg')"></div>
+		<button class="btnWaunted"
+			style="position: absolute; right: 30px;">EDIT PROFILE</button>
+		<!--profile pic-->
+		<div style="padding: 0; height: 200px; top: 15%;" class="col-xs-5">
+
+		</div>
+
+
+		<div style="padding: 0" class="col-xs-7"></div>
+
 	</div>
 
+	<div
+		style="position: absolute; text-align: center; left: 50%; margin-left: -70px; margin-top: -70px;">
+		<img style="height: 140px; width: 140px; border-radius: 50%;"
+			ng-src="{{myProfile.image}}">
+	</div>
+
+	
+</div>
+
+<!-- tab view -->
+<div style="margin-top: 80px;" class="container">
+
+	<div style="" class="row">
+		<div class="col-xs-4 text-center cursor-pointer tabBtn active"
+			ng-class="{'active' : tabs.postSelected}"
+			ng-click="setTab(tabs.currentTab,1)">Items for Sale</div>
+		<div class="col-xs-4 text-center cursor-pointer tabBtn"
+			ng-class="{'active' : tabs.followSelected}"
+			ng-click="setTab(tabs.currentTab,2)">My Wants</div>
+		<div class="col-xs-4 text-center cursor-pointer tabBtn"
+			ng-class="{'active' : tabs.scoreLevelSelected}"
+			ng-click="setTab(tabs.currentTab,3)">Posts I Follow</div>
+		
+	</div>
 	<div ng-include src="tabs.currentTabFile"></div>
 
 
 
 </div>
+
 

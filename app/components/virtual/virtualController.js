@@ -1,11 +1,14 @@
-app.controller('virtualController',['$scope', '$rootScope', function($scope,$rootScope){
-	$rootScope.currentSection = 'Virtual Closet';
+app.controller('virtualController',['$scope','$rootScope', function($scope,$rootScope){
+	$rootScope.currentSection = 'My Profile';
+	$scope.myProfile = {
+		image : 'https://simplybeautysydney.files.wordpress.com/2013/01/brad-profile-square.jpg',
+	};
 	$scope.tabs = {
 		currentTab : 1,
+		postSelected : true,
+		followSelected : false,
+		scoreLevelSelected : false,
 		currentTabFile : '/app/components/virtual/virtual-closet/virtual-closet.html',
-		virtualSelected : true,
-		soldSelected : false,
-		addSelected : false,
 	};
 	$scope.closet = [
 		{
@@ -43,25 +46,25 @@ app.controller('virtualController',['$scope', '$rootScope', function($scope,$roo
 		console.log('currentTab is: ', currentTab);
 		console.log('clickedTab is: ', clickedTab);
 		if(clickedTab == 1 && currentTab != 1){//virtual closet clicked
-			$scope.tabs.virtualSelected = true;
-			$scope.tabs.soldSelected = false;
-			$scope.tabs.addSelected = false;
+			$scope.tabs.postSelected = true;
+			$scope.tabs.followSelected = false;
+			$scope.tabs.scoreLevelSelected = false;
 
-			$scope.tabs.currentTab = 1;
 			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
+			$scope.tabs.currentTab = 1;
 		}else if(clickedTab == 2 && currentTab != 2){//sold items clicked
-			$scope.tabs.virtualSelected = false;
-			$scope.tabs.soldSelected = true;
-			$scope.tabs.addSelected = false;
+			$scope.tabs.postSelected = false;
+			$scope.tabs.followSelected = true;
+			$scope.tabs.scoreLevelSelected = false;
 
 			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
 			$scope.tabs.currentTab = 2;
 		}else if(clickedTab == 3 && currentTab != 3){//add an item clicked
-			$scope.tabs.virtualSelected = false;
-			$scope.tabs.soldSelected = false;
-			$scope.tabs.addSelected = true;
+			$scope.tabs.postSelected = false;
+			$scope.tabs.followSelected = false;
+			$scope.tabs.scoreLevelSelected = true;
 
-			$scope.tabs.currentTabFile = '/app/components/virtual/add-item/addItemView.html';
+			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
 			$scope.tabs.currentTab = 3;
 		}
 	}
