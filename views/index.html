@@ -3,53 +3,60 @@
 <head>
 <title>Waunted</title>
 
-<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
 
 <!--css -->
 <!--<link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
 <link rel="stylesheet" type="text/css" href="/lib/bootstrap/dist/css/bootstrap.css">
-<!--<link rel="stylesheet" type="text/css" href="/assets/libs/font-awesome-4.4.0/css/font-awesome.min.css">-->
+<!--<link rel="stylesheet" type="text/css" href="assets/libs/font-awesome-4.4.0/css/font-awesome.min.css">-->
 <link rel="stylesheet" type="text/css" href="/lib/font-awesome/css/font-awesome.css">
 
-<!--<link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-social.css">-->
+<!--<link rel="stylesheet" type="text/css" href="assets/libs/bootstrap-social.css">-->
 <link rel="stylesheet" type="text/css" href="/lib/bootstrap-social/bootstrap-social.css">
 
-<link rel="stylesheet" type="text/css" href="/assets/css/homeCSS.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/common.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/virtualCSS.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/carouselCSS.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/scoringCSS.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/navboxCSS.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/notificationsCSS.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/createWantCSS.css">
+
+<link rel="stylesheet" type="text/css" href="/lib/chosen/chosen.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/homeCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/common.css">
+<link rel="stylesheet" type="text/css" href="assets/css/virtualCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/carouselCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/scoringCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/navboxCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/notificationsCSS.css">
+<link rel="stylesheet" type="text/css" href="assets/css/createWantCSS.css">
 
 
 
 <!--js-->
-<!--<script src="/assets/libs/jquery-1.11.3.min.js"></script>-->
+<!--<script src="assets/libs/jquery-1.11.3.min.js"></script>-->
 <script src="/lib/jquery/dist/jquery.js"></script>
-<!--<script src="/assets/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>-->
+<!--<script src="assets/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>-->
 <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
-<!--<script src="/assets/libs/angular.min.js"></script>-->
+<!--<script src="assets/libs/angular.min.js"></script>-->
 <script src="/lib/angular/angular.js"></script>
 <script src="/lib/angular-route/angular-route.js"></script>
-<!--<script src="/assets/libs/angular-route.min.js"></script>-->
+<!--<script src="assets/libs/angular-route.min.js"></script>-->
 
-
-<!--<script src="/assets/libs/ui-bootstrap-tpls-0.13.3.min.js"></script>-->
+<!--<script src="assets/libs/ui-bootstrap-tpls-0.13.3.min.js"></script>-->
 <script src="/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/lib/chosen/chosen.jquery.min.js"></script>
 
 
+
+	
 </head>
 
 <body ng-app="mainModule">
-	<div ng-controller="navController"
-		ng-include="'app/shared/nav/navView.html'"></div>
+	<div ng-controller="navController" ng-include="'app/shared/nav/navView.html'"></div>
+	<div ng-controller="searchBarController" ng-include="'app/shared/search-bar/searchBarView.html'"></div>
+
+	
+
+
 	<div ng-view></div>
 	<div style="height: 300px;"></div>
-	<div ng-controller="dockController"
-		ng-include="'app/shared/dock/dockView.html'"></div>
+	<div ng-controller="dockController" ng-include="'app/shared/dock/dockView.html'"></div>
 </body>
 
 
@@ -61,7 +68,7 @@
 <script src="app/components/home/homeController.js"></script>
 <script src="app/components/virtual/virtualController.js"></script>
 <script src="app/components/product-page/productController.js"></script>
-<script src="app/components/profile/profileController.js"></script>
+<!--<script src="app/components/profile/profileController.js"></script>-->
 <script src="app/components/home/navboxController.js"></script>
 <script src="app/components/create-want-post/createWantController.js"></script>
 <script src="app/components/offerings/offeringsController.js"></script>
@@ -73,12 +80,17 @@
 <script src="app/components/how-it-works/howItWorksController.js"></script>
 
 
+<script src="app/shared/search-bar/searchBarController.js"></script>
 <script src="app/shared/nav/navController.js"></script>
 <script src="app/shared/dock/dockController.js"></script>
 
 
 
 <!--Services-->
+
+
+<!--Directives-->
+<script src="app/shared/search-bar/searchBarDirective.js"></script>
 
 
 <!--Routes-->

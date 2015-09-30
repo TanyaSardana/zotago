@@ -1,7 +1,7 @@
 app.controller('navController',['$scope', '$rootScope', function($scope,$rootScope){
 	$rootScope.isLoggedIn = false;
 
-	$scope.height = '75px';
+	$scope.height = '50px';
 	$scope.company = {
 		
 		logo : 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Warwick_W_logo.png',

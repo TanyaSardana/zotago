@@ -1,7 +1,7 @@
-<div class="container" style="height: {{height}};padding:10px;">
+<div class="container" style="height: {{height}};padding:10px 0px;">
 
 
-	<div class="col-xs-4" style="">
+	<div class="col-xs-4" style="padding:0;">
 		<a href="#/"><span><img style="height: 50px;"
 				ng-src="{{company.logo}}"></span></a> <span>{{currentSection |
 			uppercase}}</span>
@@ -9,32 +9,11 @@
 
 
 	<div class="col-xs-4" style="">
-		<div class="input-group">
-			<div class="input-group-btn search-panel">
-				<button type="button" class="btn btn-default dropdown-toggle"
-					data-toggle="dropdown">
-					<span id="search_concept">All</span> <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="">All Departments</a></li>
-					<li><a href="">Appliances</a></li>
-					<li><a href="">Clothing, Shoes & Jewelry</a></li>
-					<li><a href="">Women</a></li>
-				</ul>
-			</div>
-			<input type="hidden" name="search_param" value="all"
-				id="search_param"> <input type="text" class="form-control"
-				name="x" placeholder="Search for terms, #tags, or @usernames">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button">
-					<span class="glyphicon glyphicon-search"></span>
-				</button>
-			</span>
-		</div>
+		
 	</div>
 
 
-	<div ng-switch="$parent.isLoggedIn" class="col-xs-4" >
+	<div style="padding:0;" ng-switch="$parent.isLoggedIn" class="col-xs-4" >
 		<!-- Right hand side of navbar when LOGGED IN-->
 		<div ng-switch-when="true" class="pull-right"
 			style="position: relative; width: 250px; z-index: 1;">
@@ -62,7 +41,7 @@
 		<!-- Right hand side of navbar when LOGGED OUT-->
 		<div ng-switch-when="false" class="pull-right"
 			style="position: relative; width: 250px; z-index: 1;">
-			<div>
+			<div class="pull-right">
 				<button data-toggle="modal" data-target="#signupModal"
 					class="btnWaunted" style="margin-right: 5px;">Sign Up</button>
 				<button class="btnWaunted" data-toggle="modal"
