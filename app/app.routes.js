@@ -14,8 +14,8 @@ $routeProvider
         controller  : 'productController',
     })
     .when('/profile', {
-        templateUrl : '/app/components/profile/profileView.html',
-        controller  : 'profileController',
+        templateUrl : '/app/components/virtual/virtualView.html',
+        controller  : 'virtualController',
     })
     .when('/create-want-post', {
         templateUrl : '/app/components/create-want-post/createWantView.html',
