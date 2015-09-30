@@ -41,19 +41,21 @@
 	padding:2px 5px;
 	margin-right:5px;
 }
-/* overwrite chosen css */
-.mycontainer {
-    height: 70px;
-}
 
-.chosen-container-multi .chosen-choices {
-    height: 70px !important;
-    overflow-y: auto;
-}
-.chosen-container-multi .chosen-choices li.search-choice{
-	line-height: 30px;
-	margin-top:15px;
-}
-.chosen-container-multi .chosen-choices li.search-field input[type="text"]{
+
+tags-input.customSearch .host{
+	margin:0;	
 	height:70px;
+
+}
+tags-input.customSearch .tags{
+	padding-left:10px;
+}
+tags-input.customSearch .tags .tag-item{
+	line-height: 35px;
+	height:40px;
+	margin-top:2.5%;
+}
+tags-input.customSearch .tags input{
+	height:100%;
 }
