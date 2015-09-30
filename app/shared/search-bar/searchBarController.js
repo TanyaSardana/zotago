@@ -1,4 +1,4 @@
-app.controller('searchBarController',['$scope','$rootScope', function($scope,$rootScope){
+app.controller('searchBarController',['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 
 
 	$scope.paddingLeft= '10px';
@@ -28,6 +28,20 @@ app.controller('searchBarController',['$scope','$rootScope', function($scope,$ro
         { text: 'cool' },
         { text: 'tags' }
     ];
+    $scope.loadTags = function(query) {
+	    console.log('query is: ', query);
+	    
+	    return [
+	    	{ text: 'tag0' },
+	        { text: 'tag1' },
+	        { text: 'tag2' },
+	        { text: 'tag3' }
+
+	    ];
+
+	    
+	    //return $http.get('/tags?query=' + query);
+  	};
 	
 
 	var init = function(){
