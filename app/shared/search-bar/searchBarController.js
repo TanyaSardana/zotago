@@ -28,9 +28,7 @@ app.controller('searchBarController',['$scope','$rootScope','$http', function($s
         { text: 'cool' },
         { text: 'tags' }
     ];
-    $scope.loadTags = function(query) {
-	    console.log('query is: ', query);
-	    
+    $scope.loadTags = function(query) {	    
 	    return [
 	    	{ text: 'tag0' },
 	        { text: 'tag1' },
