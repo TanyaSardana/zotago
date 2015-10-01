@@ -28,9 +28,9 @@ $scope.dockItems = [
 
 	},
 	{
-		image: 'assets/img/my-profile-dock.png',
-		tooltip : 'My Profile',
-		href : 'profile',
+		image: 'assets/img/account-settings-dock.png',
+		tooltip : 'Settings',
+		href : 'account-settings',
 
 	},
 	
