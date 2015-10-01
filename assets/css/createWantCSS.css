@@ -24,9 +24,28 @@
 }
 
 
-
+.sellBtn{
+	
+}
 
 .input-border-bottom, .input-border-bottom:focus{
 	border-width: 0px 0px 1px 0px;
 	outline: none;
+}
+
+tags-input.create-post-search .host{
+	margin:0;	
+	height:70px;
+
+}
+tags-input.create-post-search .tags{
+	padding-left:10px;
+}
+tags-input.create-post-search .tags .tag-item{
+	line-height: 35px;
+	height:40px;
+	margin-top:2.5%;
+}
+tags-input.create-post-search .tags input{
+	height:100%;
 }

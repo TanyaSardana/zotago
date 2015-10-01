@@ -1,19 +1,32 @@
 app.controller('createWantController',['$scope','$http','$rootScope' ,function($scope,$http,$rootScope){
 	$rootScope.currentSection = 'Create Waunt Post';
-	$scope.wauntPost = {
-		title : '',
+	$scope.wantPost = {
 		desc : '',
 		image : '',
 
-	}
-	$scope.submitWauntPost = function(){
-		var title = $scope.wauntPost.title;
-		var desc = $scope.wauntPost.desc;
-		var image = $scope.wauntPost.image;
-		console.log(title);
+	};
+	$scope.submitWantPost = function(){
+		var desc = $scope.wacntPost.desc;
+		var image = $scope.wantPost.image;
 		console.log(desc);
 		console.log(image);
-	}
+	};
+	$scope.tags = [
+        { text: 'just' },
+       
+    ];
+    $scope.loadTags = function(query) {	    
+	    return [
+	    	{ text: 'tag0' },
+	        { text: 'tag1' },
+	        { text: 'tag2' },
+	        { text: 'tag3' }
+
+	    ];
+
+	    
+	    //return $http.get('/tags?query=' + query);
+  	};
 	
 
 	
