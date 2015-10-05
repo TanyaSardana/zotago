@@ -13,17 +13,25 @@ app.controller('navController',['$scope', '$rootScope', function($scope,$rootSco
 			href: '',
 		},
 		{
-			name: 'My Score',
-			href : '#/scoring-strategy',
+			name: 'Sell Something',
+			href: '#/create-want-post',
 		},
 		{
-			name: 'My Keywords',
-			href : '#/keywords',
+			name: 'My Closet',
+			href: '#/profile',
 		},
-		{
-			name: 'Account Settings',
-			href : '#/account-settings',
-		},
+		// {
+		// 	name: 'My Score',
+		// 	href : '#/scoring-strategy',
+		// },
+		// {
+		// 	name: 'My Keywords',
+		// 	href : '#/keywords',
+		// },
+		// {
+		// 	name: 'Account Settings',
+		// 	href : '#/account-settings',
+		// },
 		{
 			name: 'Logout',
 			href: '',

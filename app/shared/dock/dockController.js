@@ -21,12 +21,12 @@ $scope.dockItems = [
 		href : 'create-want-post',
 
 	},
-	{
-		image: 'assets/img/notifications-dock.png',
-		tooltip : 'Notifications',
-		href : 'notifications',
+	// {
+	// 	image: 'assets/img/notifications-dock.png',
+	// 	tooltip : 'Notifications',
+	// 	href : 'notifications',
 
-	},
+	// },
 	{
 		image: 'assets/img/account-settings-dock.png',
 		tooltip : 'Settings',

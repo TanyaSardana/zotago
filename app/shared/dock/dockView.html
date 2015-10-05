@@ -1,6 +1,6 @@
 <div
-	style="position: fixed; bottom: 0; height: 100px; width: 80%; margin-left: 10%; background-color: rgba(0, 0, 0, 0.4);">
-	<div style="width:120%;"class="text-center">
+	style="position: fixed; bottom: 0; height: 100px; width: 60%; margin-left: 20%; background-color: rgba(0, 0, 0, 0.4);">
+	<div style="width:145%;"class="text-center">
 		<a ng-repeat="item in dockItems" href="#/{{item.href}}">
 			<div ng-mouseenter="dockHovered = true"
 				ng-mouseleave="dockHovered = false" class="col-xs-2">
@@ -9,7 +9,7 @@
 					<img style="height: 80px; width: 80px;" ng-src="{{item.image}}">
 
 					<div ng-show="dockHovered"
-						style="position: absolute; top: -50px; text-align: center; min-width: 120px;">
+						style="position: absolute; top: -50px; text-align: center; min-width: 115px;">
 						<div class="customToolTip">{{item.tooltip}}</div>
 					</div>
 

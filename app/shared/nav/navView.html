@@ -15,14 +15,18 @@
 
 	<div style="padding:0;" ng-switch="$parent.isLoggedIn" class="col-xs-4" >
 		<!-- Right hand side of navbar when LOGGED IN-->
-		<div ng-switch-when="true" class="pull-right"
-			style="position: relative; width: 250px; z-index: 1;">
+		<!-- change false to true when login is implemented-->
+		<div ng-switch-when="false" class="pull-right" style="position: relative; width: 250px; z-index: 3;">
 			<ul ng-mouseenter="showNavbar = true"
 				ng-mouseleave="showNavbar = false" style="list-style: none;">
-				<li class="pull-right cursor-pointer"><img
-					style="height: 40px; border-radius: 50%; margin-right: 5px; width: 40px;"
-					src="https://scontent.cdninstagram.com/hphotos-xpa1/t51.2885-15/s320x320/e15/924668_683498595112820_982162096_n.jpg">{{user.displayName}}<span
-					style="margin-left: 5px;" class="caret"></span></li>
+				<li class="pull-right cursor-pointer">
+					<a href="#/profile">
+					<img
+						style="height: 40px; border-radius: 50%; margin-right: 5px; width: 40px;"
+						src="http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg">{{user.displayName}}<span
+						style="margin-left: 5px;" class="caret"></span>
+					</a>
+				</li>
 
 				<li ng-show="showNavbar"
 					style="position: absolute; top: 100%; width: 100%; left: 70px; border: 1px solid #ddd; background-color: white;">
@@ -39,7 +43,7 @@
 
 
 		<!-- Right hand side of navbar when LOGGED OUT-->
-		<div ng-switch-when="false" class="pull-right"
+		<div ng-switch-when="true" class="pull-right"
 			style="position: relative; width: 250px; z-index: 1;">
 			<div class="pull-right">
 				<button data-toggle="modal" data-target="#signupModal"
