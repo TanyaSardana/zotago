@@ -1,24 +1,42 @@
-
-
-<div style="margin-top:100px;"class="container">
-	<div class="col-xs-8">
-		<div class="col-xs-12">
-			<div style="t">
-				<tags-input ng-model="tags" placeholder="Add some tags that define your item" class="create-post-search">
-   					<auto-complete source="loadTags($query)" ></auto-complete>
-				</tags-input>	
-			</div>
-		</div>
-		<div class="col-xs-12"><textarea style="height:100px;width:100%;margin: 10px 0;"></textarea></div>
-		<div style="height:200px;"class="col-xs-12">
-			<div style="padding: 0;"class="col-xs-6"><div style="width:200px;height:200px;background-color: gray;"></div></div>
-			<div style="height:200px;padding:0;position: relative;"class="col-xs-6" ><button  style="width:100%;position: absolute;bottom: 0;" class="btn sellBtn">SELL</button></div>
-		</div>
+<div style="margin-top:50px;"class="container">
 		
-	</div>
-	<div class="col-xs-4">
-		<img style="width:400px;" src="http://businesses-properties.com/wp-content/uploads/2014/03/man1.png">
-	</div>
+
+		<!-- product details -->
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div class="col-xs-8"></div>
+			<div class="col-xs-2"></div>
+
+
+		</div>
+		<div style="width:50%;margin: 0 auto;">
+			<tags-input ng-model="tags" placeholder="Add some tags that define your item" class="create-post-search">
+   					<auto-complete source="loadTags($query)" ></auto-complete>
+			</tags-input>	
+			<textarea placeholder="Describe your tags real quick" style="height:100px;width:100%;margin: 10px 0;padding-left:10px;"></textarea>
+			
+			
+
+
+		</div>
+		<div style="width:50%;margin-left:auto;margin-right:auto; "class="row">
+			<div class="row">
+				<div id="uploaded-images" ></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<label>PHOTOS</label>
+				
+				</div>
+				<div class="col-xs-10">
+					<div id="photoDropzone" class="photoDropzone">Drag files to upload</div>	
+	  					<input id="files-to-upload" type="file" multiple="" accept="image/*">			
+				</div>
+
+			</div>
+			<hr>
+			<button style="color: #fff;height: 60px; padding: 1em 2.5em;" class="customBlueBackground no-border pull-right">SELL</button>
+		</div>
 
 </div>
 
