@@ -23,10 +23,8 @@ app.controller('searchBarController',['$scope','$rootScope','$http', function($s
 
 	];
 	$scope.tags = [
-        { text: 'just' },
-        { text: 'some' },
-        { text: 'cool' },
-        { text: 'tags' }
+        { text: 'blue' },
+        
     ];
     $scope.loadTags = function(query) {	    
 	    return [

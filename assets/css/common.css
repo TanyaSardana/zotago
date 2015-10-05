@@ -73,6 +73,30 @@
 	padding-left: 30px;
 	background-position-x: 5px;
 }
-
+.photoDropzone{
+	height:100px;
+	line-height:100px;
+	width:100%;
+	text-align:center;
+	border:1px dashed #ccc;
+	color:#ccc;
+}
+.photoDropzone.dragover{
+	border-color:#000;
+	color:#000;
+} 
+.sell-upload-picture{
+	height:110px;
+	width:110px;
+	margin:1em;
+	border: solid 1px black;
+	float:left;
+}
+.uploadedImage{
+	height:65px !important;
+}
+.cover-picture-radio{
+	margin-right:0.5em !important;
+}
 
 

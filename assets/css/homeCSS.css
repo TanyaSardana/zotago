@@ -54,8 +54,12 @@ tags-input.customSearch .tags{
 tags-input.customSearch .tags .tag-item{
 	line-height: 35px;
 	height:40px;
-	margin-top:2.5%;
+	margin-top:1.5%;
 }
 tags-input.customSearch .tags input{
 	height:100%;
+}
+.modal-lg{
+	width:90%;
+	height:40%;
 }
