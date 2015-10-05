@@ -1,6 +1,6 @@
 app.controller('homeController',['$scope','$rootScope', function($scope,$rootScope){
 $rootScope.currentSection = 'Waunted';
-
+$rootScope.showMainSearchBar = true;
 $scope.store = [
 
 	{
@@ -36,6 +36,7 @@ $scope.store = [
 		link : 'http://www.kijiji.ca/v-plumbing-sink-toilet-shower/city-of-toronto/art-sink-blow-out-super-deal-50-off-renoshop-ca/1106320850?enableSearchNavigationFlag=true',
 		tags: ['tag1', 'tag2', 'tag3', 'tag4'],
 	},
+	
 
 	
 ];

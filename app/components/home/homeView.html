@@ -95,7 +95,6 @@
 						</div>
 						<div class="text-center" style="height:50%">
 
-							<div><button style="" class="btnWaunted">Copy Link</button></div>
 						</div>
 
 					</div>
@@ -125,14 +124,13 @@
 								ng-src="{{mainWaunt.image}}"></span> <span
 								style="border: 1px solid black; padding: 5px; margin-right: 5px;"
 								ng-repeat="tag in mainWaunt.tags track by $index">{{tag}}</span>
-							<div style="margin-left: 100px; display: inline-block" class="">
-								Waunted by {{mainWaunt.user.name}}</div>
+							
 						</div>
 
 					</div>
 					<!--Modal's Body-->
 					<div style="" class="col-xs-12 modal-body">
-						<div style="max-height: 500px; overflow-y: auto;" class="col-xs-8">
+						<div style="max-height:100%;overflow-y: auto;" class="col-xs-7">
 							<a ng-href="#/product-page" ng-click="$parent.$parent.closeModalWithID('offeringsModal')">
 								
 								<div style="" ng-repeat="item in offerings">
@@ -145,25 +143,27 @@
 										<div>{{item.name}}</div>
 										<div>{{item.price | currency}}</div>
 										<div>{{item.location}}</div>
-										<div>
-											<button style="margin-right: 5px;" class="btnWaunted">Tip</button>
-											<button class="btnWaunted">Comment</button>
-										</div>
+										
 									</div>
 								</div>
 							</a>
 						</div>
-						<div class="col-xs-4">
-							<div>Link</div>
-							<input style="width: 100%;" type="text" placeholder="URL">
-							<div>Virtual Closet</div>
+						<div class="col-xs-5">
+							<div>Know where to buy this?</div>
+							<div style="width:100%;">
+								<input style="width: 50%;" type="text" placeholder="http://">
+								<span style="width:20%;"><button>Boom</button></span>
+							</div><br>
+							<div>Offer your own item <span><img style="height:30px;"src="http://www.icons101.com/icons/20/Flat_Round_by_Roundicons/128/Closet.png"></span></div>
+
+							<!--<div>Virtual Closet</div>
 							<input style="width: 100%;" type="text" placeholder="URL">
 							<div>Description</div>
 							<textarea style="width: 100%; min-width: 100%; max-width: 100%;"
 								placeholder=""></textarea>
 							<div class="pull-right">
 								<button class="btnWaunted">Enter</button>
-							</div>
+							</div>-->
 						</div>
 					</div>
 					<div class="modal-footer">

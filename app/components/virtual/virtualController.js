@@ -1,7 +1,7 @@
 app.controller('virtualController',['$scope','$rootScope', function($scope,$rootScope){
 	$rootScope.currentSection = 'My Profile';
 	$scope.myProfile = {
-		image : 'https://simplybeautysydney.files.wordpress.com/2013/01/brad-profile-square.jpg',
+		image : 'http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg',
 	};
 	$scope.tabs = {
 		currentTab : 1,
@@ -39,6 +39,7 @@ app.controller('virtualController',['$scope','$rootScope', function($scope,$root
 			followers : 2,
 			tips: '2.00',
 		},
+		
 		
 
 	];
