@@ -63,3 +63,8 @@ tags-input.customSearch .tags input{
 	width:90%;
 	height:40%;
 }
+
+.showYourClosetSelectedThumbnail{
+	border:1px solid black;
+
+}

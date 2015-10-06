@@ -4,7 +4,7 @@ app.controller('navController',['$scope', '$rootScope', function($scope,$rootSco
 	$scope.height = '50px';
 	$scope.company = {
 		
-		logo : 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Warwick_W_logo.png',
+		logo : '/assets/img/zotago_logo.png',
 	}
 	$scope.navbarProfileMenu = [
 		
