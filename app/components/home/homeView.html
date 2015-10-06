@@ -130,60 +130,66 @@
 					</div>
 					<!--Modal's Body-->
 					<div style="" class="col-xs-12 modal-body">
-						<div style="max-height:100%;overflow-y: auto;" class="col-xs-7">
-							<div ng-hide="showYourCloset">
-								<a ng-href="#/product-page" ng-click="$parent.$parent.closeModalWithID('offeringsModal')">
+						<div style="height:100%;" class="container" ng-hide="showYourCloset">
+							<div style="max-height:100%;overflow-y: auto;" class="col-xs-7">
+								<div>
+									<a ng-href="#/product-page" ng-click="$parent.$parent.closeModalWithID('offeringsModal')">
+									
+										<div style="" ng-repeat="item in offerings">
+											<div
+												style="height: 100px; width: 100px; position: relative; display: inline-block; text-align: center;">
+												<img style="max-height: 90px; max-width: 90px;"
+													ng-src="{{item.image}}">
+											</div>
+											<div style="display: inline-block;">
+												<div>{{item.price | currency}}</div>
+												<div>{{item.location}}</div>
+												
+											</div>
+										</div>
+									</a>
+								</div>
 								
-									<div style="" ng-repeat="item in offerings">
-										<div
-											style="height: 100px; width: 100px; position: relative; display: inline-block; text-align: center;">
-											<img style="max-height: 90px; max-width: 90px;"
-												ng-src="{{item.image}}">
-										</div>
-										<div style="display: inline-block;">
-											<div>{{item.price | currency}}</div>
-											<div>{{item.location}}</div>
-											
-										</div>
-									</div>
-								</a>
-							</div>
-							
 
-							<!--Div that lets you pick from virtual closet-->
-							<div ng-show="showYourCloset">
+								
+
+
+							</div>
+							<div  class="col-xs-5">
+								<div>Know where to buy this?</div>
+								<div style="width:100%;">
+									<input style="width: 50%;" type="text" placeholder="http://">
+									<span style="width:20%;"><button>Boom</button></span>
+								</div><br>
+								<div>Offer your own item <span><img ng-click="showYourCloset = true" style="height:30px;"src="http://www.icons101.com/icons/20/Flat_Round_by_Roundicons/128/Closet.png"></span></div>
+
+								<!--<div>Virtual Closet</div>
+								<input style="width: 100%;" type="text" placeholder="URL">
+								<div>Description</div>
+								<textarea style="width: 100%; min-width: 100%; max-width: 100%;"
+									placeholder=""></textarea>
+								<div class="pull-right">
+									<button class="btnWaunted">Enter</button>
+								</div>-->
+							</div>
+						</div>
+						<!--Div that lets you pick from virtual closet-->
+							<div class="container" ng-show="showYourCloset">
 									<!--arrow to go back to offerings-->
 									<div style="margin-bottom:10px;overflow-y: hidden;">
 										<span  ng-click="showYourCloset = false"><img style="height:30px" src="http://www.mixvassallo.com/website/frontend/css/images/back-button.png"> Go back</span>
 									</div>
-									<div ng-repeat="item in yourCloset" style="width:25%; display: inline-block;overflow-y: auto;" >
-									<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 100px;position: relative; text-align: center;margin:5px;padding:5px;">
-										<img style="max-height: 90px; max-width: 90px;" ng-src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg" src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg">
-									</div></div>
-									<div style="display: block;width:100%;">
+									<div style="overflow-y: auto;">
+										<div ng-repeat="item in yourCloset" style="width:25%; display: inline-block;" >
+											<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 100px;position: relative; text-align: center;margin:5px;padding:5px;">
+												<img style="max-height: 90px; max-width: 90px;" ng-src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg" src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg">
+											</div>
+										</div>
+									</div>	
+									<div style="display: block;position:absolute;bottom:0;right:20px;">
 										<button class="pull-right btn">Offer it</button>
 									</div>
 							</div>
-
-
-						</div>
-						<div class="col-xs-5">
-							<div>Know where to buy this?</div>
-							<div style="width:100%;">
-								<input style="width: 50%;" type="text" placeholder="http://">
-								<span style="width:20%;"><button>Boom</button></span>
-							</div><br>
-							<div>Offer your own item <span><img ng-click="showYourCloset = true" style="height:30px;"src="http://www.icons101.com/icons/20/Flat_Round_by_Roundicons/128/Closet.png"></span></div>
-
-							<!--<div>Virtual Closet</div>
-							<input style="width: 100%;" type="text" placeholder="URL">
-							<div>Description</div>
-							<textarea style="width: 100%; min-width: 100%; max-width: 100%;"
-								placeholder=""></textarea>
-							<div class="pull-right">
-								<button class="btnWaunted">Enter</button>
-							</div>-->
-						</div>
 					</div>
 					<div class="modal-footer">
 						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
