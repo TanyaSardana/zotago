@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
 
                 WantPost.belongsToMany(models.SellPost, {
                     through: models.Offer,
-                    as: 'offeredSellPosts',
+                    as: 'offers',
                     foreignKey: 'wantPostId',
                     otherKey: 'sellPostId'
                 });
