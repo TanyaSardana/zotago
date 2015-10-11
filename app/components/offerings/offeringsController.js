@@ -101,6 +101,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope', functio
 			},
 			tags : ['#knit','#cream','#jumper','#crop'],
 		},
+		
 
 
 	];

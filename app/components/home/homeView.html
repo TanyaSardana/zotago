@@ -2,8 +2,6 @@
 <div ng-include="'/app/components/home/navboxView.html'"></div>
 
 
-
-
 <div class="container">
 	<div class="row">
 		<div ng-switch="item.isAWant" ng-repeat="item in store"
@@ -130,7 +128,7 @@
 					</div>
 					<!--Modal's Body-->
 					<div style="" class="col-xs-12 modal-body">
-						<div style="height:100%;" class="" ng-hide="showYourCloset">
+						<div style="height:100%;" class="offeringsModal" ng-hide="showYourCloset">
 							<div style="max-height:100%;overflow-y: auto;" class="col-xs-7">
 								<div>
 									<a ng-href="#/product-page" ng-click="$parent.$parent.closeModalWithID('offeringsModal')">
@@ -174,7 +172,7 @@
 							</div>
 						</div>
 						<!--Div that lets you pick from virtual closet-->
-							<div class="" ng-show="showYourCloset">
+							<div style="height:100%;overflow-y:auto;" class="closetModal" ng-show="showYourCloset">
 									<!--arrow to go back to offerings-->
 									<div style="margin-bottom:10px;overflow-y: hidden;">
 										<span  ng-click="showYourCloset = false"><img style="height:30px" src="http://www.mixvassallo.com/website/frontend/css/images/back-button.png"> Go back</span>
@@ -185,6 +183,15 @@
 												<img style="max-height: 90px; max-width: 90px;" ng-src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg" src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg">
 											</div>
 										</div>
+										<!-- create a new offering from the closet -->
+										<a target="_blank"href="#/create-want-post"><div  style="border:1px dotted black;width:25%; display: inline-block;">
+											<div class="plus-sign-div">
+												<div style="height: 100px;position: relative; text-align: center;margin:5px;padding:5px;">
+													<div style="text-align: center;line-height: 100px;font-size: 30px;">+</div>
+												</div>
+											</div>
+										</div></a>
+
 									</div>	
 									<div style="display: block;position:absolute;bottom:0;right:20px;">
 										<button class="pull-right btn">Offer it</button>

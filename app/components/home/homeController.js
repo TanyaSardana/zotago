@@ -2,11 +2,6 @@ app.controller('homeController',['$scope','$rootScope', function($scope,$rootSco
 $rootScope.currentSection = 'Waunted';
 $rootScope.showMainSearchBar = true;
 
-
-
-
-
-
 $scope.store = [
 
 	{

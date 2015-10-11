@@ -1,0 +1,32 @@
+.offeringsModal{
+	transition: 0.2s all linear;
+	opacity: 1;
+	
+}
+.offeringsModal.ng-hide-add{
+  opacity: 0;
+}
+.offeringsModal.ng-hide-remove {
+
+}
+.offeringsModal.ng-hide {
+	opacity: 0;
+}
+
+.closetModal{
+	transition: 0.2s all linear;
+	opacity: 1;
+}
+.closetModal.ng-hide-add{
+
+}
+
+.closetModal.ng-hide-remove {
+
+}
+
+.closetModal.ng-hide{
+	opacity: 0;
+}
+
+
