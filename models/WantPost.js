@@ -14,7 +14,9 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(models) {
                 WantPost.belongsToMany(models.Tag, {
                     through: models.WantPostTag,
-                    as: 'tags'
+                    as: 'tags',
+                    foreignKey: 'wantPostId',
+                    otherKey: 'tagId'
                 });
 
                 WantPost.belongsToMany(models.SellPost, {
