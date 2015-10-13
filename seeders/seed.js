@@ -26,7 +26,8 @@ function seedData() {
             email: 'jake@mail.jerrington.me',
             firstName: 'Jake',
             lastName: 'Errington'
-        }).then(function(x) {
+        })
+        .then(function(x) {
             jake = x;
 
             return models.Tag.findOne({
@@ -34,7 +35,8 @@ function seedData() {
                     name: "mcgill"
                 }
             });
-        }).then(function(x) {
+        })
+        .then(function(x) {
             mcgill = x;
 
             return models.Tag.findOne({
@@ -42,7 +44,8 @@ function seedData() {
                     name: "blue"
                 }
             });
-        }).then(function(x) {
+        })
+        .then(function(x) {
             blue = x;
 
             return models.Tag.findOne({
@@ -50,21 +53,24 @@ function seedData() {
                     name: "shirt"
                 }
             });
-        }).then(function(x) {
+        })
+        .then(function(x) {
             shirt = x;
 
             return jake.createWantPost({
                 imageUrl: "http://example.com/",
                 description: "example want post"
-            })
-        }).then(function(post) {
+            });
+        })
+        .then(function(post) {
             wantPost = post;
             return wantPost.addTags([
                 blue,
                 shirt,
                 mcgill
             ]);
-        });
+        })
+        ;
     });
 }
 
