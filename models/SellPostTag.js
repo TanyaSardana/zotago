@@ -15,7 +15,8 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
             }
-        }
+        },
+        timestamps: false
     });
     return SellPostTag;
 }
