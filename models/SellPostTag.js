@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
         tagId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primarKey: true
+            primaryKey: true
         }
     }, {
         classMethods: {
