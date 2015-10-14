@@ -21,6 +21,7 @@ function seedData() {
         var jake;
         var wantPost;
         var mcgill, blue, shirt;
+        var montreal, scarf, yellow;
 
         models.Account.create({
             email: 'jake@mail.jerrington.me',
@@ -57,6 +58,33 @@ function seedData() {
         .then(function(x) {
             shirt = x;
 
+            return models.Tag.findOne({
+                where: {
+                    name: "montreal"
+                }
+            });
+        })
+        .then(function(x) {
+            montreal = x;
+
+            return models.Tag.findOne({
+                where: {
+                    name: "scarf"
+                }
+            });
+        })
+        .then(function(x) {
+            scarf = x;
+
+            return models.Tag.findOne({
+                where: {
+                    name: "yellow"
+                }
+            });
+        })
+        .then(function(x) {
+            yellow = x;
+
             return jake.createWantPost({
                 imageUrl: "http://example.com/",
                 description: "example want post"
@@ -70,8 +98,26 @@ function seedData() {
                 mcgill
             ]);
         })
+        .then(function() {
+            return jake.createWantPost({
+                imageUrl: "http://exmaple.com/",
+                description: "a want post with different tags"
+            });
+        })
+        .then(function(post) {
+            console.log("second post: " + JSON.stringify(post));
+
+            return post.addTags([
+                montreal,
+                scarf,
+                yellow
+            ]);
+        })
+        .then(function(x) {
+        })
         ;
-    });
+    })
+    ;
 }
 
 models.sequelize.sync({ force: true })
