@@ -73,6 +73,27 @@ router
             .then(function(wantPosts) {
                 res.json(wantPosts);
             });
+    })
+    .post(function(req, res) {
+        var mkPost = req.body.post;
+        var tags = req.body.tags;
+
+        return models.WantPost.create(mkPost)
+            .then(function(post) {
+                return Promise.all(tags.map(function(tag) {
+                    return models.Tag.findOne({
+                        where: {
+                            name: tag
+                        }
+                    });
+                }))
+                .then(function(tags) {
+                    return post.addTags(tags);
+                })
+                .then(function() {
+                    res.json(post)
+                });
+            });
     });
 
 router
