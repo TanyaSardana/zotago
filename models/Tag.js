@@ -37,7 +37,8 @@ module.exports = function(sequelize, DataTypes) {
                     otherKey: 'subtagId'
                 });
             }
-        }
+        },
+        timestamps: false
     });
     return Tag;
 }
