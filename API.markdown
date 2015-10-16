@@ -10,32 +10,32 @@ Collections
 Accounts
 --------
 
-### `/accounts`
+### `GET /accounts`
 
 List all accounts.
 
 Sell posts
 ----------
 
-### `/sellposts`
+### `GET /sellposts`
 
 List all sell posts.
 
-### `/sellposts/:id`
+### `GET /sellposts/:id`
 
 Give a detailed description of a sell post.
 
 Tags
 ----
 
-### `/tags`
+### `GET /tags`
 
 List all tags.
 
 Want posts
 ----------
 
-### `/wantposts`
+### `GET /wantposts`
 
 List all want posts.
 
@@ -44,6 +44,6 @@ List all want posts.
 * `tags`: comma separated list of quoted strings which name tags that are used
 to filter the want posts; each post must have all the given tags.
 
-### `/wantposts/:id`
+### `GET /wantposts/:id`
 
 Give a detailed description of a want post.
