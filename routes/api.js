@@ -95,7 +95,10 @@ router
                 return thePost.addTags(tags);
             })
             .then(function() {
-                res.json(thePost)
+                return ormHelpers.getPost(models.WantPost, thePost.getId());
+            })
+            .then(function(fullPost) {
+                res.json(fullPost);
             });
     });
 
