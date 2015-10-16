@@ -85,35 +85,54 @@ function seedData() {
         .then(function(x) {
             yellow = x;
 
-            return jake.createWantPost({
-                imageUrl: "http://example.com/",
+            return Promise.all([{
+                imageUrl: "http://example.com/want-1",
                 description: "example want post"
-            });
+            }, {
+                imageUrl: "http://example.com/want-2",
+                description: "a want post with different tags"
+            }].map(function(o) {
+                return jake.createWantPost(o);
+            }));
         })
-        .then(function(post) {
-            wantPost = post;
-            return wantPost.addTags([
-                blue,
-                shirt,
-                mcgill
-            ]);
+        .then(function(wantPosts) {
+            var wp1 = wantPosts[0];
+            var wp2 = wantPosts[1];
+
+            return Promise.all([
+                wp1.addTags([
+                    blue,
+                    shirt,
+                    mcgill
+                ]),
+                wp2.addTags([
+                    montreal,
+                    scarf,
+                    yellow
+                ])
+            ])
         })
         .then(function() {
-            return jake.createWantPost({
-                imageUrl: "http://exmaple.com/",
-                description: "a want post with different tags"
-            });
+            return Promise.all([{
+                imageUrl: "http://example.com/sell-1",
+                description: "An example sell post."
+            }, {
+                imageUrl: "http://example.com/sell-2",
+                description: "Another example sell post."
+            }, {
+                imageUrl: "http://example.com/sell-3",
+                externalUrl: "http://example.com/external-1",
+                description: "A sell post with an external URL."
+            }].map(function(o) {
+                return jake.createSellPost(o);
+            }));
         })
-        .then(function(post) {
-            console.log("second post: " + JSON.stringify(post));
-
-            return post.addTags([
-                montreal,
-                scarf,
-                yellow
+        .then(function(sellPosts) {
+            return Promise.all([
+                sellPosts[0].addTags([yellow, shirt, mcgill]),
+                sellPosts[1].addTags([blue, yellow, shirt]),
+                sellPosts[2].addTags([blue, scarf, mcgill])
             ]);
-        })
-        .then(function(x) {
         })
         ;
     })
