@@ -44,6 +44,33 @@ List all want posts.
 * `tags`: comma separated list of quoted strings which name tags that are used
 to filter the want posts; each post must have all the given tags.
 
+### `POST /wantposts`
+
+Create a new want post.
+
+#### Request body
+
+```json
+{
+    "post": {
+        "imageUrl": <string>,
+        "description": <string>,
+        "creatorId": <int>
+    },
+    "tags": [
+        <name of a tag>,
+        ...
+    ]
+}
+```
+
+Because an accounts system hasn't been built yet, simply use `"creatorId": 1`,
+which will have been initialized to a dummy user by the seeder script.
+
+#### Response body
+
+Same as `GET /wantposts/:id` for the newly created post id.
+
 ### `GET /wantposts/:id`
 
 Give a detailed description of a want post.
