@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
         description: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        creatorId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     }, {
         classMethods: {
@@ -34,7 +38,8 @@ module.exports = function(sequelize, DataTypes) {
                 });
 
                 WantPost.belongsTo(models.Account, {
-                    as: 'creator'
+                    as: 'creator',
+                    foreignKey: 'creatorId'
                 });
             }
         }

@@ -21,11 +21,13 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 Account.hasMany(models.WantPost, {
-                    as: 'wantPosts'
+                    as: 'wantPosts',
+                    foreignKey: 'creatorId'
                 });
 
                 Account.hasMany(models.SellPost, {
-                    as: 'sellPosts'
+                    as: 'sellPosts',
+                    foreignKey: 'creatorId'
                 });
             }
         }

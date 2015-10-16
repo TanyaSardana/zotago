@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
         externalUrl: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        creatorId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     }, {
         classMethods: {
@@ -38,7 +42,8 @@ module.exports = function(sequelize, DataTypes) {
                 });
 
                 SellPost.belongsTo(models.Account, {
-                    as: 'creator'
+                    as: 'creator',
+                    foreignKey: 'creatorId'
                 });
             }
         }
