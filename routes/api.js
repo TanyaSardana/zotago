@@ -35,41 +35,41 @@ router
         };
 
         var tagSet;
-        if(req.query.tags) {
-            var t = '[' + req.query.tags + ']';
-            var p = JSON.parse(t);
-            var tagSet = util.toSet(p);
-        }
+        if(req.query.tags)
+            tagSet = util.toSet(JSON.parse('[' + req.query.tags + ']'));
 
-        return models.WantPost.findAll()
-            .then(function(wantPosts) {
-                if(tagSet)
-                    return Promise.all(
-                        wantPosts.map(function(wp) {
-                            return wp.getTags()
-                                .then(function(wpTags) {
-                                    if(util.isSubset(
-                                        tagSet,
-                                        util.toSet(wpTags.map(function(t) {
-                                            return t.name;
-                                        })))) {
-                                        return wp;
-                                    }
-                                    else
-                                        return null;
-                                });
-                        })
-                    )
-                    .then(function(wantPosts) {
-                        wantPosts = wantPosts.filter(function(wp) {
-                            return wp != null
-                        });
+        // want to find all want posts whose tags are a superset of the given
+        // tagSet.
+        var p = models.WantPost.findAll()
 
-                        return wantPosts;
+        if(tagSet)
+            p = p.then(function(wantPosts) {
+                return Promise.all(
+                    wantPosts.map(function(wp) {
+                        return wp.getTags()
+                            .then(function(wpTags) {
+                                if(util.isSubset(
+                                    tagSet,
+                                    util.toSet(wpTags.map(function(t) {
+                                        return t.name;
+                                    })))) {
+                                    return wp;
+                                }
+                                else
+                                    return null;
+                            });
+                    })
+                )
+                .then(function(wantPosts) {
+                    wantPosts = wantPosts.filter(function(wp) {
+                        return wp != null
                     });
-                else
+
                     return wantPosts;
-            })
+                });
+            });
+
+        return p
             .then(function(wantPosts) {
                 res.json(wantPosts);
             });
@@ -78,8 +78,11 @@ router
         var mkPost = req.body.post;
         var tags = req.body.tags;
 
+        var thePost;
+
         return models.WantPost.create(mkPost)
             .then(function(post) {
+                thePost = post;
                 return Promise.all(tags.map(function(tag) {
                     return models.Tag.findOne({
                         where: {
@@ -87,12 +90,12 @@ router
                         }
                     });
                 }))
-                .then(function(tags) {
-                    return post.addTags(tags);
-                })
-                .then(function() {
-                    res.json(post)
-                });
+            })
+            .then(function(tags) {
+                return thePost.addTags(tags);
+            })
+            .then(function() {
+                res.json(thePost)
             });
     });
 
