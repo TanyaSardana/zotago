@@ -1,7 +1,6 @@
 var uniqueID = 0;
-app.controller('createWantController',['$scope','$http','$rootScope' ,function($scope,$http,$rootScope){
+app.controller('createWantController',['$scope','api','$rootScope' ,function($scope,api,$rootScope){
 	$rootScope.showMainSearchBar = false;
-	$rootScope.currentSection = 'Create Waunt Post';
 	$scope.wantPost = {
 		desc : '',
 		image : '',
@@ -17,16 +16,29 @@ app.controller('createWantController',['$scope','$http','$rootScope' ,function($
         { text: 'just' },
        
     ];
-    $scope.loadTags = function(query) {	    
-	    return [
-	    	{ text: 'tag0' },
-	        { text: 'tag1' },
-	        { text: 'tag2' },
-	        { text: 'tag3' }
+    
+    function getTags(){
+    	var tags;
+    	api.getTags().success(function(data){
+		   //$scope.tags = data;
+		   setSearchPluginTagList(data);
+		});
+    };
+    getTags();
 
-	    ];  
-	    //return $http.get('/tags?query=' + query);
-  	};
+    function setSearchPluginTagList(data){
+    	var searchPluginTagList = [];
+    	for (var i = 0 ; i < data.length ; i++){
+    		searchPluginTagList.push({text: data[i].name});
+    	}
+    	$scope.loadTags = function(query) {	    
+	    
+		    return searchPluginTagList;	    
+		    //return $http.get('/tags?query=' + query);
+	  	};
+
+    };
+
 	
 	$scope.product = {
 		mainImage : 'https://item4.tradesy.com/r/887312ba56ecee9b441f67a69334a403deeac38ea7b6ac831bacaccdd2f35d87/355/355/bags/mansur-gavriel/totes/mansur-gavriel-tote-bag-black-with-ballerina-interior-4814743.jpg',

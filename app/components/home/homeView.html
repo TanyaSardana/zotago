@@ -1,13 +1,11 @@
 
 <div ng-include="'/app/components/home/navboxView.html'"></div>
 
-
 <div class="container">
 	<div class="row">
-		<div ng-switch="item.isAWant" ng-repeat="item in store"
+		<div ng-switch="true" ng-repeat="item in wantPosts track by $index"
 			style="margin-bottom: 50px; background-color: #fff; padding-right: 3px; padding-left: 3px;"
 			class="col-xs-3">
-
 			<!--WANT ITEM-->
 			<div ng-switch-when="true">
 				<div ng-mouseenter="itemOverlay = true" ng-mouseleave="itemOverlay = false" ng-class="{'cursor-pointer' : itemOverlay}"  class="want-border-color" style="position:relative;border-width: 2px;border-style: solid; padding: 5px;">
@@ -15,7 +13,7 @@
 						<div  style="position: relative;">
 							<div style="height: 170px;">
 								<div class="text-center">
-									<img style="max-height: 170px;" ng-src="{{item.image}}">
+									<img style="max-height: 170px;" ng-src="{{store[0].image}}">
 								</div>
 							</div>
 
@@ -27,7 +25,7 @@
 								<div
 									style="position: absolute; bottom: 0; width: 100%; height: 50px; color: #fff; background-color: rgba(0, 0, 0, 0.6)"
 									class="overlayBlackColor">
-									<span style="margin: 10px; color: white;">{{item.desc}}</span>
+									<span style="margin: 10px; color: white;">{{item.description}}</span>
 								</div>
 							</div>
 						</div>
@@ -35,9 +33,9 @@
 					
 					<div style="position:absolute;bottom:2px;left:2px;z-index:1;">
 
-						<div  ng-switch="item.followed" ng-show="itemOverlay"  class="text-center">
+						<div ng-show="itemOverlay"  class="text-center">
 							<button ng-switch-when="false" ng-click="addFollower($index)" style="font-size:11px;" class="btnWaunted">{{"Follow" | uppercase}}</button>
-							<button ng-switch-when="true" ng-click="addFollower($index)" style="font-size:11px;" class="btnWaunted">{{"Unfollow" | uppercase}}</button>
+							<!--<button ng-switch-when="true" ng-click="addFollower($index)" style="font-size:11px;" class="btnWaunted">{{"Unfollow" | uppercase}}</button>-->
 						</div>						
 					</div>
 
@@ -45,13 +43,13 @@
 
 					<div style="height:60px;">
 						<div style="height:50%;">
-							<span ng-repeat="tag in item.tags track by $index" style="" class="item-tag-box">{{tag}}</span>
+							<!--<span ng-repeat="tag in item.tags track by $index" style="" class="item-tag-box">{{tag}}</span>-->
 						</div>
 
 
 						<div style="font-size: 0.8em;height:50%;margin-top:15px;">
-							<span class="col-xs-4" style="padding: 0;">{{item.followers}}
-								Follows</span> <span class="col-xs-4" style="padding: 0;">{{item.offerings}}
+							<span class="col-xs-4" style="padding: 0;"><!--{{item.followers}}-->2
+								Follows</span> <span class="col-xs-4" style="padding: 0;"><!--{{item.offerings}}-->2
 								Offerings</span> <span class="col-xs-4" style="padding: 0;">
 							</span>
 						</div>
@@ -79,7 +77,7 @@
 								<div
 									style="position: absolute; bottom: 0; width: 100%; height: 50px; color: #fff; background-color: rgba(0, 0, 0, 0.6)"
 									class="overlayBlackColor">
-									<span style="margin: 10px; color: white;">{{item.desc}}</span>
+									<span style="margin: 10px; color: white;">{{item.description}}</span>
 								</div>
 							</div>
 						</div>
@@ -128,7 +126,7 @@
 					</div>
 					<!--Modal's Body-->
 					<div style="" class="col-xs-12 modal-body">
-						<div style="height:100%;" class="offeringsModal" ng-hide="showYourCloset">
+						<div style="height:100%;" class=" animated fadeIn" ng-hide="showYourCloset">
 							<div style="max-height:100%;overflow-y: auto;" class="col-xs-7">
 								<div>
 									<a ng-href="#/product-page" ng-click="$parent.$parent.closeModalWithID('offeringsModal')">
@@ -172,22 +170,22 @@
 							</div>
 						</div>
 						<!--Div that lets you pick from virtual closet-->
-							<div style="height:100%;overflow-y:auto;" class="closetModal" ng-show="showYourCloset">
+							<div style="height:100%;overflow-y:auto;" class="" ng-show="showYourCloset">
 									<!--arrow to go back to offerings-->
 									<div style="margin-bottom:10px;overflow-y: hidden;">
 										<span  ng-click="showYourCloset = false"><img style="height:30px" src="http://www.mixvassallo.com/website/frontend/css/images/back-button.png"> Go back</span>
 									</div>
 									<div style="overflow-y: auto;">
 										<div ng-repeat="item in yourCloset" style="width:25%; display: inline-block;" >
-											<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 100px;position: relative; text-align: center;margin:5px;padding:5px;">
-												<img style="max-height: 90px; max-width: 90px;" ng-src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg" src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg">
+											<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 150px;position: relative; text-align: center;margin:5px;padding:5px;">
+												<img style="height: 140px; max-width: 100%;" ng-src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg" src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg">
 											</div>
 										</div>
 										<!-- create a new offering from the closet -->
 										<a target="_blank"href="#/create-want-post"><div  style="border:1px dotted black;width:25%; display: inline-block;">
 											<div class="plus-sign-div">
-												<div style="height: 100px;position: relative; text-align: center;margin:5px;padding:5px;">
-													<div style="text-align: center;line-height: 100px;font-size: 30px;">+</div>
+												<div style="height: 150px;position: relative; text-align: center;margin:5px;padding:5px;">
+													<div style="text-align: center;line-height: 150px;font-size: 30px;">+</div>
 												</div>
 											</div>
 										</div></a>

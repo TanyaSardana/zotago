@@ -1,5 +1,4 @@
-app.controller('searchBarController',['$scope','$rootScope','$http', function($scope,$rootScope,$http){
-
+app.controller('searchBarController',['$scope','$rootScope','api', function($scope,$rootScope,api){
 
 	$scope.paddingLeft= '10px';
 
@@ -22,22 +21,50 @@ app.controller('searchBarController',['$scope','$rootScope','$http', function($s
 		},
 
 	];
+	//tags to insert when user loads the page
 	$scope.tags = [
-        { text: 'blue' },
+        { text: 'boom' },
         
     ];
-    $scope.loadTags = function(query) {	    
-	    return [
-	    	{ text: 'tag0' },
-	        { text: 'tag1' },
-	        { text: 'tag2' },
-	        { text: 'tag3' }
+    
+    function getTags(){
+    	var tags;
+    	api.getTags().success(function(data){
+		   //$scope.tags = data;
+		   setSearchPluginTagList(data);
+		});
+    };
+    getTags();
 
-	    ];
+    function setSearchPluginTagList(data){
+    	var searchPluginTagList = [];
+    	for (var i = 0 ; i < data.length ; i++){
+    		searchPluginTagList.push({text: data[i].name});
+    	}
+    	$scope.loadTagsToDisplay = function(query) {	    
+	    
+		    return searchPluginTagList;	    
+		    //return $http.get('/tags?query=' + query);
+	  	};
+
+    };
+
+    
+
+   //  $scope.loadTags = function(query) {	    
+	    
+
+	  //   return [
+	  //   	{ text: 'tag0' },
+	  //       { text: 'tag1' },
+	  //       { text: 'tag2' },
+	  //       { text: 'tag3' }
+
+	  //   ];
 
 	    
-	    //return $http.get('/tags?query=' + query);
-  	};
+	  //   //return $http.get('/tags?query=' + query);
+  	// };
 	
 
 	var init = function(){

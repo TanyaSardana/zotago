@@ -1,5 +1,4 @@
-app.controller('homeController',['$scope','$rootScope', function($scope,$rootScope){
-$rootScope.currentSection = 'Waunted';
+app.controller('homeController',['$scope','$rootScope','api', function($scope,$rootScope,api){
 $rootScope.showMainSearchBar = true;
 
 $scope.store = [
@@ -55,7 +54,14 @@ $scope.addFollower = function(index){
 		$scope.store[index].followed = false;
 	}
 	
+};
+$scope.wantPosts = {};
+api.getWantPosts().then(successCallback, errorCallback);
+
+function successCallback(data){
+	console.log('success');
+};
+function errorCallback(data){
+	console.log('error');
 }
-
-
-}]);
+}]);	

@@ -1,5 +1,4 @@
 app.controller('virtualController',['$scope','$rootScope', function($scope,$rootScope){
-	$rootScope.currentSection = 'My Profile';
 	$scope.myProfile = {
 		image : 'http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg',
 	};

@@ -1,5 +1,4 @@
 app.controller('productController',['$scope','$rootScope',function($scope,$rootScope){
-	$rootScope.currentSection = 'Product Page';
 	$scope.product = {
 		name : 'Mansur Gavriel Black With Ballerina Interior Tote Bag',
 		condition : 'New with tags',

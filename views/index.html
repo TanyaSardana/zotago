@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/lib/bootstrap-social/bootstrap-social.css">
 
 
-<link rel="stylesheet" type="text/css" href="/lib/ng-tags-input/ng-tags-input.css">
+<link rel="stylesheet" type="text/css" href="/lib/ng-tags-input/ng-tags-input.min.css">
 <link rel="stylesheet" type="text/css" href="/lib/animate.css/animate.css">
 
 <link rel="stylesheet" type="text/css" href="/assets/css/homeCSS.css">
@@ -51,13 +51,12 @@
 </head>
 
 <body ng-app="mainModule">
+	
 	<div ng-controller="navController" ng-include="'app/shared/nav/navView.html'"></div>
 	<div ng-controller="searchBarController" ng-include="'app/shared/search-bar/searchBarView.html'"></div>
 
-	
-
-
 	<div ng-view></div>
+	
 	<div style="height: 300px;"></div>
 	<!--<div ng-controller="dockController" ng-include="'app/shared/dock/dockView.html'"></div>-->
 </body>
@@ -90,7 +89,7 @@
 
 
 <!--Services-->
-
+<script src="app/api/api.js"></script>
 
 <!--Directives-->
 

@@ -1,5 +1,4 @@
 app.controller('notificationsController',['$scope','$rootScope', function($scope,$rootScope){
-$rootScope.currentSection = 'Notifications';
 $scope.letter = false;
 
 $scope.notifications = [

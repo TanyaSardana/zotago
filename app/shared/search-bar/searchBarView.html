@@ -15,7 +15,7 @@
 			</div>
 			<!--<select style="width: 100%;" data-placeholder="Choose a recipient" multiple class="chzn-select" ng-model="tags" ng-options="tag.name for tag in tagsList" chosen ></select>-->
 			<tags-input ng-model="tags" class="customSearch">
-   				<auto-complete source="loadTags($query)" ></auto-complete>
+   				<auto-complete source="loadTagsToDisplay($query)" ></auto-complete>
 			</tags-input>	
 			<span class="input-group-btn">
 				<button style="height:70px;" class="btn btn-default" type="button">

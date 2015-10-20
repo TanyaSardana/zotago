@@ -1,5 +1,4 @@
 app.controller('keywordsController',['$scope','$timeout','$rootScope', function($scope,$timeout,$rootScope){
-	$rootScope.currentSection = 'Keywords';
 	$scope.tagsPerSlide = 7;
 	$scope.allTags = ['Adult & Gambling','Art & Entertainment','Automotive','Cameras & Photo','Careers & Employment','Cell Phones & Mobile','Collectibles',
 						'Consumer Electronics','Dating ','Education','Family & Baby','Fashion & Accessories *','Financial Services','Hunting','Food & Drink','Gaming','Health & Beauty','Home & Garden ','Jewellery & Watches','Lifestyle','Motorcycles & Powersports','Music & Musicians',
