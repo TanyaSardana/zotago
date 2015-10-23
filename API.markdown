@@ -64,6 +64,11 @@ Create a new want post.
 }
 ```
 
+The `imageUrl` attribute can be a base64-encoded data URI. If so, then the URI
+is parsed, and the image is saved to an uploads folder with a unique ID. The
+given URL is then overwritten with the URL for the uploaded image. The response
+will include the generated URL.
+
 Because an accounts system hasn't been built yet, simply use `"creatorId": 1`,
 which will have been initialized to a dummy user by the seeder script.
 
