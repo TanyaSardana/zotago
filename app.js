@@ -34,6 +34,7 @@ app.use('/lib', express.static(path.join(__dirname, 'bower_components')));
 // routes for application code
 app.use('/', routes);
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads/img')));
 app.use('/app', express.static(path.join(__dirname, 'app')));
 
 // catch 404 and forward to error handler
@@ -50,6 +51,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
+    console.error(err.stack);
     res.render('error', {
       message: err.message,
       error: err

@@ -34,3 +34,6 @@ npm-debug.log
 
 # Database configuration
 /config/config.json
+
+# Uploads
+/uploads/

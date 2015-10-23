@@ -6,6 +6,7 @@ var models = require('../models');
 
 var util = require('../util');
 var ormHelpers = require('../util/ormHelpers');
+var dataHelpers = require('../util/dataHelpers');
 
 // module with all api endpoints
 router
@@ -78,9 +79,24 @@ router
         var mkPost = req.body.post;
         var tags = req.body.tags;
 
+        var dataUrlScheme = "data";
+        var p = Promise.accept();
+
+        if(mkPost.imageUrl.slice(0, dataUrlScheme.length) === dataUrlScheme) {
+            var imageBuf = dataHelpers.parseDataUrl(mkPost.imageUrl);
+            p = dataHelpers.saveImage(imageBuf)
+                .then(function(imageData) {
+                    var imageUrl = dataHelpers.getImageUrl(imageData.id)
+                    mkPost.imageUrl = imageUrl;
+                });
+        }
+
         var thePost;
 
-        return models.WantPost.create(mkPost)
+        return p
+            .then(function() {
+                return models.WantPost.create(mkPost);
+            })
             .then(function(post) {
                 thePost = post;
                 return Promise.all(tags.map(function(tag) {
@@ -95,7 +111,7 @@ router
                 return thePost.addTags(tags);
             })
             .then(function() {
-                return ormHelpers.getPost(models.WantPost, thePost.getId());
+                return ormHelpers.getPost(models.WantPost, thePost.id);
             })
             .then(function(fullPost) {
                 res.json(fullPost);
