@@ -19,8 +19,8 @@ app.set('view engine', 'ejs');
 //// Basic server configuration ////
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }));
 app.use(cookieParser());
 
 //// Routes ////
