@@ -18,7 +18,7 @@
 				
 			</div>
 			<div class="animated fadeIn">
-				<textarea placeholder="Describe your tags real quick" style="height:100px;width:100%;margin: 10px 0;padding-left:10px;"></textarea>
+				<textarea ng-model="wantPost.post.description" placeholder="Describe your tags real quick" style="height:100px;width:100%;margin: 10px 0;padding-left:10px;"></textarea>
 			</div>
 		</div>
 		<div style="width:50%;margin-left:auto;margin-right:auto; "class="row animated fadeIn">
@@ -37,7 +37,7 @@
 
 			</div>
 			<hr>
-			<button style="color: #fff;padding: 0.5em 5.2em;" class="customBlueBackground no-border pull-right animated lightSpeedIn">SELL</button>
+			<button ng-click="submitWantPost()" style="color: #fff;padding: 0.5em 5.2em;" class="customBlueBackground no-border pull-right animated lightSpeedIn">SELL</button>
 		</div>
 
 </div>

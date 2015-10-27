@@ -9,7 +9,7 @@ app.factory('api', function($http){
         getTags: function(){
         	return $http.get( baseUrl + '/tags');
         },
-   //      createWantPost: function(){	
+        createWantPost: function(dataObj){	
 			// var dataObj = {
 			//     post: {
 			//         imageUrl: 'http://www.example.com',
@@ -21,7 +21,8 @@ app.factory('api', function($http){
 			//         'tag2',
 			//     ]
 			// };
-			// return $http.post(baseUrl + '/wantposts', dataObj);
-   //      },
+			return $http.post(baseUrl + '/wantposts', dataObj);
+         },
+         
     };
 });

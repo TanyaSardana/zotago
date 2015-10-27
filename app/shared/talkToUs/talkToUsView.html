@@ -1,0 +1,30 @@
+<div style="position: fixed;bottom:0;width:100%;color:white;">
+	<div style="width:20%;height:100%;" class="pull-right">
+		<!--header-->
+		<div ng-init="minipopup = true" ng-click="minipopup = !minipopup" style="height:30px;background-color:#744da8;">
+			<div style="padding-right:0;height:100%;"class="col-xs-12">
+				<div class="col-xs-10"><label style="margin-top:3%;">Publish a Want Post</label></div>
+				<div class="col-xs-2">
+					<i style="margin-top:50%;" ng-class="minipopup == true ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+				</div>
+			</div>
+		</div>
+		<!--body-->
+		<div ng-hide="minipopup" style="height:160px;background-color:white;padding-top:5px;">
+			<div class="col-xs-5">
+				<div style="background-color:red;height:100px;width:100px;padding:5px;">
+					<img style="max-height:90px;max-width:90px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png">
+				</div>
+			</div>
+			<div class="col-xs-7">
+				<div style="background-color:orange;width:100%;height:100px;">
+
+					<div></div>
+
+				</div>
+				
+			</div>
+			<div style="margin-top:10px;"class="col-xs-12"><button style="color:black;width:100%;"class="btn ">PUBLISH</button></div>
+		</div>
+	</div>
+</div>

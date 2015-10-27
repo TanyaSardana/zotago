@@ -1,6 +1,6 @@
 app.controller('homeController',['$scope','$rootScope','api', function($scope,$rootScope,api){
 $rootScope.showMainSearchBar = true;
-
+$scope.wantPosts = {};
 $scope.store = [
 
 	{
@@ -55,11 +55,28 @@ $scope.addFollower = function(index){
 	}
 	
 };
-$scope.wantPosts = {};
-api.getWantPosts().then(successCallback, errorCallback);
+$scope.init = function(){
+	console.log('init called');
+	api.getWantPosts().then(successCallback, errorCallback);
+};
+$scope.init();
 
+
+//api.createWantPost().then(successboom,errorboom);
+
+function successboom(data){
+	console.log('success',data);
+	api.getWantPosts().then(successCallback, errorCallback);
+
+
+};
+function errorboom(data){
+	console.log('error data',data);
+}
 function successCallback(data){
-	console.log('success');
+	console.log('success', data);
+	$scope.wantPosts = data.data;
+
 };
 function errorCallback(data){
 	console.log('error');

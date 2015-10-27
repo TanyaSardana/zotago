@@ -53,12 +53,11 @@
 <body ng-app="mainModule">
 	
 	<div ng-controller="navController" ng-include="'app/shared/nav/navView.html'"></div>
-	<div ng-controller="searchBarController" ng-include="'app/shared/search-bar/searchBarView.html'"></div>
-
+	<!--<div ng-controller="searchBarController" ng-include="'app/shared/search-bar/searchBarView.html'"></div>-->
 	<div ng-view></div>
-	
+	<!--<div ng-controller="talkToUsController" ng-include="'app/shared/talkToUs/talkToUsView.html'"></div>-->
 	<div style="height: 300px;"></div>
-	<!--<div ng-controller="dockController" ng-include="'app/shared/dock/dockView.html'"></div>-->
+
 </body>
 
 
@@ -80,11 +79,14 @@
 <script src="app/components/keywords/keywordsController.js"></script>
 <script src="app/components/scoring/scoringController.js"></script>
 <script src="app/components/how-it-works/howItWorksController.js"></script>
-
+<script src="app/components/home/miniWant/miniWantController.js"></script>
+<script src="app/components/home/searchEngine/searchEngineController.js"></script>
 
 <script src="app/shared/search-bar/searchBarController.js"></script>
 <script src="app/shared/nav/navController.js"></script>
-<script src="app/shared/dock/dockController.js"></script>
+<!--<script src="app/shared/dock/dockController.js"></script>-->
+<script src="app/shared/talkToUs/talkToUsController.js"></script>
+
 
 
 

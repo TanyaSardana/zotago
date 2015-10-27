@@ -1,17 +1,42 @@
 var uniqueID = 0;
 app.controller('createWantController',['$scope','api','$rootScope' ,function($scope,api,$rootScope){
 	$rootScope.showMainSearchBar = false;
+	
+	//create post object
 	$scope.wantPost = {
-		desc : '',
-		image : '',
-
+	    post: {
+	        imageUrl: 'http://www.example.com',
+	        description: '',
+	        creatorId: 1,
+	    },
+	    tags: []
 	};
+
+
 	$scope.submitWantPost = function(){
-		var desc = $scope.wacntPost.desc;
-		var image = $scope.wantPost.image;
+		var desc = $scope.wantPost.post.description;
+		var image = $scope.wantPost.post.imageUrl;
 		console.log(desc);
 		console.log(image);
+		var chosenTags = [];
+		for( var i = 0 ; i < $scope.tags.length; i++){
+			chosenTags.push($scope.tags[i].text);
+		}
+		$scope.wantPost.tags = chosenTags;
+		console.log($scope.wantPost);	
+
+
+
+		var dataObj = $scope.wantPost;
+		api.createWantPost(dataObj)
+		.then(function(data){
+			console.log('want post is created');
+		},function(error){
+			console.log('error');
+		});	
 	};
+	
+
 	$scope.tags = [
         { text: 'just' },
        
@@ -39,7 +64,6 @@ app.controller('createWantController',['$scope','api','$rootScope' ,function($sc
 
     };
 
-	
 	$scope.product = {
 		mainImage : 'https://item4.tradesy.com/r/887312ba56ecee9b441f67a69334a403deeac38ea7b6ac831bacaccdd2f35d87/355/355/bags/mansur-gavriel/totes/mansur-gavriel-tote-bag-black-with-ballerina-interior-4814743.jpg',
 		otherImages : ['https://item4.tradesy.com/r/52833c856bbf7fb4b09a2bc55bf695e31da00719ae29557956876f0969f27b82/355/355/bags/mansur-gavriel/totes/mansur-gavriel-tote-bag-black-with-ballerina-interior-4814743.jpg','https://item4.tradesy.com/r/b39b219ebc4b4a775547ba3f5c2aca75879ee0b249a7d19ed6c522811cb37afd/355/355/bags/mansur-gavriel/totes/mansur-gavriel-tote-bag-black-with-ballerina-interior-4814743.jpg','https://item4.tradesy.com/r/44c2b2316bca57597e76e3a3b88d8bb98a4a83ab9cadd77dcef0e0063095d962/355/355/bags/mansur-gavriel/totes/mansur-gavriel-tote-bag-black-with-ballerina-interior-4814743.jpg','https://item4.tradesy.com/r/887312ba56ecee9b441f67a69334a403deeac38ea7b6ac831bacaccdd2f35d87/355/355/bags/mansur-gavriel/totes/mansur-gavriel-tote-bag-black-with-ballerina-interior-4814743.jpg']
@@ -89,7 +113,9 @@ app.controller('createWantController',['$scope','api','$rootScope' ,function($sc
             	'</div>';
 	        	uniqueID++;
 	        	var existingPics = document.getElementById('uploaded-images').innerHTML;
-	        	document.getElementById('uploaded-images').innerHTML = existingPics +  newImgThumb;          
+	        	document.getElementById('uploaded-images').innerHTML = existingPics +  newImgThumb; 
+
+	        	$scope.wantPost.post.imageUrl = e.target.result;         
 	        };
 	      })(f);
 

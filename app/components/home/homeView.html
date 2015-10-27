@@ -1,19 +1,18 @@
-
-<div ng-include="'/app/components/home/navboxView.html'"></div>
+<div ng-controller="searchEngineController" ng-include="'app/components/home/searchEngine/searchEngineView.html'"></div>
 
 <div class="container">
 	<div class="row">
-		<div ng-switch="true" ng-repeat="item in wantPosts track by $index"
+		<div ng-repeat="item in wantPosts"
 			style="margin-bottom: 50px; background-color: #fff; padding-right: 3px; padding-left: 3px;"
 			class="col-xs-3">
 			<!--WANT ITEM-->
-			<div ng-switch-when="true">
+			<div>
 				<div ng-mouseenter="itemOverlay = true" ng-mouseleave="itemOverlay = false" ng-class="{'cursor-pointer' : itemOverlay}"  class="want-border-color" style="position:relative;border-width: 2px;border-style: solid; padding: 5px;">
 					<div>
 						<div  style="position: relative;">
 							<div style="height: 170px;">
 								<div class="text-center">
-									<img style="max-height: 170px;" ng-src="{{store[0].image}}">
+									<img style="max-height: 170px;" ng-src="{{item.imageUrl}}">
 								</div>
 							</div>
 
@@ -34,7 +33,7 @@
 					<div style="position:absolute;bottom:2px;left:2px;z-index:1;">
 
 						<div ng-show="itemOverlay"  class="text-center">
-							<button ng-switch-when="false" ng-click="addFollower($index)" style="font-size:11px;" class="btnWaunted">{{"Follow" | uppercase}}</button>
+							<button  ng-click="addFollower($index)" style="font-size:11px;" class="btnWaunted">{{"Follow" | uppercase}}</button>
 							<!--<button ng-switch-when="true" ng-click="addFollower($index)" style="font-size:11px;" class="btnWaunted">{{"Unfollow" | uppercase}}</button>-->
 						</div>						
 					</div>
@@ -58,46 +57,7 @@
 				</div>
 
 			</div>
-			<!--SELL ITEM-->
-			<div ng-switch-when="false">
-				<div ng-mouseenter="itemOverlay = true" ng-mouseleave="itemOverlay = false" ng-class="{'cursor-pointer' : itemOverlay}"  class="sell-border-color" style="position:relative;border-width: 2px;border-style: solid; padding: 5px;">
-					<div>
-						<div  style="position: relative;">
-							<div style="height: 170px;">
-								<div class="text-center">
-									<img style="max-height: 170px;" ng-src="{{item.image}}">
-								</div>
-							</div>
 
-
-							<!--Overlay of an item -->
-							<div data-toggle="modal" data-target="#offeringsModal" ng-show="itemOverlay"
-								style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5)">
-								
-								<div
-									style="position: absolute; bottom: 0; width: 100%; height: 50px; color: #fff; background-color: rgba(0, 0, 0, 0.6)"
-									class="overlayBlackColor">
-									<span style="margin: 10px; color: white;">{{item.description}}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr>
-					
-					<!--bottom section of item-->
-					<div style="height:60px;">
-						<div  style="height:50%;">
-							<span ng-repeat="tag in item.tags track by $index" class="item-tag-box">{{tag}}</span>
-						</div>
-						<div class="text-center" style="height:50%">
-
-						</div>
-
-					</div>
-					
-				</div>
-
-			</div>
 			
 		</div>
 	</div>

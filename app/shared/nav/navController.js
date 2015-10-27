@@ -4,7 +4,7 @@ app.controller('navController',['$scope', '$rootScope', function($scope,$rootSco
 	$scope.height = '50px';
 	$scope.company = {
 		
-		logo : '/assets/img/zotago_temp_nav.png',
+		logo : '/assets/img/gotta-find-it-logo.png',
 	}
 	$scope.navbarProfileMenu = [
 		
