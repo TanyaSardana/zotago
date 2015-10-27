@@ -1,0 +1,40 @@
+.navbox{
+	background-color:rgba(238,238,238,1);
+
+}
+.recommended-tags{
+	padding:0.5em;
+	margin: 0.5em;
+	background-color: rgba(62,109,142,1);
+	color: white;
+	cursor: pointer;
+	border-radius:10%;
+}
+.navbox-arrow-section{
+	background-color:rgba(238,238,238,1);
+	cursor: pointer;
+}
+.navbox-arrow-section:hover{
+	background: -webkit-linear-gradient(black, gray); /* For Safari 5.1 to 6.0 */
+  	background: -o-linear-gradient(red, blue); /* For Opera 11.1 to 12.0 */
+  	background: -moz-linear-gradient(red, blue); /* For Firefox 3.6 to 15 */
+  	background: linear-gradient(rgba(0,0,0,0.5), rgba(238,238,238,0.5)); /* Standard syntax */
+}
+
+.navbox .ng-hide-add-active {
+  display: block!important;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+
+.navbox .ng-hide-remove-active {
+  display: block!important;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+
+.navbox .ng-hide {
+  opacity: 0;
+}
