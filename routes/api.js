@@ -21,101 +21,59 @@ router
 router
     .route('/sellposts')
     .get(function(req, res) {
-        return models.SellPost.findAll()
-            .then(function(sellPosts) {
-                res.json(sellPosts);
-            });
-    });
-
-router
-    .route('/wantposts')
-    .get(function(req, res) {
-        var q = {
-            where: {},
-            include: []
-        };
-
         var tagSet;
+
+        // TODO use real parsing.
         if(req.query.tags)
             tagSet = util.toSet(JSON.parse('[' + req.query.tags + ']'));
 
-        // want to find all want posts whose tags are a superset of the given
-        // tagSet.
-        var p = models.WantPost.findAll()
-
-        if(tagSet)
-            p = p.then(function(wantPosts) {
-                return Promise.all(
-                    wantPosts.map(function(wp) {
-                        return wp.getTags()
-                            .then(function(wpTags) {
-                                if(util.isSubset(
-                                    tagSet,
-                                    util.toSet(wpTags.map(function(t) {
-                                        return t.name;
-                                    })))) {
-                                    return wp;
-                                }
-                                else
-                                    return null;
-                            });
-                    })
-                )
-                .then(function(wantPosts) {
-                    wantPosts = wantPosts.filter(function(wp) {
-                        return wp != null
-                    });
-
-                    return wantPosts;
-                });
-            });
-
-        return p
-            .then(function(wantPosts) {
-                res.json(wantPosts);
-            });
+        return ormHelpers.getPosts(models.SellPost, {
+            tags: tagSet
+        })
+        .then(function(sellPosts) {
+            res.json(sellPosts);
+        });
     })
     .post(function(req, res) {
         var mkPost = req.body.post;
         var tags = req.body.tags;
 
-        var dataUrlScheme = "data";
-        var p = Promise.accept();
+        return ormHelpers.createPost(models.SellPost, {
+            mkPost: mkPost,
+            tags: tags
+        })
+        .then(function(fullPost) {
+            res.json(fullPost);
+        });
+    });
 
-        if(mkPost.imageUrl.slice(0, dataUrlScheme.length) === dataUrlScheme) {
-            var imageBuf = dataHelpers.parseDataUrl(mkPost.imageUrl);
-            p = dataHelpers.saveImage(imageBuf)
-                .then(function(imageData) {
-                    var imageUrl = dataHelpers.getImageUrl(imageData.id)
-                    mkPost.imageUrl = imageUrl;
-                });
-        }
+router
+    .route('/wantposts')
+    .get(function(req, res) {
+        var tagSet;
 
-        var thePost;
+        // TODO use real parsing.
+        if(req.query.tags)
+            tagSet = util.toSet(JSON.parse('[' + req.query.tags + ']'));
 
-        return p
-            .then(function() {
-                return models.WantPost.create(mkPost);
-            })
-            .then(function(post) {
-                thePost = post;
-                return Promise.all(tags.map(function(tag) {
-                    return models.Tag.findOne({
-                        where: {
-                            name: tag
-                        }
-                    });
-                }))
-            })
-            .then(function(tags) {
-                return thePost.addTags(tags);
-            })
-            .then(function() {
-                return ormHelpers.getPost(models.WantPost, thePost.id);
-            })
-            .then(function(fullPost) {
-                res.json(fullPost);
-            });
+        return ormHelpers.getPosts(models.WantPost, {
+            tags: tagSet
+        })
+        .then(function(wantPosts) {
+            res.json(wantPosts);
+        });
+    })
+    .post(function(req, res) {
+        var mkPost = req.body.post;
+        var tags = req.body.tags;
+
+        return ormHelpers.createPost(models.WantPost, {
+            mkPost: mkPost,
+            tags: tags
+        })
+        .then(function(fullPost) {
+            res.json(fullPost);
+        });
     });
 
 router
