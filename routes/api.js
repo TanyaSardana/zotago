@@ -125,7 +125,18 @@ router
             .then(function(post) {
                 res.json(post);
             });
+    })
+    .delete(function(req, res) {
+        return models.SellPost.destroy({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        })
+        .then(function() {
+            res.status(204).send();
+        });
     });
+
 
 router
     .route('/wantposts/:id')
@@ -134,6 +145,16 @@ router
             .then(function(post) {
                 res.json(post);
             });
+    })
+    .delete(function(req, res) {
+        return models.WantPost.destroy({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        })
+        .then(function() {
+            res.status(204).send();
+        });
     });
 
 router
