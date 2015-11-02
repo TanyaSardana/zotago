@@ -64,6 +64,32 @@ Tags
 
 List all tags.
 
+#### Response body
+
+```json
+[
+    {
+        "id": <tag id>,
+        "name": <tag name>,
+        "metatags": [
+            {
+                "id": <metatag id>,
+                "name": <metatag name>
+            },
+            ...
+        ],
+        "subtags": [
+            {
+                "id": <subtag id>,
+                "name": <subtag name>
+            },
+            ...
+        ]
+    },
+    ...
+]
+```
+
 Want posts
 ----------
 
