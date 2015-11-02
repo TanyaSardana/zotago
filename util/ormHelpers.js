@@ -1,7 +1,7 @@
 'use strict';
 
-var util = require('.');
 var dataHelpers = require('./dataHelpers');
+var util = require('./.');
 
 /**
  * Gets a nice JSON form of a specific post.
