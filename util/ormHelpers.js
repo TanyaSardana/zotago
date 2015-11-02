@@ -54,7 +54,12 @@ module.exports.getPost = getPost;
 function getPosts(postModel, query) {
     // want to find all want posts whose tags are a superset of the given
     // query.tags.
-    var p = postModel.findAll()
+    var p = postModel.findAll({
+        include: [{
+            model: models.Tag,
+            as: 'tags'
+        }]
+    });
 
     // Because there's no good way to perform this kind of filtering on the
     // Sequelize level (believe me, I tried) we'll have to do it on the
