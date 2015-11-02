@@ -108,6 +108,57 @@ router
         });
     });
 
+router
+    .route('/wantposts/:id/offers')
+    .get(function(req, res) {
+        var id = req.params.id;
+
+        return models.WantPost.findOne({
+            where: {
+                id: id
+            },
+            include: [{
+                model: models.SellPost,
+                as: 'offers'
+            }]
+        })
+        .then(function(wp) {
+            if(wp == null)
+                res.status(404).send('Not found'); // TODO JSON 404 errors
+            else
+                res.json(wp.offers);
+        });
+    })
+    .post(function(req, res) {
+        var sellPostId = req.body.postId;
+        var id = req.params.id;
+
+        var theWantPost;
+
+        return models.WantPost.findOne({
+            where: {
+                id: id
+            },
+            include: [{
+                model: models.SellPost,
+                as: 'offers'
+            }]
+        })
+        .then(function(wp) {
+            if(wp == null)
+                res.status(404).send('Not found');
+
+            theWantPost = wp;
+
+            return theWantPost.addOffer(sellPostId);
+        })
+        .then(function() {
+            return ormHelpers.getPost(models.WantPost, theWantPost.id);
+        })
+        .then(function(p) {
+            res.json(p);
+        });
+    });
 
 router
     .route('/wantposts/:id')
