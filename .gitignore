@@ -35,5 +35,8 @@ npm-debug.log
 # Database configuration
 /config/config.json
 
+# Image search API keys
+/config/imageSearch.json
+
 # Uploads
 /uploads/

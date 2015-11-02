@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var Promise = require('bluebird');
 Promise.longStackTraces();
+var imageSearch = require('../util/imageSearch');
 
 var models = require('../models');
 var util = require('../util');
@@ -17,6 +18,16 @@ router
         return models.Account.findAll()
             .then(function(accounts) {
                 res.json(accounts);
+            });
+    });
+
+router
+    .route('/image')
+    .get(function(req, res) {
+        var query = req.query.q;
+        return imageSearch.search(query)
+            .then(function(b) {
+                res.json(b);
             });
     });
 
