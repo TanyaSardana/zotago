@@ -90,6 +90,45 @@ List all tags.
 ]
 ```
 
+### `POST /tags`
+
+Create a new tag.
+
+#### Request body
+
+```json
+{
+    "name": <tag name>,
+    "tags": [
+        <metatag name>,
+        ...
+    ]
+}
+```
+
+#### Response body
+
+```json
+{
+    "id": <tag id>,
+    "name": <tag name>,
+    "metatags": [
+        {
+            "id": <metatag id>,
+            "name": <metatag name>
+        },
+        ...
+    ],
+    "subtags": [
+        {
+            "id": <subtag id>,
+            "name": <subtag name>
+        },
+        ...
+    ]
+}
+```
+
 Want posts
 ----------
 
