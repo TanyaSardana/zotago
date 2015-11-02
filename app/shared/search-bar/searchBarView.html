@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			<!--<select style="width: 100%;" data-placeholder="Choose a recipient" multiple class="chzn-select" ng-model="tags" ng-options="tag.name for tag in tagsList" chosen ></select>-->
-			<tags-input ng-model="tags" class="customSearch">
+			<tags-input ng-model="tags" on-tag-added="onTagAdded($tag.text)" on-tag-removed="onTagRemoved($tag.text)" class="customSearch">
    				<auto-complete source="loadTagsToDisplay($query)" ></auto-complete>
 			</tags-input>	
 			<span class="input-group-btn">

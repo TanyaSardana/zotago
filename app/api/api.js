@@ -6,6 +6,13 @@ app.factory('api', function($http){
             console.log('boom');
             return $http.get( baseUrl + '/wantposts');
         },
+        getSellPosts: function() {
+            console.log('getSellPosts');
+            return $http.get( baseUrl + '/sellposts');
+        },
+        getQueriedWantPosts : function(param){
+            return $http.get( baseUrl + '/wantposts' , { params: {"tags": param} });
+        },
         getTags: function(){
         	return $http.get( baseUrl + '/tags');
         },
@@ -17,6 +24,9 @@ app.factory('api', function($http){
         },
         deleteWantPost: function(){
         	return;
+        },
+        getImage : function(param){
+            return $http.get( baseUrl + '/image' , { params: { "q" : param}});
         }
         
          

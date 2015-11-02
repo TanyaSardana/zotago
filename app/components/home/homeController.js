@@ -1,6 +1,8 @@
 app.controller('homeController',['$scope','$rootScope','api', function($scope,$rootScope,api){
+$scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.wantPosts = {};
+$scope.queriedWantPosts = {};
 $scope.store = [
 
 	{
@@ -56,23 +58,58 @@ $scope.addFollower = function(index){
 	
 };
 $scope.init = function(){
-	console.log('init called');
-	api.getWantPosts().then(successCallback, errorCallback);
+	//api.getWantPosts().then(successCallback, errorCallback);
+	api.getQueriedWantPosts('').then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 };
 $scope.init();
 
-
-//api.createWantPost().then(successboom,errorboom);
-
-function successboom(data){
-	console.log('success',data);
-	api.getWantPosts().then(successCallback, errorCallback);
-
-
-};
-function errorboom(data){
-	console.log('error data',data);
+function getQueriedWantPostsSuccessCallback(data){
+	$scope.queriedWantPosts = data.data;
+	
 }
+function getQueriedWantPostsErrorCallBack(data){
+	console.log('error ', data);
+}
+$scope.parsedListOfTag = '';
+$scope.onTagAdded = function(addedTag){
+	formatTagList(addedTag);
+	api.getQueriedWantPosts('' + $scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
+
+	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	
+}
+$scope.onTagRemoved = function(){
+	if($scope.parsedListOfTag.indexOf(',') === -1){
+	  //no ','
+	  $scope.parsedListOfTag = '';
+	}else{
+		var temp = $scope.parsedListOfTag.substring(0,$scope.parsedListOfTag.lastIndexOf('"'));
+		temp = temp.substring(0,temp.lastIndexOf('"') - 2); // - 2 to remove the coma and the "
+		temp += '"';
+		$scope.parsedListOfTag = temp;
+	}	
+	
+	api.getQueriedWantPosts($scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
+
+	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+}
+function getImageSuccessCallback (data){
+	$scope.miniWantImage = data.data.bossresponse.images.results[0].url;
+	console.log('s', data);
+}
+function getImageErrorCallback (data){
+	console.log('e', data);
+}
+function formatTagList(tag){
+
+	if($scope.parsedListOfTag.length > 0){
+		$scope.parsedListOfTag += ',' + '"' + tag + '"';
+	}else{
+		$scope.parsedListOfTag += '"' + tag + '"';
+	}
+}
+
+
 function successCallback(data){
 	console.log('success', data);
 	$scope.wantPosts = data.data;
@@ -81,4 +118,6 @@ function successCallback(data){
 function errorCallback(data){
 	console.log('error');
 }
+
+
 }]);	

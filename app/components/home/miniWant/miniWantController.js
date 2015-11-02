@@ -1,9 +1,8 @@
 app.controller('miniWantController',['$scope','$rootScope','api', function($scope,$rootScope,api){
-	$scope.image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 
 	$scope.wantPost = {
 	    post: {
-	        imageUrl: $scope.image,
+	        imageUrl: $scope.miniWantImage,
 	        description: '',
 	        creatorId: 1,
 	    },

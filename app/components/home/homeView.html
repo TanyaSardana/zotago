@@ -1,8 +1,7 @@
 <div ng-controller="searchEngineController" ng-include="'app/components/home/searchEngine/searchEngineView.html'"></div>
-
 <div class="container">
 	<div class="row">
-		<div ng-repeat="item in wantPosts"
+		<div ng-repeat="item in queriedWantPosts"
 			style="margin-bottom: 50px; background-color: #fff; padding-right: 3px; padding-left: 3px;"
 			class="col-xs-3">
 			<!--WANT ITEM-->
@@ -12,7 +11,7 @@
 						<div  style="position: relative;">
 							<div style="height: 170px;">
 								<div class="text-center">
-									<img style="max-height: 170px;" ng-src="{{item.imageUrl}}">
+									<img style="max-height: 170px;max-width:100%;" ng-src="{{item.imageUrl}}">
 								</div>
 							</div>
 
