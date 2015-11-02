@@ -22,7 +22,7 @@ app.controller('searchBarController',['$scope','$rootScope','api', function($sco
 
 	];
 	//tags to insert when user loads the page
-	$scope.tags = [
+	$rootScope.tags = [
         { text: 'boom' },
         
     ];

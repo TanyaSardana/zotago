@@ -14,7 +14,7 @@ app.controller('navController',['$scope', '$rootScope', function($scope,$rootSco
 		},
 		{
 			name: 'Sell Something',
-			href: '#/create-want-post',
+			href: '#/create-sell-post',
 		},
 		{
 			name: 'My Closet',

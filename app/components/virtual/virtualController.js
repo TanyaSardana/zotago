@@ -1,4 +1,4 @@
-app.controller('virtualController',['$scope','$rootScope', function($scope,$rootScope){
+app.controller('virtualController',['$scope','$rootScope','api', function($scope,$rootScope,api){
 	$scope.myProfile = {
 		image : 'http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg',
 	};
@@ -42,6 +42,18 @@ app.controller('virtualController',['$scope','$rootScope', function($scope,$root
 		
 
 	];
+
+	api.getWantPosts().then(getWantPostsSuccessCallback, getWantPostsErrorCallback);
+	function getWantPostsSuccessCallback(data){
+		console.log('success of get want post', data);
+		$scope.wantPosts = data.data;
+	}
+	function getWantPostsErrorCallback(data){
+		console.log('error of get want posts', data);
+
+	}
+
+
 	$scope.setTab = function(currentTab,clickedTab){
 		console.log('currentTab is: ', currentTab);
 		console.log('clickedTab is: ', clickedTab);
@@ -57,7 +69,7 @@ app.controller('virtualController',['$scope','$rootScope', function($scope,$root
 			$scope.tabs.followSelected = true;
 			$scope.tabs.scoreLevelSelected = false;
 
-			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
+			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/my-wants.html';
 			$scope.tabs.currentTab = 2;
 		}else if(clickedTab == 3 && currentTab != 3){//add an item clicked
 			$scope.tabs.postSelected = false;
