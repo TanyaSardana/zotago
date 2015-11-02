@@ -118,10 +118,20 @@ router
 router
     .route('/tags')
     .get(function(req, res) {
-        return models.Tag.findAll()
-            .then(function(tags) {
-                res.json(tags);
-            });
+        return models.Tag.findAll({
+            include: [{
+                model: models.Tag,
+                as: 'metatags',
+                attributes: [ "id", "name" ]
+            }, {
+                model: models.Tag,
+                as: 'subtags',
+                attributes: [ "id", "name" ]
+            }]
+        })
+        .then(function(tags) {
+            res.json(tags);
+        });
     });
 
 module.exports = router;
