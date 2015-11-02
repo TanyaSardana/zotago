@@ -167,3 +167,27 @@ Same as `GET /wantposts/:id` for the newly created post id.
 ### `GET /wantposts/:id`
 
 Give a detailed description of a want post.
+
+### `GET /wantposts/:id/offers`
+
+Get the offers associated with a want post.
+
+#### Response body
+
+Produces a list of basic sell posts.
+
+### `POST /wantposts/:id/offers`
+
+Offers a sell post to a want post.
+
+#### Request body
+
+```json
+{
+    "postId": <id>
+}
+```
+
+#### Response body
+
+Same as `GET /wantposts/:id`.
