@@ -1,4 +1,7 @@
 app.controller('virtualController',['$scope','$rootScope','api', function($scope,$rootScope,api){
+	api.getWantPosts().then(getWantPostsSuccessCallback, getWantPostsErrorCallback);
+	api.getSellPosts().then(getSellPostsSuccessCallback, getSellPostsErrorCallback)
+
 	$scope.myProfile = {
 		image : 'http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg',
 	};
@@ -7,7 +10,7 @@ app.controller('virtualController',['$scope','$rootScope','api', function($scope
 		postSelected : true,
 		followSelected : false,
 		scoreLevelSelected : false,
-		currentTabFile : '/app/components/virtual/virtual-closet/virtual-closet.html',
+		currentTabFile : '/app/components/virtual/virtual-closet/my-sell.html',
 	};
 	$scope.closet = [
 		{
@@ -43,13 +46,21 @@ app.controller('virtualController',['$scope','$rootScope','api', function($scope
 
 	];
 
-	api.getWantPosts().then(getWantPostsSuccessCallback, getWantPostsErrorCallback);
+	
 	function getWantPostsSuccessCallback(data){
 		console.log('success of get want post', data);
 		$scope.wantPosts = data.data;
 	}
 	function getWantPostsErrorCallback(data){
 		console.log('error of get want posts', data);
+
+	}
+	function getSellPostsSuccessCallback(data){
+		console.log('success of get sell post', data);
+		$scope.sellPosts = data.data;
+	}
+	function getSellPostsErrorCallback(data){
+		console.log('error of get sell posts', data);
 
 	}
 
@@ -62,7 +73,7 @@ app.controller('virtualController',['$scope','$rootScope','api', function($scope
 			$scope.tabs.followSelected = false;
 			$scope.tabs.scoreLevelSelected = false;
 
-			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/virtual-closet.html';
+			$scope.tabs.currentTabFile = '/app/components/virtual/virtual-closet/my-sell.html';
 			$scope.tabs.currentTab = 1;
 		}else if(clickedTab == 2 && currentTab != 2){//sold items clicked
 			$scope.tabs.postSelected = false;
