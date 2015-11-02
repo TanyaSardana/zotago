@@ -4,6 +4,17 @@ Zotago REST API
 All API endpoints live under the `/api` route, so if an endpoint is listed as
 `/accounts`, then the query should be made to `/api/accounts`.
 
+Special endpoints
+=================
+
+### `GET /image`
+
+Fetch images from an image search backend.
+
+#### Query parameters
+
+* `q`: the query string to give to the image search backend.
+
 Collections
 ===========
 
