@@ -2,8 +2,10 @@
 
 var express = require('express');
 var router = express.Router();
-var models = require('../models');
+var Promise = require('bluebird');
+Promise.longStackTraces();
 
+var models = require('../models');
 var util = require('../util');
 var ormHelpers = require('../util/ormHelpers');
 var dataHelpers = require('../util/dataHelpers');
@@ -131,6 +133,46 @@ router
         })
         .then(function(tags) {
             res.json(tags);
+        });
+    })
+    .post(function(req, res) {
+        var body = req.body;
+        var theTag;
+
+        return models.Tag.create({
+            name: body.name
+        })
+        .then(function(tag) {
+            theTag = tag;
+            return Promise.map(body.tags, function(tagName) {
+                return models.Tag.findOne({
+                    where: {
+                        name: tagName
+                    },
+                    include: [{
+                        model: models.Tag,
+                        as: 'metatags'
+                    }, {
+                        model: models.Tag,
+                        as: 'subtags'
+                    }]
+                })
+                .then(function(t) {
+                    if(t == null)
+                        return models.Tag.create({
+                            name: tagName
+                        });
+                    else
+                        return t;
+                });
+            });
+        })
+        .then(function(metatags) {
+            if(metatags)
+                return theTag.addMetatags(metatags);
+        })
+        .then(function() {
+            res.json(theTag);
         });
     });
 
