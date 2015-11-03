@@ -10,14 +10,12 @@ app.controller('miniWantController',['$scope','$rootScope','api', function($scop
 	};
 
 	$scope.publishWantPost = function(){
-
-
-
 		var chosenTags = [];
 		for( var i = 0 ; i < $rootScope.tags.length; i++){
 			chosenTags.push($rootScope.tags[i].text);
 		}
 		$scope.wantPost.tags = chosenTags;
+		$scope.wantPost.post.imageUrl = $scope.miniWantImage;
 		var dataObj = $scope.wantPost;
 		console.log('dataObj is: ', dataObj);
 
