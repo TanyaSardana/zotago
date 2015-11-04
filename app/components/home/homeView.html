@@ -94,7 +94,7 @@
 											<div
 												style="height: 100px; width: 100px; position: relative; display: inline-block; text-align: center;">
 												<img style="max-height: 90px; max-width: 90px;"
-													ng-src="{{item.image}}">
+													ng-src="{{item.imageUrl}}">
 											</div>
 											<div style="display: inline-block;">
 												<div>{{item.price | currency}}</div>
@@ -117,7 +117,7 @@
 									<span style="width:20%;"><button>Boom</button></span>
 								</div><br>
 								<hr>
-								<div style="font-size:36px;">Offer your own item <span><img ng-click="showYourCloset = true" style="height:80px;"src="https://pixabay.com/static/uploads/photo/2012/04/12/13/31/cabinet-30044_640.png"></span></div>
+								<div style="font-size:36px;">Offer your own item <span><img ng-click="showYourCloset = true" style="height:80px;"src="http://www.valevs.com/modelos/closet%20A%20recamara2.jpg"></span></div>
 
 								<!--<div>Virtual Closet</div>
 								<input style="width: 100%;" type="text" placeholder="URL">
@@ -136,9 +136,9 @@
 										<span  ng-click="showYourCloset = false"><img style="height:30px" src="http://www.mixvassallo.com/website/frontend/css/images/back-button.png"> Go back</span>
 									</div>
 									<div style="overflow-y: auto;">
-										<div ng-repeat="item in yourCloset" style="width:25%; display: inline-block;" >
+										<div ng-repeat="item in sellPosts" style="width:25%; display: inline-block;" >
 											<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 150px;position: relative; text-align: center;margin:5px;padding:5px;">
-												<img style="height: 140px; max-width: 100%;" ng-src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg" src="https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg">
+												<img style="height: 140px; max-width: 100%;" ng-src="{{item.imageUrl}}">
 											</div>
 										</div>
 										<!-- create a new offering from the closet -->
@@ -152,7 +152,7 @@
 
 									</div>	
 									<div style="display: block;position:absolute;bottom:0;right:20px;">
-										<button class="pull-right btn">Offer it</button>
+										<button ng-click="offerSellPost(wantPostClickedItem)" class="pull-right btn">Offer it</button>
 									</div>
 							</div>
 					</div>

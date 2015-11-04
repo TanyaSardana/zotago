@@ -1,7 +1,8 @@
-app.controller('offeringsController',['$scope','$location','$rootScope', function($scope,$location,$rootScope){
+app.controller('offeringsController',['$scope','$location','$rootScope','api', function($scope,$location,$rootScope,api){
 	$scope.showYourCloset = false;
 	$scope.selectedIndex = 0;
-	
+	$scope.sellPosts = {};
+
 	//to delete. it is replaced by $scope.wantPostClickedItem in homeController.js
 	$scope.mainWaunt = {
 		image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
@@ -17,7 +18,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope', functio
 	}
 
 	//get this list from backend and then delete this list
-	$scope.offerings = [
+	$scope.offeringsTWO = [
 		{
 			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
 			price : '52',
@@ -207,7 +208,23 @@ app.controller('offeringsController',['$scope','$location','$rootScope', functio
 		},
 		
 	];
+	$scope.offerSellPost = function(wantPost){
+		var wantId = wantPost.id;
+		var sellPostId = $scope.sellPosts[$scope.selectedIndex].id;
+		var dataObj = {
+			postId : sellPostId
+		}
+		console.log('wantId: ', wantId);
+		console.log('sellid is: ', dataObj);
+		api.createOfferingToWantPost(wantId, dataObj).then(createOfferingToWantPostSuccessCallback,createOfferingToWantPostErrorCallback);
 
+	}
+	function createOfferingToWantPostSuccessCallback(data){
+		console.log('success', data);
+	}
+	function createOfferingToWantPostErrorCallback(){
+		console.log('error' , data);
+	}
 	$scope.yourClosetItemClicked = function($index){
 		console.log($index);
     	$scope.selectedIndex = $index;
@@ -217,7 +234,10 @@ app.controller('offeringsController',['$scope','$location','$rootScope', functio
 		angular.element("#"+id).modal('hide');
 	};
 
-	
+	function init(){
+		api.getSellPosts().then(getSellPostsSuccessCallback, getSellPostsErrorCallback);
+	}
+	init()
 	//Resize modal
 	function rescale(){
 	    var size = {width: $(window).width() , height: $(window).height() }
@@ -231,6 +251,13 @@ app.controller('offeringsController',['$scope','$location','$rootScope', functio
 	$(window).bind("resize", rescale);
 	rescale();
 
+	function getSellPostsSuccessCallback(data){
+		console.log('success of get sell post', data);
+		$scope.sellPosts = data.data;
+	}
+	function getSellPostsErrorCallback(data){
+		console.log('error of get sell posts', data);
 
+	}
 
 }]);

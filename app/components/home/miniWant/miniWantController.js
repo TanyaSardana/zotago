@@ -1,4 +1,4 @@
-app.controller('miniWantController',['$scope','$rootScope','api', function($scope,$rootScope,api){
+app.controller('miniWantController',['$scope','$rootScope','api','$timeout', function($scope,$rootScope,api,$timeout){
 
 	$scope.wantPost = {
 	    post: {
@@ -8,7 +8,8 @@ app.controller('miniWantController',['$scope','$rootScope','api', function($scop
 	    },
 	    tags: []
 	};
-
+	
+	
 	$scope.publishWantPost = function(){
 		var chosenTags = [];
 		for( var i = 0 ; i < $rootScope.tags.length; i++){
@@ -19,11 +20,15 @@ app.controller('miniWantController',['$scope','$rootScope','api', function($scop
 		var dataObj = $scope.wantPost;
 		console.log('dataObj is: ', dataObj);
 
-		api.createWantPost(dataObj)
-		.then(function(data){
-			console.log('want post is created');
-		},function(error){
-			console.log('error');
-		});	
+		api.createWantPost(dataObj).then(createWantPostSuccessCallback,createWantPostErrorCallback);	
 	}
+	
+	function createWantPostSuccessCallback(data){
+		console.log('wantpost is created');
+		$scope.getQueriedWantPosts();
+	};
+	function createWantPostErrorCallback(data){
+		console.log('error');
+	};
+	
 }]);

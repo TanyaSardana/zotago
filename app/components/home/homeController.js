@@ -1,9 +1,10 @@
-app.controller('homeController',['$scope','$rootScope','api', function($scope,$rootScope,api){
+app.controller('homeController',['$scope','$rootScope','api','$timeout', function($scope,$rootScope,api,$timeout){
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.wantPosts = {};
 $scope.wantPostClickedItem = {};
 $scope.queriedWantPosts = {};
+$scope.offerings = {};
 $scope.store = [
 
 	{
@@ -45,7 +46,9 @@ $scope.store = [
 ];
 
 
-
+$scope.getQueriedWantPosts = function(){
+	api.getQueriedWantPosts('').then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
+}
 
 $scope.addFollower = function(index){
 	if($scope.store[index].followed == false){
@@ -60,13 +63,13 @@ $scope.addFollower = function(index){
 };
 $scope.init = function(){
 	//api.getWantPosts().then(successCallback, errorCallback);
-	api.getQueriedWantPosts('').then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
+	$scope.getQueriedWantPosts();
+	
 };
 $scope.init();
 
 function getQueriedWantPostsSuccessCallback(data){
 	$scope.queriedWantPosts = data.data;
-	
 }
 function getQueriedWantPostsErrorCallBack(data){
 	console.log('error ', data);
@@ -111,6 +114,7 @@ function formatTagList(tag){
 }
 
 
+
 function successCallback(data){
 	console.log('success', data);
 	$scope.wantPosts = data.data;
@@ -121,11 +125,17 @@ function errorCallback(data){
 }
 
 $scope.wantPostOnClick = function(item,index){
-	console.log('boom', index);
-	console.log('boom2', item);
 	$scope.wantPostClickedItem = item;
+	api.getOfferingsOfWantPost(item.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
+	console.log(item);
 	angular.element('#offeringsModal').modal();
 
 }
-
+function getOfferingsOfWantPostSuccessCallback(data){
+	console.log('success:', data);
+	$scope.offerings = data.data;
+}
+function getOfferingsOfWantPostErrorCallback(data){
+	console.log('error:', data);
+}
 }]);	
