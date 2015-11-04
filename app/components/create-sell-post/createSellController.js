@@ -126,7 +126,7 @@ app.controller('createSellController',['$scope','api','$rootScope' ,function($sc
 	
 	//Photos Sell DropZone
 	var dropzone = document.getElementById("photoDropzone");
-	dropzone.addEventListener("drop",$scope.handleDraggedFilesSelect);
+	dropzone.addEventListener("drop",handleDraggedFilesSelect);
 	
 	dropzone.ondragover = function(e){
 		e.stopPropagation();
