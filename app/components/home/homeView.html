@@ -1,7 +1,7 @@
 <div ng-controller="searchEngineController" ng-include="'app/components/home/searchEngine/searchEngineView.html'"></div>
 <div class="container">
 	<div class="row">
-		<div ng-repeat="item in queriedWantPosts"
+		<div  ng-repeat="item in queriedWantPosts track by $index"
 			style="margin-bottom: 50px; background-color: #fff; padding-right: 3px; padding-left: 3px;"
 			class="col-xs-3">
 			<!--WANT ITEM-->
@@ -17,7 +17,7 @@
 
 
 							<!--Overlay of an item -->
-							<div data-toggle="modal" data-target="#offeringsModal" ng-show="itemOverlay"
+							<div ng-click="wantPostOnClick(item,$index)" ng-show="itemOverlay"
 								style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5)">
 								
 								<div
@@ -76,7 +76,7 @@
 						</button>
 						<div>
 							<span><img style="height: 80px; width: 80px;"
-								ng-src="{{mainWaunt.image}}"></span> <span
+								ng-src="{{wantPostClickedItem.imageUrl}}"></span> <span
 								style="border: 1px solid black; padding: 5px; margin-right: 5px;"
 								ng-repeat="tag in mainWaunt.tags track by $index">{{tag}}</span>
 							

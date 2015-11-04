@@ -1,6 +1,8 @@
 app.controller('offeringsController',['$scope','$location','$rootScope', function($scope,$location,$rootScope){
 	$scope.showYourCloset = false;
 	$scope.selectedIndex = 0;
+	
+	//to delete. it is replaced by $scope.wantPostClickedItem in homeController.js
 	$scope.mainWaunt = {
 		image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
 		price : '52',
@@ -14,6 +16,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope', functio
 		tags : ['#knit','#cream','#jumper','#crop'],
 	}
 
+	//get this list from backend and then delete this list
 	$scope.offerings = [
 		{
 			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',

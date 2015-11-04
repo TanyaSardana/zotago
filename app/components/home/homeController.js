@@ -2,6 +2,7 @@ app.controller('homeController',['$scope','$rootScope','api', function($scope,$r
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.wantPosts = {};
+$scope.wantPostClickedItem = {};
 $scope.queriedWantPosts = {};
 $scope.store = [
 
@@ -75,7 +76,7 @@ $scope.onTagAdded = function(addedTag){
 	formatTagList(addedTag);
 	api.getQueriedWantPosts('' + $scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 
-	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	//api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 	
 }
 $scope.onTagRemoved = function(){
@@ -91,7 +92,7 @@ $scope.onTagRemoved = function(){
 	
 	api.getQueriedWantPosts($scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 
-	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	//api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 }
 function getImageSuccessCallback (data){
 	$scope.miniWantImage = data.data.bossresponse.images.results[0].url;
@@ -119,5 +120,12 @@ function errorCallback(data){
 	console.log('error');
 }
 
+$scope.wantPostOnClick = function(item,index){
+	console.log('boom', index);
+	console.log('boom2', item);
+	$scope.wantPostClickedItem = item;
+	angular.element('#offeringsModal').modal();
+
+}
 
 }]);	
