@@ -58,6 +58,9 @@ function getPosts(postModel, query) {
         include: [{
             model: models.Tag,
             as: 'tags'
+        }, {
+            model: models.Account,
+            as: 'creator'
         }]
     });
 
