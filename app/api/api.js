@@ -29,10 +29,10 @@ app.factory('api', function($http){
             return $http.get( baseUrl + '/image' , { params: { "q" : param}});
         },
         getOfferingsOfWantPost: function(id){
-            return $http.get( baseUrl + '/wantposts/' + id + '/offers');
+            return $http.get( baseUrl + '/wantposts/:' + id + '/offers');
         },
-        createOfferingToWantPost: function(id, dataObj){
-            return $http.post( baseUrl + '/wantposts/' + id + '/offers', dataObj);
+        createOfferingToWantPost: function(id,dataObj){
+            return $http.post( baseUrl + '/wantposts/:' + id + '/offers', dataObj);
         },
 
 

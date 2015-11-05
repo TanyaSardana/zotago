@@ -63,8 +63,7 @@ $scope.addFollower = function(index){
 };
 $scope.init = function(){
 	//api.getWantPosts().then(successCallback, errorCallback);
-	$scope.getQueriedWantPosts();
-	
+	$scope.getQueriedWantPosts();	
 };
 $scope.init();
 
