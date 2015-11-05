@@ -7,18 +7,19 @@ label.myLabel input[type="file"] {
 /***** Example custom styling *****/
 .myLabel {
     width: 100%;
-    background: #DDD;
+    background: rgba(204, 204, 204,0.5);;
     display: inline-block;
+    cursor:pointer;
 }
 .myLabel:hover {
     background: #CCC;
 }
 .myLabel:active {
-    background: #CCF;
+    background: #CCA;
 }
 .myLabel :invalid + span {
-    color: #A44;
+    color: #fff;
 }
 .myLabel :valid + span {
-    color: #4A4;
+    color: #fff;
 }
