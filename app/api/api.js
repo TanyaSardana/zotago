@@ -26,13 +26,13 @@ app.factory('api', function($http){
         	return;
         },
         getImage : function(param){
-            return $http.get( baseUrl + '/image' , { params: { "q" : param}});
+            return $http.get( baseUrl + '/image' , { params: { "q" : param} });
         },
         getOfferingsOfWantPost: function(id){
-            return $http.get( baseUrl + '/wantposts/:' + id + '/offers');
+            return $http.get( baseUrl + '/wantposts/' + id + '/offers');
         },
         createOfferingToWantPost: function(id,dataObj){
-            return $http.post( baseUrl + '/wantposts/:' + id + '/offers', dataObj);
+            return $http.post( baseUrl + '/wantposts/' + id + '/offers', dataObj);
         },
 
 

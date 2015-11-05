@@ -212,7 +212,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api', f
 		var wantId = wantPost.id;
 		var sellPostId = $scope.sellPosts[$scope.selectedIndex].id;
 		var dataObj = {
-			postId : sellPostId
+			'postId': sellPostId
 		}
 		console.log('wantId: ', wantId);
 		console.log('sellid is: ', dataObj);
@@ -221,6 +221,8 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api', f
 	}
 	function createOfferingToWantPostSuccessCallback(data){
 		console.log('success', data);
+		//transition back to offering listing
+		$scope.showYourCloset = false;
 	}
 	function createOfferingToWantPostErrorCallback(){
 		console.log('error' , data);
