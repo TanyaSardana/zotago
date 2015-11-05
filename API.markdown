@@ -68,6 +68,35 @@ Same as `GET /sellposts/:id` for the newly created id.
 
 Give a detailed description of a sell post.
 
+#### Response body
+
+```json
+{
+    "post": {
+        "id": <post id>,
+        "imageUrl": <image URL>,
+        "description": <post description>,
+        "creatorId": <id of post creator>
+    },
+    "tags": [
+        {
+            "id": <tag id>,
+            "name": <tag name>
+        },
+        ...
+    ],
+    "offers": [
+        <post object of opposite type>,
+        ...
+    ],
+    "followers": [
+        <account object>,
+        ...
+    ],
+    "creator": <account object>
+}
+```
+
 Tags
 ----
 
@@ -145,12 +174,30 @@ Want posts
 
 ### `GET /wantposts`
 
-List all want posts.
+List all want posts in short form.
 
 #### Query parameters
 
 * `tags`: comma separated list of quoted strings which name tags that are used
 to filter the want posts; each post must have all the given tags.
+
+#### Response body
+
+```json
+[
+    {
+        "id": <post id>,
+        "imageUrl": <post image URL>,
+        "description": <post description>,
+        "creator": <post creator>,
+        "tags": [
+            <tag>,
+            ...
+        ]
+    },
+    ...
+]
+```
 
 ### `POST /wantposts`
 
@@ -175,6 +222,22 @@ Get the offers associated with a want post.
 #### Response body
 
 Produces a list of basic sell posts.
+
+```json
+[
+    {
+        "id": <post id>,
+        "imageUrl": <post image URL>,
+        "description": <post description>,
+        "externalUrl": <null or a URL to an external site>,
+        "creator": <account object>,
+        "tags": [
+            <tag>,
+            ...
+        ]
+    }
+]
+```
 
 ### `POST /wantposts/:id/offers`
 
