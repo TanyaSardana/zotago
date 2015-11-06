@@ -221,8 +221,17 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api', f
 	}
 	function createOfferingToWantPostSuccessCallback(data){
 		console.log('success', data);
+		api.getOfferingsOfWantPost($scope.wantPostClickedItem.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
 		//transition back to offering listing
 		$scope.showYourCloset = false;
+
+	}
+	function getOfferingsOfWantPostSuccessCallback(data){
+		console.log('getoffering success', data);
+		$scope.offerings = data.data;
+	}
+	function getOfferingsOfWantPostErrorCallback(data){
+		console.log('getoffering error', data);
 	}
 	function createOfferingToWantPostErrorCallback(){
 		console.log('error' , data);
