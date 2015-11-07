@@ -21,7 +21,8 @@ app.controller('navboxController',['$scope','$rootScope','$timeout', function($s
 	var listTwo = ['hello','how-are-you','mcgill','watch','jeans','2015-toyota','4floors','im-like-hey-wassup-hello'];
 	
 	$scope.recommendedItemOnClick = function(item){
-		$rootScope.tags.push({text: item})
+		$rootScope.tags.push({text: item});
+		$scope.onTagAdded(item);
 	}
 
 	
