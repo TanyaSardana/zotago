@@ -7,7 +7,7 @@
 		</div>
 		<div style="height:100%;padding-top:25px;padding-bottom:25px;" class="col-xs-8">
 			<div id="recommended-tags-container" ng-hide="hideTags" class="" style="width:100%;">
-				<div style="height:100%;"  ng-repeat="item in availableTags track by $index">
+				<div style="height:100%;" ng-click="recommendedItemOnClick(item)" ng-repeat="item in availableTags track by $index">
 					<div class="pull-left recommended-tags">
 						{{item}}
 					</div>	
