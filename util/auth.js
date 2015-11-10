@@ -10,7 +10,10 @@ var handlers = {
         return fb.exchangeToken(shortToken)
             .then(function(response) {
                 console.log(response);
-                // TODO return the long-lived access token
+                // TODO actually return the long-lived access token
+                return {
+                    accessToken: response
+                };
             });
     }
 };
