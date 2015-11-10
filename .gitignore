@@ -38,5 +38,8 @@ npm-debug.log
 # Image search API keys
 /config/imageSearch.json
 
+# Facebook API secrets
+/config/facebook.json
+
 # Uploads
 /uploads/

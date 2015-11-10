@@ -10,6 +10,42 @@ var models = require('../models');
 var util = require('../util');
 var ormHelpers = require('../util/ormHelpers');
 var dataHelpers = require('../util/dataHelpers');
+var auth = require('../util/auth');
+
+router
+    .route('/auth')
+    .post(function(req, res) {
+        var authReq = req.body;
+        var handler = auth.handlers[authReq.method];
+        if(typeof handler === 'undefined') {
+            // there is no handler to deal with the desired authentication
+            // scheme.
+            res.status(400).json({
+                message: "Unsupported authentication scheme.",
+                scheme: authReq.method
+            });
+        }
+
+        return handler(authReq)
+            .then(function(result) {
+                if(result.success === false) {
+                    // the authentication failed
+                    res.status(400).json({
+                        message: "Authentication failed.",
+                        reason: result.reason
+                    });
+                }
+
+                res.json({
+                    accessToken: result.accessToken
+                });
+            })
+            .catch(function(e) {
+                res.status(400).json({
+                    message: "Authentication failed."
+                });
+            });
+    });
 
 // module with all api endpoints
 router

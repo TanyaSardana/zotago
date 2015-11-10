@@ -15,6 +15,38 @@ Fetch images from an image search backend.
 
 * `q`: the query string to give to the image search backend.
 
+Authentication
+==============
+
+### `POST /auth`
+
+Logs in or registers an account.
+
+#### Request body
+
+The format of the request body varies from one authorization scheme to the
+next. What all of them have in common is a field named `method` whose value is
+the name of the authorization scheme to use.
+
+Here is the format for each supported authorization scheme.
+
+##### Facebook
+
+```json
+{
+    "method": "facebook",
+    "shortToken": <short-lived Facebook token>
+}
+```
+
+#### Response body
+
+```json
+{
+    "accessToken": <a Zotago access token to use in privileged API calls>
+}
+```
+
 Collections
 ===========
 
