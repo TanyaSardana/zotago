@@ -1,4 +1,6 @@
-app.controller('navController',['$scope', '$rootScope', function($scope,$rootScope){
+app.controller('navController',['$scope','$window', '$rootScope','facebookService','api','$timeout', function($scope,$window,$rootScope,facebookService,api,$timeout){
+	
+	$scope.showNavbar = false;
 	$rootScope.isLoggedIn = false;
 
 	$scope.height = '50px';
@@ -20,24 +22,47 @@ app.controller('navController',['$scope', '$rootScope', function($scope,$rootSco
 			name: 'My Closet',
 			href: '#/profile',
 		},
-		// {
-		// 	name: 'My Score',
-		// 	href : '#/scoring-strategy',
-		// },
-		// {
-		// 	name: 'My Keywords',
-		// 	href : '#/keywords',
-		// },
-		// {
-		// 	name: 'Account Settings',
-		// 	href : '#/account-settings',
-		// },
-		{
-			name: 'Logout',
-			href: '',
-		},
-	];
-	$scope.showNavbar = false;
 
+		
+	];
+
+	
+	
+	$scope.facebookLogin = function(){
+		facebookService.login().then(function(response){
+
+			if(response.status == 'connected'){
+				var token = response.authResponse.accessToken;				
+				api.createFacebookAuthentication(token).then(function(response){
+					$rootScope.accessToken = response;
+					console.log(response);
+				})
+            }else if(response.status === 'not_authorized'){
+
+            }else{
+
+            }
+		})
+	};
+
+	$scope.getMyLastName = function() {
+	   facebookService.getMyLastName() 
+	     .then(function(response) {
+	       $scope.last_name = response.last_name;
+	       console.log($scope.last_name);
+	     },function(response){
+	     	console.log(response);
+	     }
+	   );
+	};
+
+	$scope.logout = function(){
+		FB.logout();
+	}
+
+	$timeout(function(){
+		$scope.getMyLastName();
+
+	},1000);
 
 }]);

@@ -15,7 +15,7 @@
 	<div style="padding:0;" ng-switch="$parent.isLoggedIn" class="col-xs-4" >
 		<!-- Right hand side of navbar when LOGGED IN-->
 		<!-- change false to true when login is implemented-->
-		<div ng-switch-when="false" class="pull-right" style="position: relative; width: 250px; z-index: 3;">
+		<div ng-switch-when="true" class="pull-right" style="position: relative; width: 250px; z-index: 3;">
 			<ul ng-mouseenter="showNavbar = true"
 				ng-mouseleave="showNavbar = false" style="list-style: none;">
 				<li class="pull-right cursor-pointer">
@@ -29,12 +29,16 @@
 
 				<li ng-show="showNavbar"
 					style="position: absolute; top: 100%; width: 100%; left: 70px; border: 1px solid #ddd; background-color: white;">
-					<a ng-repeat="item in navbarProfileMenu" ng-href="{{item.href}}">
-						<div class="cursor-pointer" 
-						style="height: 30px; padding: 20px; margin: 5px; text-align: center; line-height: 0px;"
-						ng-class="{'customBlueBackground' : cl , 'whiteText' : cl}"
+					<a ng-repeat="item in navbarProfileMenu" ng-click="logout()" ng-href="{{item.href}}">
+						<div class="cursor-pointer navlistStyle" ng-class="{'customBlueBackground' : cl , 'whiteText' : cl}"
 						ng-mouseenter="cl = true" ng-mouseleave="cl = false">{{item.name}}
 						</div>
+
+					</a>
+					<a  ng-click="logout()">
+						<div class="cursor-pointer navlistStyle" ng-class="{'customBlueBackground' : cl , 'whiteText' : cl}"
+						ng-mouseenter="cl = true" ng-mouseleave="cl = false">Logout
+						</div>					
 					</a>
 				</li>
 			</ul>
@@ -42,7 +46,7 @@
 
 
 		<!-- Right hand side of navbar when LOGGED OUT-->
-		<div ng-switch-when="true" class="pull-right"
+		<div ng-switch-when="false" class="pull-right"
 			style="position: relative; width: 250px; z-index: 1;">
 			<div class="pull-right">
 				<button data-toggle="modal" data-target="#signupModal"
@@ -69,43 +73,22 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<div>
-							<div>Waunted</div>
+							<div>GottaFind.it</div>
 						</div>
 
 					</div>
 					<!--Modal's Body-->
-					<div style="" class="col-xs-12 modal-body">
-						<div style="max-height: 500px; overflow-y: auto;" class="col-xs-6">
-							<img src="https://pbs.twimg.com/media/CEa9-sdUgAA9eEe.jpg">
+					<div style="text-align: center;" class="col-xs-12">
+						<div style="margin-bottom: 1em;">
+							<img style="height:150px;width:150px;border-radius: 50%;" src="assets/img/gotta-find-it.jpg">
 						</div>
-
-						<div class="col-xs-6">
-							<div>Full Name:</div>
-							
-							<div>
-								<input style="width:100%;" ng-model="fullname" type="text">
-							</div>
-							<div>Email:</div>
-							<div>
-								<input style="width:100%;" ng-model="email" type="email">
-							</div>
-							<div>Password:</div>
-							<div>
-								<input style="width:100%;" ng-model="password" type="password">
-							</div>
-							<div style="margin-top:10px;width: 100%;">
-                                <button class="pull-right btnWaunted" ng-click="register(fullname, email, password)">Sign Up</button>
-							</div>
-							<br><br>
-							<div style="display:block;width:100%;text-align: center;">
-								<a class="btn btn-block btn-social btn-facebook">
-							    	<i class="fa fa-facebook"></i> Sign in with Facebook
-							  	</a>
-							  	<a class="btn btn-block btn-social btn-google">
-							    	<i class="fa fa-google"></i> Sign in with Google
-							  	</a>
-							</div>
-
+						<div style="display:block;width:80%;text-align: center;margin: 0 auto;">
+							<a ng-click="facebookLogin()" class="btn btn-block btn-social btn-facebook">
+						    	<i class="fa fa-facebook"></i> Sign in with Facebook
+						  	</a>
+						  	<a class="btn btn-block btn-social btn-google">
+						    	<i class="fa fa-google"></i> Sign in with Google
+						  	</a>
 						</div>
 
 					</div>

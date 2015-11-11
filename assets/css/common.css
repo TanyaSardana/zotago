@@ -99,4 +99,10 @@
 	margin-right:0.5em !important;
 }
 
-
+.navlistStyle{
+	height: 30px; 
+	padding: 20px; 
+	margin: 5px; 
+	text-align: center; 
+	line-height: 0px;
+}

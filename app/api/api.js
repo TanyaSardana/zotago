@@ -35,6 +35,13 @@ app.factory('api', function($http){
             return $http.post( baseUrl + '/wantposts/' + id + '/offers', dataObj);
         },
 
+        createFacebookAuthentication : function(token){
+            return $http.post( baseUrl + '/auth', {
+                method: "facebook",
+                shortToken : token 
+
+            });
+        }
 
         
          
