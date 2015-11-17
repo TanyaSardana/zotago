@@ -27,20 +27,14 @@ router
         }
 
         return handler(authReq)
-            .then(function(result) {
-                if(result.success === false) {
-                    // the authentication failed
-                    res.status(400).json({
-                        message: "Authentication failed.",
-                        reason: result.reason
-                    });
-                }
-
+            .then(function(zotagoToken) {
                 res.json({
-                    accessToken: result.accessToken
+                    accessToken: zotagoToken
                 });
             })
             .catch(function(e) {
+                console.error('Promise rejection causing auth failure.');
+                console.error(e);
                 res.status(400).json({
                     message: "Authentication failed."
                 });

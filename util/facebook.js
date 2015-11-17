@@ -3,8 +3,11 @@
 var fbConfig = require('../config/facebook.json');
 var request = require('request');
 var Promise = require('bluebird');
+var qs = require('querystring');
+var FB = require('promise-facebook')(fbConfig.appId);
 
 module.exports = {
+    FB: FB,
     exchangeToken: function(shortToken) {
         return new Promise(function(resolve, reject) {
             request({
@@ -18,7 +21,11 @@ module.exports = {
             }, function(error, msg, response) {
                 if(error)
                     reject(error);
-                resolve(response);
+                var q = qs.parse(response);
+                if(!q)
+                    reject(new Error(
+                        "Could not parse Facebook token exchange response"));
+                resolve(q);
             });
         });
     }

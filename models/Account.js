@@ -3,10 +3,6 @@ module.exports = function(sequelize, DataTypes) {
     var Account = sequelize.define('Account', {
         email: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        fbAccessToken: {
-            type: DataTypes.STRING,
             allowNull: true
         },
         firstName: {
@@ -28,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
                 Account.hasMany(models.SellPost, {
                     as: 'sellPosts',
                     foreignKey: 'creatorId'
+                });
+
+                Account.hasOne(models.FacebookAccount, {
+                    foreignKey: 'accountId'
                 });
             }
         }
