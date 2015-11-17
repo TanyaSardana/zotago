@@ -1,0 +1,30 @@
+<div ng-show="showYourCloset" style="height:100%;overflow-y:auto;">
+	<!--arrow to go back to offerings-->
+	<div class="" style="margin-bottom:10px;overflow-y: hidden;margin-left:5%;">
+		<span  ng-click="setShowCloset(false)"><i class="fa fa-angle-left fa-5x"></i></span>
+	</div>
+	<div styl="padding-top:40px;">	
+			<div  class="container">
+			
+					<div style="overflow-y: auto;">
+						<div ng-repeat="item in sellPosts" style="width:25%; display: inline-block;" >
+							<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 150px;position: relative; text-align: center;margin:5px;padding:5px;">
+								<img style="height: 140px; max-width: 100%;" ng-src="{{item.imageUrl}}">
+							</div>
+						</div>
+						<!-- create a new offering from the closet -->
+						<a target="_blank"href="#/create-want-post"><div  style="border:1px dotted black;width:25%; display: inline-block;">
+							<div class="plus-sign-div">
+								<div style="height: 150px;position: relative; text-align: center;margin:5px;padding:5px;">
+									<div style="text-align: center;line-height: 150px;font-size: 30px;">+</div>
+								</div>
+							</div>
+						</div></a>
+
+					</div>	
+					<div style="display: block;position:relative;bottom:0;right:20px;">
+						<button ng-click="offerSellPost(wantPostClickedItem)" class="pull-right btn">Offer it</button>
+					</div>
+			</div>
+	</div>	
+</div>

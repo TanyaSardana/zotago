@@ -1,7 +1,12 @@
-app.controller('offeringsController',['$scope','$location','$rootScope','api', function($scope,$location,$rootScope,api){
+app.controller('offeringsController',['$scope','$location','$rootScope','api','$interval', function($scope,$location,$rootScope,api,$interval){
+	
 	$scope.showYourCloset = false;
 	$scope.selectedIndex = 0;
 	$scope.sellPosts = {};
+
+	$scope.setShowCloset = function(bool){
+		$scope.showYourCloset = bool;
+	}
 
 	//to delete. it is replaced by $scope.wantPostClickedItem in homeController.js
 	$scope.mainWaunt = {

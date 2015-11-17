@@ -1,0 +1,34 @@
+<div ng-hide="showYourCloset" class="container" style="height:100%;padding-top:40px;">
+	<div style="height:100%;" class=" animated fadeIn">
+		<div style="overflow-y: auto;height:500px;padding-left:0;padding-right:0;" class="col-xs-7">
+			<div>
+				<a ng-href="#/profile" ng-click="$parent.$parent.closeModalWithID('offeringsModal')">
+				
+					<div style="" ng-repeat="item in offerings">
+						<div>
+							<img style="max-height: 200px;max-width: 200px;"
+								ng-src="{{item.imageUrl}}">
+						</div>
+						<div style="display: inline-block;">
+							<div>{{item.price | currency}}</div>
+							<div>{{item.location}}</div>
+							
+						</div>
+					</div>
+				</a>
+			</div>	
+		</div>
+
+		<div  class="col-xs-5">
+			<div style="font-size:20px;">Know where to buy this?</div><hr>
+			<div style="width:100%;">
+				<input style="width: 80%;height:4em;padding:1em;" type="text" placeholder="http://">
+				<span style="width:20%;"><button>Boom</button></span>
+			</div><br>
+			<hr>
+			<div style="font-size:20px;">Offer your own item <span><img ng-click="setShowCloset(true)" style="height:40px;"src="http://www.valevs.com/modelos/closet%20A%20recamara2.jpg"></span></div>
+
+		
+		</div>
+	</div>
+</div>

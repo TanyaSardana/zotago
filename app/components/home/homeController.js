@@ -78,7 +78,7 @@ $scope.onTagAdded = function(addedTag){
 	formatTagList(addedTag);
 	api.getQueriedWantPosts('' + $scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 
-	//api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 	
 }
 $scope.onTagRemoved = function(){
@@ -94,7 +94,7 @@ $scope.onTagRemoved = function(){
 	
 	api.getQueriedWantPosts($scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 
-	//api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 }
 function getImageSuccessCallback (data){
 	$scope.miniWantImage = data.data.bossresponse.images.results[0].url;
@@ -127,8 +127,12 @@ $scope.wantPostOnClick = function(item,index){
 	$scope.wantPostClickedItem = item;
 	api.getOfferingsOfWantPost(item.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
 	console.log(item);
-	angular.element('#offeringsModal').modal();
+	$scope.offeringsWindow = true;
+	//angular.element('#offeringsModal').modal();
 
+}
+$scope.closeOfferingsWindow = function(){
+	$scope.offeringsWindow = false;
 }
 function getOfferingsOfWantPostSuccessCallback(data){
 	console.log('success:', data);
