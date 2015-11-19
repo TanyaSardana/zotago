@@ -23,8 +23,7 @@ app.controller('searchBarController',['$scope','$rootScope','api', function($sco
 	];
 	//tags to insert when user loads the page
 	$rootScope.tags = [
-        { text: 'montreal' },
-        
+        { text: 'montreal' },        
     ];
     
     function getTags(){

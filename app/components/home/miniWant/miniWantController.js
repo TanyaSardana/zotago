@@ -96,5 +96,5 @@ app.controller('miniWantController',['$scope','$rootScope','api','$timeout', fun
 	// 		return false;
 	// };
 
-	
+
 }]);

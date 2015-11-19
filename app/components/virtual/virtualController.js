@@ -46,7 +46,7 @@ app.controller('virtualController',['$scope','$rootScope','api', function($scope
 
 	];
 
-	
+
 	function getWantPostsSuccessCallback(data){
 		console.log('success of get want post', data);
 		$scope.wantPosts = data.data;
@@ -55,6 +55,7 @@ app.controller('virtualController',['$scope','$rootScope','api', function($scope
 		console.log('error of get want posts', data);
 
 	}
+
 	function getSellPostsSuccessCallback(data){
 		console.log('success of get sell post', data);
 		$scope.sellPosts = data.data;
@@ -63,7 +64,6 @@ app.controller('virtualController',['$scope','$rootScope','api', function($scope
 		console.log('error of get sell posts', data);
 
 	}
-
 
 	$scope.setTab = function(currentTab,clickedTab){
 		console.log('currentTab is: ', currentTab);
