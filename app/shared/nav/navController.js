@@ -1,7 +1,7 @@
 app.controller('navController',['$scope','$window', '$rootScope','facebookService','api','$timeout', function($scope,$window,$rootScope,facebookService,api,$timeout){
 	
 	$scope.showNavbar = false;
-	$rootScope.isLoggedIn = false;
+	$rootScope.user.isLoggedIn = false;
 
 	$scope.height = '50px';
 	$scope.company = {
@@ -36,7 +36,7 @@ app.controller('navController',['$scope','$window', '$rootScope','facebookServic
 				api.createFacebookAuthentication(token).then(function(response){
 					$rootScope.accessToken = response;
 					console.log(response);
-				})
+			})
             }else if(response.status === 'not_authorized'){
 
             }else{

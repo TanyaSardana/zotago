@@ -51,10 +51,11 @@ $routeProvider
     });
      
 });
-app.run(['$rootScope', '$window', 'facebookService','api', 
-  function($rootScope, $window, facebookService,api) {
+app.run(['$rootScope', '$window', 'facebookService','api', '$timeout',
+  function($rootScope, $window, facebookService,api,$timeout) {
 
   $rootScope.accessToken = '';
+  $rootScope.user = {};
 
   (function(d){
         // load the Facebook javascript SDK
@@ -114,13 +115,23 @@ app.run(['$rootScope', '$window', 'facebookService','api',
       FB.Event.subscribe('auth.authResponseChange', function(res) {
 
         if (res.status === 'connected') {
-          $rootScope.isLoggedIn = true;
+          $rootScope.user.isLoggedIn = true;
+          $rootScope.user.userId = FB.getUserID();
           console.log('im connected');
           /* 
            The user is already logged, 
            is possible retrieve his personal info
           */
+          
+
+
+          facebookService.getProfilePic($rootScope.user.userId).then(function(response){
+            $rootScope.user.profileImageUrl =  response.data.url;
+          });
+          console.log(facebookService.getProfilePic($rootScope.userId).data.url);
+
           FB.getUserInfo();
+          
 
           /*
            This is also the point where you should create a 
@@ -131,7 +142,7 @@ app.run(['$rootScope', '$window', 'facebookService','api',
 
         } 
         else {
-            $rootScope.isLoggedIn = false;
+            $rootScope.user.isLoggedIn = false;
             console.log('im not connected');
           /*
            The user is not logged to the app, or into Facebook:
