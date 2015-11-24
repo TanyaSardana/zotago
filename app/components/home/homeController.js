@@ -1,4 +1,4 @@
-app.controller('homeController',['$scope','$rootScope','api','$timeout', function($scope,$rootScope,api,$timeout){
+app.controller('homeController',['$scope','$rootScope','api','wantPostService','$timeout', function($scope,$rootScope,api,wantPostService,$timeout){
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.wantPosts = {};
@@ -68,7 +68,10 @@ $scope.init = function(){
 $scope.init();
 
 function getQueriedWantPostsSuccessCallback(data){
-	$scope.queriedWantPosts = data.data;
+	wantPostService.queriedWantPosts = data.data;
+	$scope.queriedWantPosts = wantPostService.queriedWantPosts;
+	
+
 }
 function getQueriedWantPostsErrorCallBack(data){
 	console.log('error ', data);
@@ -115,8 +118,9 @@ function formatTagList(tag){
 
 
 function successCallback(data){
-	console.log('success', data);
-	$scope.wantPosts = data.data;
+	wantPostService.wantPosts = data.data;
+	$scope.wantPosts = wantPostService.wantPosts;
+	
 
 };
 function errorCallback(data){
@@ -124,11 +128,15 @@ function errorCallback(data){
 }
 
 $scope.wantPostOnClick = function(item,index){
-	$scope.wantPostClickedItem = item;
+	console.log('clicked want post');
+	wantPostService.wantPostClickedItem = item;
+	$scope.wantPostClickedItem = wantPostService.wantPostClickedItem;
+	
 	api.getOfferingsOfWantPost(item.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
 	console.log(item);
-	$scope.offeringsWindow = true;
-	//angular.element('#offeringsModal').modal();
+	
+	//$scope.offeringsWindow = true;
+	
 
 }
 $scope.closeOfferingsWindow = function(){
@@ -136,7 +144,8 @@ $scope.closeOfferingsWindow = function(){
 }
 function getOfferingsOfWantPostSuccessCallback(data){
 	console.log('success:', data);
-	$scope.offerings = data.data;
+	$rootScope.offerings = data.data;
+	//$scope.offerings = data.data;
 }
 function getOfferingsOfWantPostErrorCallback(data){
 	console.log('error:', data);

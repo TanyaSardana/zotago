@@ -1,9 +1,8 @@
-app.controller('offeringsController',['$scope','$location','$rootScope','api','$interval', function($scope,$location,$rootScope,api,$interval){
-	
+app.controller('offeringsController',['$scope','$location','$rootScope','api','wantPostService','$interval', function($scope,$location,$rootScope,api,wantPostService,$interval){
 	$scope.showYourCloset = false;
 	$scope.selectedIndex = 0;
 	$scope.sellPosts = {};
-
+	$scope.wantPost = {};
 	$scope.setShowCloset = function(bool){
 		$scope.showYourCloset = bool;
 	}

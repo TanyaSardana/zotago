@@ -21,6 +21,14 @@ $routeProvider
         templateUrl : '/app/components/create-sell-post/createSellView.html',
         controller  : 'createSellController',
     })
+    .when('/offerings', {
+        templateUrl : '/app/components/offerings/offeringsView.html',
+        controller  : 'offeringsController',
+    })
+    .when('/the-offering', {
+        templateUrl : '/app/components/offerings/offeringsAllComments.html',
+        controller  : 'offeringsController',
+    })
     
 
     // .when('/notifications', {

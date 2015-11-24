@@ -106,3 +106,10 @@
 	text-align: center; 
 	line-height: 0px;
 }
+.comment-box{
+	position: relative;
+	height:40px;
+	border-radius: 5px;
+	background-color: #cfd0d1;
+	width: 400px;
+}
