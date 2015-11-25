@@ -1,7 +1,11 @@
-app.controller('navController',['$scope','$window', '$rootScope','facebookService','api','$timeout', function($scope,$window,$rootScope,facebookService,api,$timeout){
+app.controller('navController',['$scope','$window', '$rootScope','facebookService','api','userService','$interval',function($scope,$window,$rootScope,facebookService,api,userService,$interval){
+	
+	$scope.user =  userService.user;
+	
+	
 	
 	$scope.showNavbar = false;
-	$rootScope.user.isLoggedIn = false;
+	//$rootScope.user.isLoggedIn = false;
 
 	$scope.height = '50px';
 	$scope.company = {
@@ -34,8 +38,12 @@ app.controller('navController',['$scope','$window', '$rootScope','facebookServic
 			if(response.status == 'connected'){
 				var token = response.authResponse.accessToken;				
 				api.createFacebookAuthentication(token).then(function(response){
-					$rootScope.accessToken = response;
-					console.log(response);
+					//$rootScope.accessToken = response;
+					$rootScope.accessToken = response.data.accessToken;
+					console.log('2: api.accessToken: ', $rootScope.accessToken);
+					
+					
+					console.log('2contd: ', $rootScope.accessToken);
 			})
             }else if(response.status === 'not_authorized'){
 
@@ -57,12 +65,10 @@ app.controller('navController',['$scope','$window', '$rootScope','facebookServic
 	};
 
 	$scope.logout = function(){
-		FB.logout();
+		FB.logout(function(){
+			$rootScope.accessToken = '';
+		});
+		
 	}
-
-	$timeout(function(){
-		$scope.getMyLastName();
-
-	},1000);
 
 }]);

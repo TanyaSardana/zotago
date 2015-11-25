@@ -1,7 +1,7 @@
 app.factory('api', function($http){
     var baseUrl = '/api';
     return {
-        
+
         getWantPosts: function() {
             console.log('boom');
             return $http.get( baseUrl + '/wantposts');

@@ -59,11 +59,11 @@ $routeProvider
     });
      
 });
-app.run(['$rootScope', '$window', 'facebookService','api', '$timeout',
-  function($rootScope, $window, facebookService,api,$timeout) {
+app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeout',
+  function($rootScope, $window, facebookService,api,userService,$timeout) {
 
   $rootScope.accessToken = '';
-  $rootScope.user = {};
+  //$rootScope.user = {};
 
   (function(d){
         // load the Facebook javascript SDK
@@ -105,7 +105,10 @@ app.run(['$rootScope', '$window', 'facebookService','api', '$timeout',
             var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
             api.createFacebookAuthentication(accessToken).then(function(response){
-                $rootScope.accessToken = response;
+                
+                $rootScope.accessToken = response.data.accessToken;
+                console.log('1: api.accessToken: ', $rootScope.accessToken);
+                //$rootScope.accessToken = response;
             })
           } else if (response.status === 'not_authorized') {
             // the user is logged in to Facebook, 
@@ -123,9 +126,9 @@ app.run(['$rootScope', '$window', 'facebookService','api', '$timeout',
       FB.Event.subscribe('auth.authResponseChange', function(res) {
 
         if (res.status === 'connected') {
-          $rootScope.user.isLoggedIn = true;
-          $rootScope.user.userId = FB.getUserID();
-          console.log('im connected');
+          //$rootScope.user.isLoggedIn = true;
+          //$rootScope.user.userId = FB.getUserID();
+          userService.user.userId = FB.getUserID();
           /* 
            The user is already logged, 
            is possible retrieve his personal info
@@ -133,10 +136,13 @@ app.run(['$rootScope', '$window', 'facebookService','api', '$timeout',
           
 
 
-          facebookService.getProfilePic($rootScope.user.userId).then(function(response){
-            $rootScope.user.profileImageUrl =  response.data.url;
+          facebookService.getProfilePic(userService.user.userId).then(function(response){
+            //$rootScope.user.profileImageUrl =  response.data.url;
+            userService.user.profileImageUrl = response.data.url;
+            $timeout();
+            //$rootScope.profileImageUrl = userService.user.profileImageUrl;
           });
-          console.log(facebookService.getProfilePic($rootScope.userId).data.url);
+          console.log(facebookService.getProfilePic(userService.user.userId).data.url);
 
           FB.getUserInfo();
           
@@ -150,7 +156,7 @@ app.run(['$rootScope', '$window', 'facebookService','api', '$timeout',
 
         } 
         else {
-            $rootScope.user.isLoggedIn = false;
+            //$rootScope.user.isLoggedIn = false;
             console.log('im not connected');
           /*
            The user is not logged to the app, or into Facebook:

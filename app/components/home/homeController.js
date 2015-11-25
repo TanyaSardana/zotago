@@ -70,8 +70,6 @@ $scope.init();
 function getQueriedWantPostsSuccessCallback(data){
 	wantPostService.queriedWantPosts = data.data;
 	$scope.queriedWantPosts = wantPostService.queriedWantPosts;
-	
-
 }
 function getQueriedWantPostsErrorCallBack(data){
 	console.log('error ', data);
