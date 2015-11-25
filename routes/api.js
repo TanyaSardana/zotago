@@ -11,6 +11,7 @@ var util = require('../util');
 var ormHelpers = require('../util/ormHelpers');
 var dataHelpers = require('../util/dataHelpers');
 var auth = require('../util/auth');
+var matching = require('../util/matching.js');
 
 router
     .route('/auth')
@@ -80,13 +81,35 @@ router
     .post(function(req, res) {
         var mkPost = req.body.post;
         var tags = req.body.tags;
+        var Tp1;
+        var thePost;
 
         return ormHelpers.createPost(models.SellPost, {
             mkPost: mkPost,
             tags: tags
         })
         .then(function(fullPost) {
-            res.json(fullPost);
+            thePost = fullPost;
+            Tp1 = fullPost.tags;
+            return models.WantPost.findAll();
+        })
+        .then(function(wantPosts) {
+            return Promise.map(wantPosts, function(wp) {
+                return wp.getTags()
+                    .then(function(Tp2) {
+                        return matching.match(Tp1, Tp2);
+                    })
+                    .then(function(matchData) {
+                        var rawScore = matching.rawScore(matchData);
+                        var normalScore = matching.normalScore(matchData);
+                        console.log("matched " + thePost.post.id + " to " + 
+                                    wp.id + ": " + rawScore + " (raw), " +
+                                    normalScore + " (normalized).");
+                    });
+            });
+        })
+        .then(function() {
+            res.json(thePost);
         });
     });
 
