@@ -6,7 +6,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api','w
 	$scope.setShowCloset = function(bool){
 		$scope.showYourCloset = bool;
 	}
-
+	$scope.wantPostClickedItem = wantPostService.wantPostClickedItem;
 	//to delete. it is replaced by $scope.wantPostClickedItem in homeController.js
 	$scope.mainWaunt = {
 		image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
