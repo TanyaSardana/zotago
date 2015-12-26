@@ -41,5 +41,8 @@ npm-debug.log
 # Facebook API secrets
 /config/facebook.json
 
+# Email configuration
+/config/email.json
+
 # Uploads
 /uploads/

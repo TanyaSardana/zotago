@@ -13,6 +13,7 @@ var dataHelpers = require('../util/dataHelpers');
 var auth = require('../util/auth');
 var matching = require('../util/matching.js');
 var events = require('../util/events.js');
+var mailer = require('../util/mailer');
 
 router
     .route('/auth')
@@ -115,23 +116,41 @@ router
                 res.json(wantPosts);
             });
     })
+    // Creates a new want post
     .post(function(req, res) {
         var mkPost = req.body.post;
         var tags = req.body.tags;
 
+        var thePost;
+
+        // Creating want posts and sell posts is practically the same, so we
+        // have a helper function to do that in the ormHelpers module.
         return ormHelpers.createPost(models.WantPost, {
             mkPost: mkPost,
             tags: tags
         })
         .then(function(fullPost) {
+            thePost = fullPost;
+
             // Trigger the event that a want post has been created.
             events.raise(
                     events.eventTypes.CREATE_WANT_POST,
                     fullPost
             );
 
+            // TODO the email sending should be moved to an event handler for
+            // want/sell post creation after matches have been computed.
+            // Send a test email to myself
+            return mailer.sendMail({
+                to: 'spam@mail.jerrington.me',
+                subject: 'Test email',
+                text: 'Hello world!'
+            });
+        })
+        .then(function(info) {
+            console.log(JSON.stringify(info, null, 2));
             // Return the post to the client.
-            res.json(fullPost);
+            res.json(thePost);
         });
     });
 

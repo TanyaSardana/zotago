@@ -1,0 +1,15 @@
+{
+    "transportConfig": {
+        "port": 25,
+        "host": "",
+        "secure": false,
+        "auth": {
+            "user": "",
+            "pass": ""
+        }
+    },
+    "defaults": {
+        "from": "notifications@gottafind.it",
+        "subject": "Gotta find it!"
+    }
+}
