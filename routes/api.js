@@ -12,6 +12,7 @@ var ormHelpers = require('../util/ormHelpers');
 var dataHelpers = require('../util/dataHelpers');
 var auth = require('../util/auth');
 var matching = require('../util/matching.js');
+var events = require('../util/events.js');
 
 router
     .route('/auth')
@@ -84,40 +85,19 @@ router
     .post(function(req, res) {
         var mkPost = req.body.post;
         var tags = req.body.tags;
-        var Tp1;
-        var thePost;
 
         return ormHelpers.createPost(models.SellPost, {
             mkPost: mkPost,
             tags: tags
         })
-        .then(function(fullPost) {
-            thePost = fullPost;
-            Tp1 = fullPost.tags;
-            return models.WantPost.findAll();
-        })
-        .then(function(wantPosts) {
-            return Promise.map(wantPosts, function(wp) {
-                return wp.getTags()
-                    .then(function(Tp2) {
-                        return matching.match(Tp1, Tp2);
-                    })
-                    .then(function(matchData) {
-                        var rawScore = matching.rawScore(matchData);
-                        var normalScore = matching.normalScore(matchData);
-                        console.log("matched " + thePost.post.id + " to " + 
-                                    wp.id + ": " + rawScore + " (raw), " +
-                                    normalScore + " (normalized).");
-                    });
-            });
-        })
-        .then(function() {
+        .then(function(thePost) {
             res.json(thePost);
         });
     });
 
 router
     .route('/wantposts')
+    // Gets a list of want posts
     .get(function(req, res) {
         var tagSet;
 
@@ -144,6 +124,13 @@ router
             tags: tags
         })
         .then(function(fullPost) {
+            // Trigger the event that a want post has been created.
+            events.raise(
+                    events.eventTypes.CREATE_WANT_POST,
+                    fullPost
+            );
+
+            // Return the post to the client.
             res.json(fullPost);
         });
     });
@@ -296,5 +283,17 @@ router
             res.json(theTag);
         });
     });
+
+events.on(events.eventTypes.CREATE_WANT_POST, function(fullPost) {
+    return matching.makeMatches(fullPost, models.SellPost, {
+        sourceIs: "want"
+    });
+});
+
+events.on(events.eventTypes.CREATE_SELL_POST, function(fullPost) {
+    return matching.makeMatches(fullPost, models.WantPost, {
+        sourceIs: "sell"
+    });
+});
 
 module.exports = router;

@@ -118,8 +118,60 @@ function normalScore(matchData) {
     return rawScore(matchData) / d;
 }
 
+var makeMatches = function(fullSourcePost, targetPostModel, options) {
+    var sourcePost = fullSourcePost.post;
+    var Tp1 = fullSourcePost.tags;
+
+    var makeMatch = null;
+
+    if(options.sourceIs === "want") {
+        makeMatch = function(sourceId, targetId, rawScore, normalScore) {
+            return models.Match.create({
+                wantPostId: sourceId,
+                sellPostId: targetId,
+                rawScore: rawScore,
+                normalScore: normalScore,
+            });
+        };
+    }
+    else if(options.sourceIs === "sell") {
+        makeMatch = function(sourceId, targetId, rawScore, normalScore) {
+            return models.Match.create({
+                wantPostId: targetId,
+                sellPostId: sourceId,
+                rawScore: rawScore,
+                normalScore: normalScore,
+            });
+        };
+    }
+    else
+        throw new Error("Invalid value for option sourceIs.");
+
+    return targetPostModel.findAll()
+        .then(function(targetPosts) {
+            return Promise.map(targetPosts, function(targetPost) {
+                return targetPost.getTags()
+                    .then(function(Tp2) {
+                        return matchCount(Tp1, Tp2);
+                    })
+                .then(function(matchData) {
+                    var rs = rawScore(matchData);
+                    var ns = normalScore(matchData);
+                    console.log("Persisting match.");
+                    return makeMatch(
+                            sourcePost.id,
+                            targetPost.id,
+                            rs,
+                            ns
+                    );
+                });
+            });
+        });
+}
+
 module.exports = {
     match: matchCount,
     rawScore: rawScore,
-    normalScore: normalScore
+    normalScore: normalScore,
+    makeMatches: makeMatches,
 };

@@ -45,6 +45,13 @@ module.exports = function(sequelize, DataTypes) {
                     as: 'creator',
                     foreignKey: 'creatorId'
                 });
+
+                SellPost.belongsToMany(models.WantPost, {
+                    through: models.Match,
+                    as: 'matches',
+                    foreignKey: 'wantPostId',
+                    otherKey: 'sellPostId'
+                });
             }
         }
     });
