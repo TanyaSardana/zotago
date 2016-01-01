@@ -13,7 +13,6 @@ var dataHelpers = require('../util/dataHelpers');
 var auth = require('../util/auth');
 var matching = require('../util/matching.js');
 var events = require('../util/events.js');
-var mailer = require('../util/mailer');
 
 router
     .route('/auth')
@@ -138,17 +137,6 @@ router
                     fullPost
             );
 
-            // TODO the email sending should be moved to an event handler for
-            // want/sell post creation after matches have been computed.
-            // Send a test email to myself
-            return mailer.sendMail({
-                to: 'spam@mail.jerrington.me',
-                subject: 'Test email',
-                text: 'Hello world!'
-            });
-        })
-        .then(function(info) {
-            console.log(JSON.stringify(info, null, 2));
             // Return the post to the client.
             res.json(thePost);
         });

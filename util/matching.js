@@ -1,6 +1,9 @@
 'use strict';
 
 var models = require('../models');
+var events = require('./events');
+var mailer = require('./mailer');
+var zotagoConfig = require('../config/gottafindit.json');
 
 var alpha = 1.0;
 var beta = 0.5;
@@ -60,13 +63,6 @@ function matchCount(Tp1, Tp2) {
     .then(function(metatags) {
         Mp2 = metatags;
 
-        console.log(JSON.stringify({
-            Tp1: Tp1,
-            Tp2: Tp2,
-            Mp1: Mp1,
-            Mp2: Mp2
-        }));
-
         for(var i = 0; i < Tp1.length; i++) {
             for(var j = 0; j < Tp2.length; j++) {
                 result.count.alpha++;
@@ -123,8 +119,16 @@ var makeMatches = function(fullSourcePost, targetPostModel, options) {
     var Tp1 = fullSourcePost.tags;
 
     var makeMatch = null;
+    var raiseMatchEvent = null;
 
     if(options.sourceIs === "want") {
+        raiseMatchEvent = function(targetPost, matchData) {
+            events.raise(events.eventTypes.MATCH_MADE, matchData, {
+                wantPost: sourcePost,
+                sellPost: targetPost,
+            });
+        }
+
         makeMatch = function(sourceId, targetId, rawScore, normalScore) {
             return models.Match.create({
                 wantPostId: sourceId,
@@ -135,6 +139,13 @@ var makeMatches = function(fullSourcePost, targetPostModel, options) {
         };
     }
     else if(options.sourceIs === "sell") {
+        raiseMatchEvent = function(targetPost, matchData) {
+            events.raise(events.eventTypes.MATCH_MADE, matchData, {
+                wantPost: targetPost,
+                sellPost: sourcePost,
+            });
+        }
+
         makeMatch = function(sourceId, targetId, rawScore, normalScore) {
             return models.Match.create({
                 wantPostId: targetId,
@@ -157,7 +168,8 @@ var makeMatches = function(fullSourcePost, targetPostModel, options) {
                 .then(function(matchData) {
                     var rs = rawScore(matchData);
                     var ns = normalScore(matchData);
-                    console.log("Persisting match.");
+
+                    raiseMatchEvent(targetPost, matchData);
                     return makeMatch(
                             sourcePost.id,
                             targetPost.id,
@@ -168,6 +180,18 @@ var makeMatches = function(fullSourcePost, targetPostModel, options) {
             });
         });
 }
+
+events.on(events.eventTypes.MATCH_MADE, function(matchData, options) {
+    var wantPost = options.wantPost;
+    var sellPost = options.sellPost;
+
+    if(normalScore(matchData) < zotagoConfig.matchThreshold)
+        return;
+
+    console.log("STUB: MATCH_MADE event handler");
+    // TODO get email address of wanter and seller from database
+    // dispatch HTML email by rendering templates.
+});
 
 module.exports = {
     match: matchCount,

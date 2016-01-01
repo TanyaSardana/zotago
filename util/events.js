@@ -38,6 +38,7 @@ var eventTypes = {
     CREATE_SELL_POST: "CREATE_SELL_POST",
     FOLLOW_WANT_POST: "FOLLOW_WANT_POST",
     FOLLOW_SELL_POST: "FOLLOW_SELL_POST",
+    MATCH_MADE: "MATCH_MADE",
 };
 
 // Register some dummy events for creating posts.
