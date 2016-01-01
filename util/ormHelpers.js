@@ -54,7 +54,13 @@ module.exports.getPost = getPost;
 function getPosts(postModel, query) {
     // want to find all want posts whose tags are a superset of the given
     // query.tags.
+    var q = {};
+
+    if(query.creatorId)
+        q.creatorId = query.creatorId;
+
     var p = postModel.findAll({
+        where: q,
         include: [{
             model: models.Tag,
             as: 'tags'

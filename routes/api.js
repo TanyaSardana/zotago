@@ -67,16 +67,19 @@ router
     .get(function(req, res) {
         var tagSet;
 
+        var q = {};
+
         // TODO use real parsing.
         if(req.query.tags)
-            tagSet = util.toSet(JSON.parse('[' + req.query.tags + ']'));
+            q.tags = util.toSet(JSON.parse('[' + req.query.tags + ']'));
 
-        return ormHelpers.getPosts(models.SellPost, {
-            tags: tagSet
-        })
-        .then(function(sellPosts) {
-            res.json(sellPosts);
-        });
+        if(req.query.creator)
+            q.creatorId = parseInt(req.query.creator);
+
+        return ormHelpers.getPosts(models.SellPost, q)
+            .then(function(sellPosts) {
+                res.json(sellPosts);
+            });
     })
     .post(function(req, res) {
         var mkPost = req.body.post;
@@ -118,16 +121,19 @@ router
     .get(function(req, res) {
         var tagSet;
 
+        var q = {};
+
         // TODO use real parsing.
         if(req.query.tags)
-            tagSet = util.toSet(JSON.parse('[' + req.query.tags + ']'));
+            q.tags = util.toSet(JSON.parse('[' + req.query.tags + ']'));
 
-        return ormHelpers.getPosts(models.WantPost, {
-            tags: tagSet
-        })
-        .then(function(wantPosts) {
-            res.json(wantPosts);
-        });
+        if(req.query.creator)
+            q.creatorId = parseInt(req.query.creator);
+
+        return ormHelpers.getPosts(models.WantPost, q)
+            .then(function(wantPosts) {
+                res.json(wantPosts);
+            });
     })
     .post(function(req, res) {
         var mkPost = req.body.post;
