@@ -31,23 +31,27 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 	
 	
 	$scope.facebookLogin = function(){
-		facebookService.login().then(function(response){
+      facebookService.login().then(function(response){
+        if(response.status == 'connected'){
+          var token = response.authResponse.accessToken;
+          console.log('authresponse: ', token);
+          api.register({
+            method: "facebook",
+            shortToken: token,
+            username: "changeme"
+          })
+          .then(function(response){
+            //$rootScope.accessToken = response;
+            //$rootScope.accessToken = response.data.accessToken;
+            userService.user.token = response.data.accessToken;
+            console.log('2contd: ', userService.user.token);
+          });
+        }else if(response.status === 'not_authorized'){
 
-			if(response.status == 'connected'){
-				var token = response.authResponse.accessToken;
-				console.log('authresponse: ', token);
-				api.createFacebookAuthentication(token).then(function(response){
-					//$rootScope.accessToken = response;
-					//$rootScope.accessToken = response.data.accessToken;
-					userService.user.token = response.data.accessToken;
-					console.log('2contd: ', userService.user.token);
-			})
-            }else if(response.status === 'not_authorized'){
+        }else{
 
-            }else{
-
-            }
-		})
+        }
+      })
 	};
 
 	$scope.getMyLastName = function() {

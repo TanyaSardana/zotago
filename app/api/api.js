@@ -40,17 +40,39 @@ app.factory('api', function($http){
             return $http.post( baseUrl + '/wantposts/' + id + '/offers', dataObj);
         },
 
-        createFacebookAuthentication : function(token){
-            return $http.post( baseUrl + '/auth', {
-                method: "facebook",
-                shortToken : token 
+        /**
+         * Registers a new account.
+         *
+         * @param {object} options - The registration options.
+         * @param {string} options.method - The authentication method to use
+         * for registration. Currently, only the "facebook" method is
+         * supported.
+         * @param {string} options.username - (All methods.) The username to
+         * register the account with.
+         * @param {string} options.shortToken - (Facebook only.) The Facebook
+         * browser token that's obtained a priori by the client.
+         * @return {Promise.<string|null>} - The Zotago token authorizing the
+         * client to perform API calls on behalf of the authenticated account,
+         * or null in case of failure.
+         */
+        register: function(options) {
+            return $http.post(baseUrl + '/auth/register', options);
+        },
 
-            });
+        /**
+         * Logs in.
+         *
+         * @param {object} options - The login options.
+         * @param {string} options.method - The authentication method to use
+         * for login. Currently, only the "facebook" method is supported.
+         * @param {string} options.shortToken - (Facebook only.) The Facebook
+         * browser token that's been obtained a prior by the client.
+         * @return {Promise.<string|null>} - The Zotago token authorizing the
+         * client to perform API calls on behalf of the authenticated account,
+         * or null in case of failure.
+         */
+        login: function(options) {
+            return $http.post(baseUrl + '/auth/login', options);
         }
-
-        
-        
-        
-         
     };
 });
