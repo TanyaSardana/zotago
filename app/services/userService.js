@@ -3,6 +3,7 @@ app.factory('userService', function($q) {
         user:{
         	userId : '',
         	profileImageUrl : '',
+        	token : '',
         },
         
         

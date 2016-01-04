@@ -1,1 +1,1 @@
-var app = angular.module('mainModule',['ngRoute','ui.bootstrap','ngTagsInput','ngAnimate']);
+var app = angular.module('mainModule',['ngRoute','ngCookies','ui.bootstrap','ngTagsInput','ngAnimate']);

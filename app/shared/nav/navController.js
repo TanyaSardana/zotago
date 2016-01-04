@@ -1,8 +1,7 @@
-app.controller('navController',['$scope','$window', '$rootScope','facebookService','api','userService','$interval',function($scope,$window,$rootScope,facebookService,api,userService,$interval){
+app.controller('navController',['$scope','$window', '$rootScope','$cookies','facebookService','api','userService','$interval',function($scope,$window,$rootScope,$cookies,facebookService,api,userService,$interval){
 	
 	$scope.user =  userService.user;
-	
-	
+
 	
 	$scope.showNavbar = false;
 	//$rootScope.user.isLoggedIn = false;
@@ -36,14 +35,13 @@ app.controller('navController',['$scope','$window', '$rootScope','facebookServic
 		facebookService.login().then(function(response){
 
 			if(response.status == 'connected'){
-				var token = response.authResponse.accessToken;				
+				var token = response.authResponse.accessToken;
+				console.log('authresponse: ', token);
 				api.createFacebookAuthentication(token).then(function(response){
 					//$rootScope.accessToken = response;
-					$rootScope.accessToken = response.data.accessToken;
-					console.log('2: api.accessToken: ', $rootScope.accessToken);
-					
-					
-					console.log('2contd: ', $rootScope.accessToken);
+					//$rootScope.accessToken = response.data.accessToken;
+					userService.user.token = response.data.accessToken;
+					console.log('2contd: ', userService.user.token);
 			})
             }else if(response.status === 'not_authorized'){
 
@@ -66,8 +64,11 @@ app.controller('navController',['$scope','$window', '$rootScope','facebookServic
 
 	$scope.logout = function(){
 		FB.logout(function(){
-			$rootScope.accessToken = '';
+			userService.user.token = '';
 		});
+
+		//clear cookie token
+		$cookies.accessToken = '';
 		
 	}
 
