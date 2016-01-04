@@ -64,6 +64,13 @@ Sell posts
 
 List all sell posts.
 
+#### Query parameters
+
+* `tags`: comma separated list of quoted strings which name tags that are used
+to filter the want posts; each post must have all the given tags.
+
+* `creator`: a number giving the ID of the account that created the post.
+
 ### `POST /sellposts`
 
 Create a new sell post.
