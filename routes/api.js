@@ -54,6 +54,31 @@ router
     });
 
 router
+    .route('/accounts/:id')
+    .get(function(req, res) {
+        var id = parseInt(req.params.id);
+
+        if(isNaN(id)) {
+            res.status(400)
+                .send("Invalid account number.");
+            return;
+        }
+
+        return models.Account.findOne({
+            where: {
+                id: id,
+            },
+        })
+        .then(function(account) {
+            if(!account) {
+                res.status(404).send("No such user.");
+                return;
+            }
+            res.json(account);
+        });
+    });
+
+router
     .route('/image')
     .get(function(req, res) {
         var query = req.query.q;

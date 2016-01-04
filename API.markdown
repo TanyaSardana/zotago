@@ -57,6 +57,10 @@ Accounts
 
 List all accounts.
 
+### `GET /accounts/:id`
+
+Gets detailed account information for a user.
+
 Sell posts
 ----------
 
