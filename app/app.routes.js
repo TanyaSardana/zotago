@@ -25,6 +25,10 @@ $routeProvider
         templateUrl : '/app/components/offerings/offeringsView.html',
         controller  : 'offeringsController',
     })
+    .when('/offerings/:id', {
+        templateUrl : '/app/components/offerings/offeringsView.html',
+        controller  : 'offeringsController',
+    })
     .when('/the-offering', {
         templateUrl : '/app/components/offerings/offeringsAllComments.html',
         controller  : 'offeringsController',

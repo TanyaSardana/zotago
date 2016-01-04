@@ -28,6 +28,11 @@ app.factory('api', function($http){
         getImage : function(param){
             return $http.get( baseUrl + '/image' , { params: { "q" : param} });
         },
+
+        getWantPost : function(id){
+            return $http.get(baseUrl + '/wantposts/' + id);
+        },
+
         getOfferingsOfWantPost: function(id){
             return $http.get( baseUrl + '/wantposts/' + id + '/offers');
         },

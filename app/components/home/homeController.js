@@ -1,10 +1,7 @@
 app.controller('homeController',['$scope','$rootScope','api','wantPostService','$timeout', function($scope,$rootScope,api,wantPostService,$timeout){
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
-$scope.wantPosts = {};
-$scope.wantPostClickedItem = {};
 $scope.queriedWantPosts = {};
-$scope.offerings = {};
 $scope.store = [
 
 	{
@@ -62,7 +59,6 @@ $scope.addFollower = function(index){
 	
 };
 $scope.init = function(){
-	//api.getWantPosts().then(successCallback, errorCallback);
 	$scope.getQueriedWantPosts();	
 };
 $scope.init();
@@ -114,29 +110,10 @@ function formatTagList(tag){
 }
 
 
-
-function successCallback(data){
-	wantPostService.wantPosts = data.data;
-	$scope.wantPosts = wantPostService.wantPosts;
-	
-
-};
 function errorCallback(data){
 	console.log('error');
 }
 
-$scope.wantPostOnClick = function(item,index){
-	console.log('clicked want post');
-	wantPostService.wantPostClickedItem = item;
-	$scope.wantPostClickedItem = wantPostService.wantPostClickedItem;
-	
-	api.getOfferingsOfWantPost(item.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
-	console.log(item);
-	
-	//$scope.offeringsWindow = true;
-	
-
-}
 $scope.closeOfferingsWindow = function(){
 	$scope.offeringsWindow = false;
 }

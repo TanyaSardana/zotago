@@ -1,4 +1,4 @@
-app.controller('offeringsController',['$scope','$location','$rootScope','api','wantPostService','$interval', function($scope,$location,$rootScope,api,wantPostService,$interval){
+app.controller('offeringsController',['$scope','$location','$rootScope','api','wantPostService','$routeParams','$interval', function($scope,$location,$rootScope,api,wantPostService,$routeParams,$interval){
 	$scope.showYourCloset = false;
 	$scope.selectedIndex = 0;
 	$scope.sellPosts = {};
@@ -6,7 +6,24 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api','w
 	$scope.setShowCloset = function(bool){
 		$scope.showYourCloset = bool;
 	}
-	$scope.wantPostClickedItem = wantPostService.wantPostClickedItem;
+
+	function getWantItem(){
+		api.getWantPost($routeParams.id).then(function(response){
+			console.log('want: ',response.data.post);
+			wantPostService.wantPostClickedItem = response.data.post;
+			$scope.wantPost = wantPostService.wantPostClickedItem;
+		},function(err){
+			console.error('error');
+		})		
+	}
+	function getOffersToWantItem(){
+		api.getOfferingsOfWantPost($routeParams.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
+	}
+	
+	
+
+
+
 	//to delete. it is replaced by $scope.wantPostClickedItem in homeController.js
 	$scope.mainWaunt = {
 		image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
@@ -21,197 +38,8 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api','w
 		tags : ['#knit','#cream','#jumper','#crop'],
 	}
 
-	//get this list from backend and then delete this list
-	$scope.offeringsTWO = [
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			href : '#/product-page',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345455/note_preview/508dbde8995a49fc488752282f0efdb9.jpeg',
-			price : '52',
-			href : '#/product-page',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345454/note_preview/8dc7a280adf24210daa32dd7a47f34d6.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		
-
-
-	];
-	$scope.yourCloset = [
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345455/note_preview/508dbde8995a49fc488752282f0efdb9.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345455/note_preview/508dbde8995a49fc488752282f0efdb9.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345455/note_preview/508dbde8995a49fc488752282f0efdb9.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345456/note_preview/09c219e923b69049739cedf4c447f452.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		{
-			image : 'https://thehunt.insnw.net/app/public/system/note_images/10345455/note_preview/508dbde8995a49fc488752282f0efdb9.jpeg',
-			price : '52',
-			
-			location : 'newlook.com',
-			user : {
-				name : '@chree7',
-				image : 'https://thehunt.insnw.net/app/public/system/user_images/505079/lg_thumb/1426314763_056382763df50419a40489aac11af42b.jpg',
-
-			},
-			tags : ['#knit','#cream','#jumper','#crop'],
-		},
-		
-	];
+	
+	
 	$scope.offerSellPost = function(wantPost){
 		var wantId = wantPost.id;
 		var sellPostId = $scope.sellPosts[$scope.selectedIndex].id;
@@ -225,7 +53,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api','w
 	}
 	function createOfferingToWantPostSuccessCallback(data){
 		console.log('success', data);
-		api.getOfferingsOfWantPost($scope.wantPostClickedItem.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
+		api.getOfferingsOfWantPost($scope.wantPost.id).then(getOfferingsOfWantPostSuccessCallback,getOfferingsOfWantPostErrorCallback);
 		//transition back to offering listing
 		$scope.showYourCloset = false;
 
@@ -249,10 +77,7 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api','w
 		angular.element("#"+id).modal('hide');
 	};
 
-	function init(){
-		api.getSellPosts().then(getSellPostsSuccessCallback, getSellPostsErrorCallback);
-	}
-	init()
+	
 	//Resize modal
 	function rescale(){
 	    var size = {width: $(window).width() , height: $(window).height() }
@@ -274,5 +99,12 @@ app.controller('offeringsController',['$scope','$location','$rootScope','api','w
 		console.log('error of get sell posts', data);
 
 	}
+
+	function init(){
+		getWantItem();
+		getOffersToWantItem();
+		api.getSellPosts().then(getSellPostsSuccessCallback, getSellPostsErrorCallback);
+	}
+	init();
 
 }]);

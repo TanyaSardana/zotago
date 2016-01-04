@@ -1,7 +1,7 @@
 app.controller('navController',['$scope','$window','$location', '$rootScope','$cookies','facebookService','api','userService','$interval',function($scope,$window,$location,$rootScope,$cookies,facebookService,api,userService,$interval){
 	
 	$scope.user =  userService.user;
-
+	
 	
 	$scope.showNavbar = false;
 	//$rootScope.user.isLoggedIn = false;
@@ -74,5 +74,7 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 		$location.path('/')
 		
 	}
+
+
 
 }]);
