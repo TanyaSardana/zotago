@@ -15,6 +15,11 @@ Fetch images from an image search backend.
 
 * `q`: the query string to give to the image search backend.
 
+### `GET /me`
+
+Fetches the information of the account that is authenticated by the provided
+token.
+
 Authentication
 ==============
 
