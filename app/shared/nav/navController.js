@@ -1,4 +1,4 @@
-app.controller('navController',['$scope','$window', '$rootScope','$cookies','facebookService','api','userService','$interval',function($scope,$window,$rootScope,$cookies,facebookService,api,userService,$interval){
+app.controller('navController',['$scope','$window','$location', '$rootScope','$cookies','facebookService','api','userService','$interval',function($scope,$window,$location,$rootScope,$cookies,facebookService,api,userService,$interval){
 	
 	$scope.user =  userService.user;
 
@@ -69,6 +69,9 @@ app.controller('navController',['$scope','$window', '$rootScope','$cookies','fac
 
 		//clear cookie token
 		$cookies.accessToken = '';
+
+		//redirect to have page
+		$location.path('/')
 		
 	}
 
