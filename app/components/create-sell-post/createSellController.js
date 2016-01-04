@@ -1,7 +1,7 @@
 var uniqueID = 0;
 app.controller('createSellController',['$scope','api','$rootScope' ,function($scope,api,$rootScope){
 	$rootScope.showMainSearchBar = false;
-	
+	console.log('usertken in createsellctrl: ', $rootScope.accessToken);
 	//create post object
 	$scope.sellPost = {
 	    post: {
