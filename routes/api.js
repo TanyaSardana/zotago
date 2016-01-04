@@ -15,10 +15,11 @@ var matching = require('../util/matching.js');
 var events = require('../util/events.js');
 
 router
-    .route('/auth')
+    .route('/auth/login')
     .post(function(req, res) {
         var authReq = req.body;
-        var handler = auth.handlers[authReq.method];
+        var handler = auth.loginHandlers[authReq.method];
+
         if(typeof handler === 'undefined') {
             // there is no handler to deal with the desired authentication
             // scheme.
@@ -26,6 +27,44 @@ router
                 message: "Unsupported authentication scheme.",
                 scheme: authReq.method
             });
+            return;
+        }
+
+        return handler(authReq)
+            .then(function(zotagoToken) {
+                res.json({
+                    accessToken: zotagoToken
+                });
+            })
+            .catch(function(e) {
+                console.error('Promise rejection causing auth failure.');
+                console.error(e);
+                res.status(400).json({
+                    message: "Authentication failed."
+                });
+            });
+    });
+
+router
+    .route('/me')
+    .get(auth.middleware.requiresAuth, function(req, res) {
+        res.json(req.account);
+    });
+
+router
+    .route('/auth/register')
+    .post(function(req, res) {
+        var authReq = req.body;
+        var handler = auth.registrationHandlers[authReq.method]
+
+        if(typeof handler === 'undefined') {
+            // there is no handler to deal with the desired authentication
+            // scheme.
+            res.status(400).json({
+                message: "Unsupported authentication scheme.",
+                scheme: authReq.method
+            });
+            return;
         }
 
         return handler(authReq)
