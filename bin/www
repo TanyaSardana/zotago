@@ -6,7 +6,7 @@
 
 var app = require('../app');
 var models = require('../models');
-var debug = require('debug')('server:server');
+var debug = require('debug')('zotago:server');
 var http = require('http');
 
 /**
