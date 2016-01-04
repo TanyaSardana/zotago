@@ -1,4 +1,4 @@
-app.controller('homeController',['$scope','$rootScope','api','wantPostService','$timeout', function($scope,$rootScope,api,wantPostService,$timeout){
+app.controller('homeController',['$scope','$rootScope','api','wantPostService','userService','$timeout', function($scope,$rootScope,api,wantPostService,userService,$timeout){
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.queriedWantPosts = {};
@@ -42,6 +42,14 @@ $scope.store = [
 	
 ];
 
+$scope.followOnClick = function(item){
+	if(!!userService.token){
+
+	}else{
+
+	}
+	
+}
 
 $scope.getQueriedWantPosts = function(){
 	api.getQueriedWantPosts('').then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	

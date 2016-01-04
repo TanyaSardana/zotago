@@ -8,7 +8,6 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 
 	$scope.height = '50px';
 	$scope.company = {
-		
 		logo : '/assets/img/gotta-find-it-logo.png',
 	}
 	$scope.navbarProfileMenu = [

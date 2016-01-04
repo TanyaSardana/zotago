@@ -103,7 +103,7 @@
 
 
 	<!-- Login Modal -->
-	<div >
+	<div>
 		<div class="modal" id="loginModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -115,37 +115,25 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<div>
-							Waunted
+							<div>GottaFind.it</div>
 						</div>
 
 					</div>
-					<!--Modal's Body-->				
-					<div style="" class="col-xs-12 modal-body">
-						<div style="max-height: 500px; overflow-y: auto;" class="col-xs-6">
-							<img src="https://pbs.twimg.com/media/CEa9-sdUgAA9eEe.jpg">
+					<!--Modal's Body-->
+					<div style="text-align: center;" class="col-xs-12">
+						<div style="margin-bottom: 1em;">
+							<img style="height:150px;width:150px;border-radius: 50%;" src="assets/img/gotta-find-it.jpg">
 						</div>
-
-						<div class="col-xs-6">
-							
-							<div>Email:</div>
-							<div>
-								<input style="width:100%;" ng-model="email" type="email">
-							</div>
-							<div>Password:</div>
-							<div>
-								<input style="width:100%;" ng-model="password" type="password">
-							</div>
-							<div style="margin-top:10px;width: 100%;">
-                                <button class="pull-right btnWaunted" ng-click="login(email, password)">Login</button>
-							</div>
-													
+						<div style="display:block;width:80%;text-align: center;margin: 0 auto;">
+							<a ng-click="facebookLogin()" class="btn btn-block btn-social btn-facebook">
+						    	<i class="fa fa-facebook"></i> Login in with Facebook
+						  	</a>
+						  	<a class="btn btn-block btn-social btn-google">
+						    	<i class="fa fa-google"></i> Login in with Google
+						  	</a>
 						</div>
 
 					</div>
-
-
-
-
 
 					<div class="modal-footer">
 						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
