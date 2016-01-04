@@ -12,7 +12,7 @@
 	</div>
 
 
-	<div style="padding:0;" ng-switch on="accessToken" class="col-xs-4" >
+	<div style="padding:0;" ng-switch on="user.token || 'null'" class="col-xs-4" >
 		<!-- Right hand side of navbar when LOGGED IN-->
 		<!-- change false to true when login is implemented-->
 		<div ng-switch-default class="pull-right" style="position: relative; width: 250px; z-index: 3;">
@@ -29,7 +29,7 @@
 
 				<li ng-show="showNavbar"
 					style="position: absolute; top: 100%; width: 100%; left: 70px; border: 1px solid #ddd; background-color: white;">
-					<a ng-repeat="item in navbarProfileMenu" ng-click="logout()" ng-href="{{item.href}}">
+					<a ng-repeat="item in navbarProfileMenu" ng-href="{{item.href}}">
 						<div class="cursor-pointer navlistStyle" ng-class="{'customBlueBackground' : cl , 'whiteText' : cl}"
 						ng-mouseenter="cl = true" ng-mouseleave="cl = false">{{item.name}}
 						</div>
@@ -45,7 +45,7 @@
 
 
 		<!-- Right hand side of navbar when LOGGED OUT-->
-		<div ng-switch-when="" class="pull-right"
+		<div ng-switch-when="null" class="pull-right"
 			style="position: relative; width: 250px; z-index: 1;">
 			<div class="pull-right">
 				<button data-toggle="modal" data-target="#signupModal"
