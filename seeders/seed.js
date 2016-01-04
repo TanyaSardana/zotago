@@ -26,7 +26,8 @@ function seedData() {
         models.Account.create({
             email: 'jake@mail.jerrington.me',
             firstName: 'Jake',
-            lastName: 'Errington'
+            lastName: 'Errington',
+            username: 'jake'
         })
         .then(function(x) {
             jake = x;
