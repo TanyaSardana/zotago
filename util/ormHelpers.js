@@ -85,6 +85,21 @@ function getPosts(postModel, query, activeAccount) {
             as: 'creator'
         }]
     })
+    .then(function(posts) {
+        return Promise.map(posts, function(post) {
+            return post.countFollowers()
+                .then(function(count) {
+                    post.get().followerCount = count;
+                    debug("Counted followers.");
+                    return post.countOffers();
+                })
+                .then(function(count) {
+                    post.get().offerCount = count;
+                    debug("Counted offers.");
+                    return post;
+                });
+        });
+    });
 
     if(activeAccount) {
         debug("Account active. Determining follow status.");
