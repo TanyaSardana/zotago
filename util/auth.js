@@ -231,6 +231,10 @@ function parseAuthorization(authorization) {
  * If the token is invalid, returns false.
  */
 function checkToken(token) {
+    // TODO ABSOLUTELY REMOVE THIS BEFORE GOING INTO PRODUCTION
+    if(token === 'debug')
+        return Promise.resolve(1); // just return user id 1
+
     return cache.get('zotagoToken:' + token)
         .then(function(v) {
             debug('successfully looked up zotago token ' + token);
