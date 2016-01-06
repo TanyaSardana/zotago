@@ -113,7 +113,7 @@ router
         })
         .then(function(account) {
             if(!account) {
-                res.status(404).send("No such user.");
+                res.status(404).send("No such account.");
                 return;
             }
             res.json(account);
@@ -212,8 +212,22 @@ router
 router
     .route('/sellposts/:id')
     .get(function(req, res) {
-        return ormHelpers.getPost(models.SellPost, parseInt(req.params.id))
+        var id = parseInt(req.params.id)
+
+        if(isNaN(id)) {
+            res.status(400).send("Invalid post id.");
+            return;
+        }
+
+        return ormHelpers.getPost(models.SellPost, id)
             .then(function(post) {
+                if(!post) {
+                    res.status(404).json({
+                        message: "No such post."
+                    });
+                    return;
+                }
+
                 res.json(post);
             });
     })
@@ -222,6 +236,7 @@ router
         // See issue #55
 
         var id = parseInt(req.params.id)
+
         if(isNaN(id)) {
             res.status(400).send("Invalid post id.");
             return;
@@ -252,10 +267,14 @@ router
             }]
         })
         .then(function(wp) {
-            if(wp == null)
-                res.status(404).send('Not found'); // TODO JSON 404 errors
-            else
-                res.json(wp.offers);
+            if(!wp) {
+                res.status(404).json({
+                    message: "No such post."
+                });
+                return;
+            }
+
+            res.json(wp.offers);
         });
     })
     .post(auth.middleware.requiresAuth, function(req, res) {
@@ -292,8 +311,23 @@ router
 router
     .route('/wantposts/:id')
     .get(function(req, res) {
-        return ormHelpers.getPost(models.WantPost, parseInt(req.params.id))
+        var id = parseInt(req.params.id);
+
+        if(isNaN(id)) {
+            res.status(400)
+                .send("Invalid post id.");
+            return;
+        }
+
+        return ormHelpers.getPost(models.WantPost, id)
             .then(function(post) {
+                if(!post) {
+                    res.status(404).json({
+                        message: "No such post."
+                    });
+                    return;
+                }
+
                 res.json(post);
             });
     })
