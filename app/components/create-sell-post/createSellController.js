@@ -7,7 +7,7 @@ app.controller('createSellController',['$scope','api','$rootScope','userService'
 	    post: {
 	        imageUrl: 'http://www.example.com',
 	        description: '',
-	        creatorId: 1,
+	        creatorId: userService.user.id,
 	    },
 	    tags: []
 	};

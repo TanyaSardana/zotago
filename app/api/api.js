@@ -1,5 +1,8 @@
 app.factory('api', function($http,userService){
     var baseUrl = '/api';
+    
+
+
     return {
 
         getWantPosts: function() {
@@ -32,6 +35,14 @@ app.factory('api', function($http,userService){
         getWantPost : function(id){
             return $http.get(baseUrl + '/wantposts/' + id);
         },
+
+        getWantPostsOfUser : function(id){
+            return $http.get( baseUrl + '/wantposts' , { params: { "creator" : id} });
+        },
+        getSellPostsOfUser : function(id){
+            return $http.get( baseUrl + '/sellposts' , { params: { "creator" : id} });
+        },
+
 
         getOfferingsOfWantPost: function(id){
             return $http.get( baseUrl + '/wantposts/' + id + '/offers');
@@ -80,7 +91,7 @@ app.factory('api', function($http,userService){
             var options = {}
             if(!!userService.user.token){
                 options.headers = {
-                    'Authorization' : 'Zotago ' + userService.user.token
+                    'Authorization' : 'Zotago ' + userService.user.token,
                 };
             }
             return $http.get(baseUrl + '/me', options);

@@ -1,10 +1,10 @@
-app.controller('miniWantController',['$scope','$rootScope','api','$timeout', function($scope,$rootScope,api,$timeout){
+app.controller('miniWantController',['$scope','$rootScope','api','userService','$timeout', function($scope,$rootScope,api,userService,$timeout){
 
 	$scope.wantPost = {
 	    "post": {
 	        imageUrl: $scope.miniWantImage,
 	        description: '',
-	        creatorId: 1,
+	        creatorId: userService.user.id,
 	    },
 	    "tags": []
 	};
