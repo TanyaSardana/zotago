@@ -4,6 +4,19 @@ Zotago REST API
 All API endpoints live under the `/api` route, so if an endpoint is listed as
 `/accounts`, then the query should be made to `/api/accounts`.
 
+Authorization
+=============
+
+Certain verbs of endpoints require authorization. Auth is provided by Zotago
+tokens, which are obtained by using the login and register endpoints.
+
+Once a token has been obtained, endpoints requiring authorization can be
+accessed by adding an appropriate HTTP Authorization header.
+
+```
+Authorization: Zotago TOKEN
+```
+
 Special endpoints
 =================
 
