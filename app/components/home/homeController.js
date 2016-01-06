@@ -44,7 +44,7 @@ $scope.store = [
 
 
 $scope.errorModal = {
-	message: "There seems to be a problem. Try refreshing your page",
+	message: "There seems to be a problem...",
 	showModal : false,
 }   
     
@@ -54,7 +54,7 @@ $scope.toggleErrorModal = function(){
 
 $scope.followOnClick = function(item){
 	if(!!userService.token){
-
+		
 	}else{
 		$scope.toggleErrorModal();
 	}
