@@ -35,16 +35,39 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
         if(response.status == 'connected'){
           var token = response.authResponse.accessToken;
           console.log('authresponse: ', token);
-          api.register({
+          api.login({
             method: "facebook",
             shortToken: token,
-            username: "changeme"
           })
           .then(function(response){
             //$rootScope.accessToken = response;
             //$rootScope.accessToken = response.data.accessToken;
             userService.user.token = response.data.accessToken;
             console.log('2contd: ', userService.user.token);
+          });
+        }else if(response.status === 'not_authorized'){
+
+        }else{
+
+        }
+      })
+	};
+	$scope.facebookSignup = function(username){
+      facebookService.login().then(function(response){
+        if(response.status == 'connected'){
+          var token = response.authResponse.accessToken;
+          console.log('authresponse: ', token);
+          api.register({
+            method: "facebook",
+            shortToken: token,
+            username: username
+          })
+          .then(function(response){
+            //$rootScope.accessToken = response;
+            //$rootScope.accessToken = response.data.accessToken;
+            console.log('responsssse: ', response);
+            userService.user.token = response.data.accessToken;
+            console.log('3contd: ', userService.user.token);
           });
         }else if(response.status === 'not_authorized'){
 

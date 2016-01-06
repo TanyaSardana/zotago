@@ -1,4 +1,4 @@
-app.factory('facebookService', function($q,$cookies,$window,api,userService) {
+app.factory('facebookService', function($q,$cookies,$window,api,userService,$timeout) {
     //this method will fire when the user status changes i.e. login/logout
     
     function init(callback){
@@ -27,6 +27,7 @@ app.factory('facebookService', function($q,$cookies,$window,api,userService) {
                         })
                         .then(function(response){
                           userService.user.token = response.data.accessToken;
+                          $timeout();
                           $cookies.accessToken = userService.user.token;
                           console.log('boom ', response);
                         });

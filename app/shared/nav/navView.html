@@ -81,8 +81,9 @@
 						<div style="margin-bottom: 1em;">
 							<img style="height:150px;width:150px;border-radius: 50%;" src="assets/img/gotta-find-it.jpg">
 						</div>
-						<div style="display:block;width:80%;text-align: center;margin: 0 auto;">
-							<a ng-click="facebookLogin()" class="btn btn-block btn-social btn-facebook">
+						<div style="display:block;width:80%;text-align: left;margin: 0 auto;">
+							<div style="margin: 5px 0"><label>Username:&nbsp</label><input ng-model="username" style="width:50%"type="text"></div>
+							<a ng-click="facebookSignup(username)" class="btn btn-block btn-social btn-facebook">
 						    	<i class="fa fa-facebook"></i> Sign in with Facebook
 						  	</a>
 						  	<a class="btn btn-block btn-social btn-google">
