@@ -109,8 +109,7 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
       },function(err){
         //token is void
         console.log('error in me api',err);
-        $cookieStore.put('accessToken','');
-        userService.user.token = '';
+        userService.setToken('');
       })
     }
     

@@ -39,11 +39,8 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
             method: "facebook",
             shortToken: token,
           })
-          .then(function(response){
-            //$rootScope.accessToken = response;
-            //$rootScope.accessToken = response.data.accessToken;
-            userService.user.token = response.data.accessToken;
-            $cookieStore.put('accessToken',userService.user.token);
+          .then(function(response){            
+            userService.setToken(response.data.accessToken);
             console.log('2contd: ', userService.user.token);
           });
         }else if(response.status === 'not_authorized'){
@@ -63,11 +60,9 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
             shortToken: token,
             username: username
           })
-          .then(function(response){
-            //$rootScope.accessToken = response;
-            //$rootScope.accessToken = response.data.accessToken;
-            console.log('responsssse: ', response);
-            userService.user.token = response.data.accessToken;
+          .then(function(response){            
+            console.log('responsssse: ', response);            
+            userService.setToken(response.data.accessToken);
             console.log('3contd: ', userService.user.token);
           });
         }else if(response.status === 'not_authorized'){
@@ -95,8 +90,8 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 			userService.user.token = '';
 		});
 
-		//clear cookie token
-		$cookieStore.put('accessToken','');
+		//clear cookie token		
+		userService.setToken('');
 
 		//redirect to have page
 		$location.path('/')

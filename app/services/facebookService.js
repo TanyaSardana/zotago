@@ -24,8 +24,7 @@ app.factory('facebookService', function($q,$cookieStore,$window,api,userService,
                   shortToken: response.authResponse.accessToken
                 })
                 .then(function(response){
-                  userService.user.token = response.data.accessToken;
-                  $cookieStore.put('accessToken',userService.user.token);
+                  userService.setToken(response.data.accessToken);
                   console.log('boom ', response);
                 });
               } else if (response.status === 'not_authorized') {
