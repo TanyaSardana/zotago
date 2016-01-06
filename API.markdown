@@ -36,9 +36,9 @@ token.
 Authentication
 ==============
 
-### `POST /auth`
+### `POST /auth/login`
 
-Logs in or registers an account.
+Logs in to an account.
 
 #### Request body
 
@@ -62,6 +62,27 @@ Here is the format for each supported authorization scheme.
 ```json
 {
     "accessToken": <a Zotago access token to use in privileged API calls>
+}
+```
+
+### `POST /auth/register`
+
+Creates a new account.
+
+#### Request body
+
+The format of the request body varies as in the request body for the `POST
+/auth/login` endpoint.
+
+Here is the format for each supported authorization scheme.
+
+##### Facebook
+
+```json
+{
+    "method": "facebook",
+    "shortToken": <short-lived Facebook token>,
+    "username": <the username associated with the new account>
 }
 ```
 
