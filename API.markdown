@@ -179,6 +179,14 @@ Give a detailed description of a sell post.
 }
 ```
 
+### `PUT /sellposts/:postId/followers/:accountId`
+
+Makes an account follow a post.
+
+### `DELETE /sellposts/:postId/followers/:accountId`
+
+Makes an account unfollow a post.
+
 Tags
 ----
 
@@ -338,3 +346,11 @@ Offers a sell post to a want post.
 #### Response body
 
 Same as `GET /wantposts/:id`.
+
+### `PUT /wantposts/:postId/followers/:accountId`
+
+Makes an account follow a post.
+
+### `DELETE /wantposts/:postId/followers/:accountId`
+
+Makes an account unfollow a post.

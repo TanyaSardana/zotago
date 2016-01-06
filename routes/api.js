@@ -219,17 +219,21 @@ router
             return;
         }
 
-        return ormHelpers.getPost(models.SellPost, id)
-            .then(function(post) {
-                if(!post) {
-                    res.status(404).json({
-                        message: "No such post."
-                    });
-                    return;
-                }
+        return ormHelpers.getPost(models.SellPost, {
+            where: {
+                id: id
+            }
+        })
+        .then(function(post) {
+            if(!post) {
+                res.status(404).json({
+                    message: "No such post."
+                });
+                return;
+            }
 
-                res.json(post);
-            });
+            res.json(post);
+        });
     })
     .delete(auth.middleware.requiresAuth, function(req, res) {
         // TODO make it so that accounts can only delete their own posts.
@@ -251,6 +255,75 @@ router
             res.status(204).send();
         });
     });
+
+function parsePostAndAccountId(req, res, next) {
+    var postId = parseInt(req.params.postId);
+    var accountId = parseInt(req.params.accountId);
+
+    if(isNaN(postId)) {
+        res.status(400).send("Invalid post id.");
+        return;
+    }
+
+    if(isNaN(accountId)) {
+        res.status(400).send("Invalid account id.");
+        return;
+    }
+
+    req.postId = postId;
+    req.accountId = accountId;
+
+    next();
+}
+
+function basicFollowHandler(thisArg, method, postModel) {
+    return function(req, res) {
+        return method.call(thisArg, postModel, {
+            post: {
+                where: {
+                    id: req.postId
+                }
+            },
+            account: {
+                where: {
+                    id: req.accountId
+                }
+            }
+        })
+        .then(function(post) {
+            res.json(post);
+            return;
+        })
+        .catch(ormHelpers.NoSuchPostError, function(e) {
+            res.status(404).json({
+                message: "No such post."
+            });
+            return;
+        })
+        .catch(ormHelpers.NoSuchAccountError, function(e) {
+            res.status(404).json({
+                message: "No such account."
+            });
+            return;
+        })
+        .catch(function(e) {
+            console.error("A horrible error has occurred: " + e + "\n" + e.stack);
+        });
+    };
+}
+
+router
+    .route('/sellposts/:postId/followers/:accountId')
+    .put(
+        auth.middleware.requiresAuth,
+        parsePostAndAccountId,
+        basicFollowHandler(ormHelpers, ormHelpers.followPost, models.SellPost)
+    )
+    .delete(
+        auth.middleware.requiresAuth,
+        parsePostAndAccountId,
+        basicFollowHandler(ormHelpers, ormHelpers.unfollowPost, models.SellPost)
+    );
 
 router
     .route('/wantposts/:id/offers')
@@ -301,7 +374,11 @@ router
             return theWantPost.addOffer(sellPostId);
         })
         .then(function() {
-            return ormHelpers.getPost(models.WantPost, theWantPost.id);
+            return ormHelpers.getPost(models.WantPost, {
+                where: {
+                    id: theWantPost.id
+                }
+            });
         })
         .then(function(p) {
             res.json(p);
@@ -319,17 +396,21 @@ router
             return;
         }
 
-        return ormHelpers.getPost(models.WantPost, id)
-            .then(function(post) {
-                if(!post) {
-                    res.status(404).json({
-                        message: "No such post."
-                    });
-                    return;
-                }
+        return ormHelpers.getPost(models.WantPost, {
+            where: {
+                id: id
+            }
+        })
+        .then(function(post) {
+            if(!post) {
+                res.status(404).json({
+                    message: "No such post."
+                });
+                return;
+            }
 
-                res.json(post);
-            });
+            res.json(post);
+        });
     })
     .delete(auth.middleware.requiresAuth, function(req, res) {
         // TODO make it so that accounts can only delete their own posts.
@@ -350,6 +431,19 @@ router
             res.status(204).send();
         });
     });
+
+router
+    .route('/wantposts/:postId/followers/:accountId')
+    .put(
+        auth.middleware.requiresAuth,
+        parsePostAndAccountId,
+        basicFollowHandler(ormHelpers, ormHelpers.followPost, models.WantPost)
+    )
+    .delete(
+        auth.middleware.requiresAuth,
+        parsePostAndAccountId,
+        basicFollowHandler(ormHelpers, ormHelpers.unfollowPost, models.SellPost)
+    );
 
 router
     .route('/tags')

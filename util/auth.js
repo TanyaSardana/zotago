@@ -6,6 +6,17 @@ var facebook = require('./facebook.js');
 var cache = require('./cache.js');
 var shortid = require('shortid');
 
+function NoSuchPostError(message) {
+    if(typeof this === 'undefined')
+        throw new Error("FUCKKK");
+
+    this.message = message;
+    this.name = name;
+    Error.captureStackTrace(this, NoSuchPostError);
+}
+NoSuchPostError.prototype = Object.create(Error.prototype);
+NoSuchPostError.prototype.constructor = NoSuchPostError;
+
 function AlreadyRegisteredError(message) {
     this.message = message;
     this.name = "AlreadyRegisteredError";
@@ -277,5 +288,8 @@ module.exports = {
     middleware: {
         requiresAuth: requiresAuth
     },
-    checkToken: checkToken
+    checkToken: checkToken,
+    NoSuchPostError,
+    NoSuchAccountError,
+    AlreadyRegisteredError,
 };

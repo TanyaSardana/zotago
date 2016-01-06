@@ -1,11 +1,15 @@
 'use strict';
 
+var debug = require('debug')('zotago:ormHelpers');
 var dataHelpers = require('./dataHelpers');
 var util = require('./.');
 var models = require('../models');
-var exception = require('./exception');
 
-var NoSuchPostError = exception.makeSimpleException("NoSuchPostError");
+// imported so that we can reexport the NoSuchAccountError
+var auth = require('./auth');
+
+module.exports.NoSuchPostError = auth.NoSuchPostErrorr;
+module.exports.NoSuchAccountError = auth.NoSuchAccountErrorr;
 
 /**
  * Gets a nice JSON form of a specific post.
@@ -15,16 +19,16 @@ var NoSuchPostError = exception.makeSimpleException("NoSuchPostError");
  * @param object where -- A Sequelize `where` object.
  * @return Promise -- Resolves to an object fully representing the post.
  */
-function getPost(postModel, where) {
+function getPost(postModel, selector) {
     var thePost = {};
 
     return postModel
-        .findOne({
-            where: where
-        })
+        .findOne(selector)
         .then(function(post) {
-            if(!post)
-                throw new NoSuchPostError();
+            if(!post) {
+                debug("throwing NoSuchPostError");
+                throw new auth.NoSuchPostError();
+            }
 
             thePost.post = post;
             return thePost.post.getTags();
@@ -45,7 +49,8 @@ function getPost(postModel, where) {
             thePost.creator = creator;
             return thePost;
         })
-        .catch(NoSuchPostError, function(exc) {
+        .catch(auth.NoSuchPostError, function(exc) {
+            debug("Handling NoSuchPostError");
             return null;
         });
 }
@@ -161,7 +166,108 @@ function createPost(postModel, data) {
             return thePost.addTags(tags);
         })
         .then(function() {
-            return getPost(postModel, thePost.id);
+            return getPost(postModel, {
+                where: {
+                    id: thePost.id
+                }
+            });
         })
 }
 module.exports.createPost = createPost;
+
+/**
+ * Makes an account follow a post.
+ *
+ * Uses sequelizes `findOne` model method, so only a single account may be
+ * associated to a single post with this function.
+ *
+ * @param {Model} postModel - The model class of the type of post.
+ * @param {Object} options - Options for determining the account and post to
+ * associate.
+ * @param {Object} options.post - Options for selecting the post.
+ * @param {Object} options.account - Options for selecting the account.
+ * @return {Promise.<Post>} - The full post object of the selected post.
+ */
+function followPost(postModel, options) {
+    var postSelector = options.post;
+    var accountSelector = options.account;
+
+    return Promise.all([
+        postModel.findOne(postSelector),
+        models.Account.findOne(accountSelector)
+    ])
+    .then(function(resolved) {
+        var post = resolved[0];
+        var account = resolved[1];
+
+        if(!post) {
+            debug("Throwing NoSuchPostError");
+            throw new auth.NoSuchPostError();
+        }
+
+        if(!account) {
+            debug("Throwing NoSuchAccountError");
+            throw new auth.NoSuchAccountError();
+        }
+
+        debug('Adding follower. ' + post + ' ' + account);
+
+        return post.addFollower(account);
+    })
+    .then(function(v) {
+        debug('Added follower. ' + JSON.stringify(v));
+
+        return getPost(postModel, postSelector);
+    })
+    .then(function(post) {
+        if(!post) {
+            debug("Throwing NoSuchPostError");
+            throw new auth.NoSuchPostError();
+        }
+
+        return post;
+    });
+}
+module.exports.followPost = followPost;
+
+function unfollowPost(postModel, options) {
+    var postSelector = options.post;
+    var accountSelector = options.account;
+
+    return Promise.all([
+        postModel.findOne(postSelector),
+        models.Account.findOne(accountSelector)
+    ])
+    .then(function(resolved) {
+        var post = resolved[0];
+        var account = resolved[1];
+
+        if(!post) {
+            debug("Throwing NoSuchPostError");
+            throw new auth.NoSuchPostError();
+        }
+
+        if(!account) {
+            debug("Throwing NoSuchAccountError");
+            throw new auth.NoSuchAccountError();
+        }
+
+        debug("Removing follower.");
+
+        return post.removeFollower(account);
+    })
+    .then(function(v) {
+        debug("Removed follower.");
+
+        return getPost(postModel, postSelector);
+    })
+    .then(function(post) {
+        if(!post) {
+            debug("Throwing NoSuchPostError");
+            throw new auth.NoSuchPostError();
+        }
+
+        return post;
+    });
+}
+module.exports.unfollowPost = unfollowPost;
