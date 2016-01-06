@@ -132,7 +132,7 @@ router
 
 router
     .route('/sellposts')
-    .get(function(req, res) {
+    .get(auth.middleware.optionalAuth, function(req, res) {
         var tagSet;
 
         var q = {};
@@ -144,7 +144,7 @@ router
         if(req.query.creator)
             q.creatorId = parseInt(req.query.creator);
 
-        return ormHelpers.getPosts(models.SellPost, q)
+        return ormHelpers.getPosts(models.SellPost, q, req.account)
             .then(function(sellPosts) {
                 res.json(sellPosts);
             });
@@ -165,7 +165,7 @@ router
 router
     .route('/wantposts')
     // Gets a list of want posts
-    .get(function(req, res) {
+    .get(auth.middleware.optionalAuth, function(req, res) {
         var tagSet;
 
         var q = {};
@@ -177,7 +177,7 @@ router
         if(req.query.creator)
             q.creatorId = parseInt(req.query.creator);
 
-        return ormHelpers.getPosts(models.WantPost, q)
+        return ormHelpers.getPosts(models.WantPost, q, req.account)
             .then(function(wantPosts) {
                 res.json(wantPosts);
             });
@@ -211,7 +211,7 @@ router
 
 router
     .route('/sellposts/:id')
-    .get(function(req, res) {
+    .get(auth.middleware.optionalAuth, function(req, res) {
         var id = parseInt(req.params.id)
 
         if(isNaN(id)) {
@@ -327,7 +327,7 @@ router
 
 router
     .route('/wantposts/:id/offers')
-    .get(function(req, res) {
+    .get(auth.middleware.optionalAuth, function(req, res) {
         var id = req.params.id;
 
         return models.WantPost.findOne({
@@ -387,7 +387,7 @@ router
 
 router
     .route('/wantposts/:id')
-    .get(function(req, res) {
+    .get(auth.middleware.optionalAuth, function(req, res) {
         var id = parseInt(req.params.id);
 
         if(isNaN(id)) {

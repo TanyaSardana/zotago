@@ -282,11 +282,59 @@ function requiresAuth(req, res, next) {
         });
 }
 
+/**
+ * Express middleware. Parses the HTTP Authorization header to pull out a
+ * Zotago token and fetches the associated account in the database. The account
+ * is then stored in the request object in the field `account`.
+ *
+ * If no Authorization header is present, the `account` field remains unset and
+ * control passes to the next middleware in the stack.
+ *
+ * If an Authorization header is present, but invalid, an error is given to the
+ * client.
+ */
+function optionalAuth(req, res, next) {
+    var authorization = req.get('Authorization');
+    if(typeof authorization === 'undefined') {
+        debug("no auth (optional): no Authorization header");
+        next();
+        return;
+    }
+
+    var authInfo = parseAuthorization(authorization);
+    if(authInfo.type !== 'Zotago') {
+        res.status(401).send('The given authorization type is not supported.');
+        return;
+    }
+
+    return checkToken(authInfo.token)
+        .then(function(accountId) {
+            if(!accountId) {
+                res.status(401).send(
+                    'The given authentication token is invalid.');
+                return;
+            }
+
+            return models.Account.findById(accountId)
+        })
+        .then(function(account) {
+            if(!account) {
+                res.status(401).send(
+                    'There is no account associated with this token.');
+                return;
+            }
+
+            req.account = account;
+            return next();
+        });
+}
+
 module.exports = {
     loginHandlers: loginHandlers,
     registrationHandlers: registrationHandlers,
     middleware: {
-        requiresAuth: requiresAuth
+        requiresAuth: requiresAuth,
+        optionalAuth: optionalAuth,
     },
     checkToken: checkToken,
     NoSuchPostError,

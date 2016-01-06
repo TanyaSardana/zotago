@@ -5,6 +5,8 @@ var dataHelpers = require('./dataHelpers');
 var util = require('./.');
 var models = require('../models');
 
+var Promise = require('bluebird');
+
 // imported so that we can reexport the NoSuchAccountError
 var auth = require('./auth');
 
@@ -65,7 +67,7 @@ module.exports.getPost = getPost;
  * @return Promise -- resolves to an array of post instances of the given post
  * model.
  */
-function getPosts(postModel, query) {
+function getPosts(postModel, query, activeAccount) {
     // want to find all want posts whose tags are a superset of the given
     // query.tags.
     var q = {};
@@ -82,7 +84,25 @@ function getPosts(postModel, query) {
             model: models.Account,
             as: 'creator'
         }]
-    });
+    })
+
+    if(activeAccount) {
+        debug("Account active. Determining follow status.");
+        p = p.then(function(posts) {
+            return Promise.map(posts, function(post) {
+                return post.hasFollower(activeAccount)
+                    .then(function(followStatus) {
+                        // damn that's nasty
+                        post.get().isFollowed = followStatus;
+                        debug("Set post follow status.");
+                        return post;
+                    });
+            });
+        });
+    }
+    else {
+        debug("No active account. Skipping follow status check.");
+    }
 
     // Because there's no good way to perform this kind of filtering on the
     // Sequelize level (believe me, I tried) we'll have to do it on the
@@ -90,22 +110,20 @@ function getPosts(postModel, query) {
     // TODO optimize this code to run in the database.
     if(query.tags)
         p = p.then(function(wantPosts) {
-            return Promise.all(
-                wantPosts.map(function(wp) {
-                    return wp.getTags()
-                        .then(function(wpTags) {
-                            if(util.isSubset(
-                                query.tags,
-                                util.toSet(wpTags.map(function(t) {
-                                    return t.name;
-                                })))) {
-                                return wp;
-                            }
-                            else
-                                return null;
-                        });
-                })
-            )
+            return Promise.map(wantPosts, function(wp) {
+                return wp.getTags()
+                    .then(function(wpTags) {
+                        if(util.isSubset(
+                            query.tags,
+                            util.toSet(wpTags.map(function(t) {
+                                return t.name;
+                            })))) {
+                            return wp;
+                        }
+                        else
+                            return null;
+                    });
+            })
             .then(function(wantPosts) {
                 wantPosts = wantPosts.filter(function(wp) {
                     return wp != null
