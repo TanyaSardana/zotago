@@ -183,10 +183,7 @@ var loginHandlers = {
                         "No facebook account for this user.");
                 }
 
-                zotagoToken = shortid.generate();
-                return cache.set(
-                    'zotagoToken:' + zotagoToken,
-                    account.id);
+                return newCachedZotagoToken(account.id);
             });
     }
 };
