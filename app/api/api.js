@@ -1,4 +1,4 @@
-app.factory('api', function($http){
+app.factory('api', function($http,userService){
     var baseUrl = '/api';
     return {
 
@@ -73,6 +73,17 @@ app.factory('api', function($http){
          */
         login: function(options) {
             return $http.post(baseUrl + '/auth/login', options);
+        },
+
+        
+        me : function(){
+            var options = {}
+            if(!!userService.user.token){
+                options.headers = {
+                    'Authorization' : 'Zotago ' + userService.user.token
+                };
+            }
+            return $http.get(baseUrl + '/me', options);
         }
     };
 });

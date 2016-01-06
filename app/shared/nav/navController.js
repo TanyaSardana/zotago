@@ -1,4 +1,4 @@
-app.controller('navController',['$scope','$window','$location', '$rootScope','$cookies','facebookService','api','userService','$interval',function($scope,$window,$location,$rootScope,$cookies,facebookService,api,userService,$interval){
+app.controller('navController',['$scope','$window','$location', '$rootScope','$cookieStore','facebookService','api','userService','$interval',function($scope,$window,$location,$rootScope,$cookieStore,facebookService,api,userService,$interval){
 	
 	$scope.user =  userService.user;
 	
@@ -43,6 +43,7 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
             //$rootScope.accessToken = response;
             //$rootScope.accessToken = response.data.accessToken;
             userService.user.token = response.data.accessToken;
+            $cookieStore.put('accessToken',userService.user.token);
             console.log('2contd: ', userService.user.token);
           });
         }else if(response.status === 'not_authorized'){
@@ -89,12 +90,13 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 	};
 
 	$scope.logout = function(){
+		console.log('loging out');
 		FB.logout(function(){
 			userService.user.token = '';
 		});
 
 		//clear cookie token
-		$cookies.accessToken = '';
+		$cookieStore.put('accessToken','');
 
 		//redirect to have page
 		$location.path('/')

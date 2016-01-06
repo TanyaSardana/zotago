@@ -4,6 +4,7 @@ app.factory('userService', function($q) {
         	userId : '',
         	profileImageUrl : '',
         	token : '',
+        	isLoggedInToFb : false,
         },
         
         

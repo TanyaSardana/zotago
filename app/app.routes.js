@@ -63,15 +63,17 @@ $routeProvider
     });
      
 });
-app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeout','$cookies',
-  function($rootScope, $window, facebookService,api,userService,$timeout,$cookies) {
+app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeout','$cookieStore',
+  function($rootScope, $window, facebookService,api,userService,$timeout,$cookieStore) {
 
+    //this method does not fire upon browser refreshing. refer to fbasynch
     watchLoginChange = function() {
       FB.Event.subscribe('auth.authResponseChange', function(res) {
         if (res.status === 'connected') {
           //$rootScope.user.isLoggedIn = true;
           //$rootScope.user.userId = FB.getUserID();
           userService.user.userId = FB.getUserID();
+          userService.user.isLoggedInToFb = true;
           /* 
            The user is already logged, 
            is possible retrieve his personal info
@@ -91,14 +93,29 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
           */
         } 
         else {
-            console.log('im not connected', $cookies);
+            console.log('im not connected', $cookieStore);
+            userService.user.isLoggedInToFb = false;
           /*
            The user is not logged to the app, or into Facebook:
            destroy the session on the server.
           */      
         }
       });
-    }  
-    facebookService.load(document,watchLoginChange);
+    }
+    if(!!$cookieStore.get('accessToken')){
+      userService.user.token = $cookieStore.get('accessToken');
+      api.me().then(function(response){
+        console.log('token is good',response);
+      },function(err){
+        //token is void
+        console.log('error in me api',err);
+        $cookieStore.put('accessToken','');
+        userService.user.token = '';
+      })
+    }
+    
+    facebookService.load(document,watchLoginChange);  
+    
+    
 }]);
 

@@ -1,46 +1,45 @@
-app.factory('facebookService', function($q,$cookies,$window,api,userService,$timeout) {
+app.factory('facebookService', function($q,$cookieStore,$window,api,userService,$timeout) {
     //this method will fire when the user status changes i.e. login/logout
     
     function init(callback){
 
-                $window.fbAsyncInit = function() {
-                    FB.init({ 
-                          appId: '923132421099770',
-                          status: true, 
-                          cookie: false, 
-                          xfbml: true,
-                          version: 'v2.4'
-                    });
-                    //Quick check
-                    FB.getLoginStatus(function(response) {
-                      if (response.status === 'connected') {
-                        // the user is logged in and has authenticated your
-                        // app, and response.authResponse supplies
-                        // the user's ID, a valid access token, a signed
-                        // request, and the time the access token and signed
-                        // request each expire
-                        var uid = response.authResponse.userID;
-                        var accessToken = response.authResponse.accessToken;
-                        api.login({
-                          method: "facebook",
-                          shortToken: accessToken
-                        })
-                        .then(function(response){
-                          userService.user.token = response.data.accessToken;
-                          $timeout();
-                          $cookies.accessToken = userService.user.token;
-                          console.log('boom ', response);
-                        });
-                      } else if (response.status === 'not_authorized') {
-                        // the user is logged in to Facebook, but has not
-                        // authenticated your app
-                      } else { 
-                        //the user isn't logged in to Facebook.
-                      }
-                    });
-
-                    callback();
-                };
+        $window.fbAsyncInit = function() {
+            FB.init({ 
+                  appId: '923132421099770',
+                  status: true, 
+                  cookie: true, 
+                  xfbml: true,
+                  version: 'v2.4'
+            });
+            //Quick check
+            FB.getLoginStatus(function(response) {
+              if (response.status === 'connected') {
+                // the user is logged in and has authenticated your
+                // app, and response.authResponse supplies
+                // the user's ID, a valid access token, a signed
+                // request, and the time the access token and signed
+                // request each expire
+                api.login({
+                  method: "facebook",
+                  shortToken: response.authResponse.accessToken
+                })
+                .then(function(response){
+                  userService.user.token = response.data.accessToken;
+                  $cookieStore.put('accessToken',userService.user.token);
+                  console.log('boom ', response);
+                });
+              } else if (response.status === 'not_authorized') {
+                // the user is logged in to Facebook, but has not
+                // authenticated your app
+                console.log('not authorized');
+              } else { 
+                //the user isn't logged in to Facebook.
+                console.log('the user isn\'t logged in to facebook');
+              }
+            });
+            
+            callback();
+        };
     };
 
 
