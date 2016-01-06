@@ -165,11 +165,13 @@ var loginHandlers = {
                 fbData = basicFbData;
 
                 return models.Account.findOne({
-                    where: {
-                        "FacebookAccount.userId": fbData.me.id
-                    },
                     include: [
-                        models.FacebookAccount
+                        {
+                            model: models.FacebookAccount,
+                            where: {
+                                userId: fbData.me.id,
+                            },
+                        }
                     ]
                 });
             })
