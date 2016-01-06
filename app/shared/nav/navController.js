@@ -22,7 +22,7 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 		},
 		{
 			name: 'My Closet',
-			href: '#/profile',
+			href: '#/profile/' + userService.user.id,
 		},
 
 		

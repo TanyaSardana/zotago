@@ -17,13 +17,13 @@ $routeProvider
         templateUrl : '/app/components/virtual/virtualView.html',
         controller  : 'virtualController',
     })
+    .when('/profile/:id', {
+        templateUrl : '/app/components/virtual/virtualView.html',
+        controller  : 'virtualController',
+    })
     .when('/create-sell-post', {
         templateUrl : '/app/components/create-sell-post/createSellView.html',
         controller  : 'createSellController',
-    })
-    .when('/offerings', {
-        templateUrl : '/app/components/offerings/offeringsView.html',
-        controller  : 'offeringsController',
     })
     .when('/offerings/:id', {
         templateUrl : '/app/components/offerings/offeringsView.html',
@@ -105,7 +105,7 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
     if(!!$cookieStore.get('accessToken')){
       userService.user.token = $cookieStore.get('accessToken');
       api.me().then(function(response){
-        console.log('token is good',response);
+        userService.user.id  = response.data.id;
       },function(err){
         //token is void
         console.log('error in me api',err);

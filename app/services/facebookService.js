@@ -26,6 +26,10 @@ app.factory('facebookService', function($q,$cookieStore,$window,api,userService,
                 .then(function(response){
                   userService.setToken(response.data.accessToken);
                   console.log('boom ', response);
+                  api.me().then(function(response){
+                    console.log('me: ', response);
+                    userService.user.id  = response.data.id;
+                  });
                 });
               } else if (response.status === 'not_authorized') {
                 // the user is logged in to Facebook, but has not
