@@ -42,11 +42,21 @@ $scope.store = [
 	
 ];
 
+
+$scope.errorModal = {
+	message: "There seems to be a problem. Try refreshing your page",
+	showModal : false,
+}   
+    
+$scope.toggleErrorModal = function(){
+	$scope.errorModal.showModal = !$scope.errorModal.showModal; 
+}
+
 $scope.followOnClick = function(item){
 	if(!!userService.token){
 
 	}else{
-
+		$scope.toggleErrorModal();
 	}
 	
 }
@@ -133,4 +143,7 @@ function getOfferingsOfWantPostSuccessCallback(data){
 function getOfferingsOfWantPostErrorCallback(data){
 	console.log('error:', data);
 }
+
+
+
 }]);	

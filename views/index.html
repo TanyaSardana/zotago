@@ -55,7 +55,7 @@
 <body ng-app="mainModule">
 	<div id="fb-root"></div>
 	
-	<div ng-controller="navController" ng-include="'app/shared/nav/navView.html'"></div>
+	<div  ng-include="'app/shared/nav/navView.html'"></div>
 	<!--<div ng-controller="searchBarController" ng-include="'app/shared/search-bar/searchBarView.html'"></div>-->
 	<div ng-view></div>
 	<!--<div ng-controller="talkToUsController" ng-include="'app/shared/talkToUs/talkToUsView.html'"></div>-->
@@ -100,7 +100,7 @@
 <script src="app/services/userService.js"></script>
 
 <!--Directives-->
-
+<script src="app/directives/modal.js"></script>
 
 <!--Routes-->
 <script src="app/app.routes.js"></script>

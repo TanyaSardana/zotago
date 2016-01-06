@@ -1,4 +1,4 @@
-app.controller('navController',['$scope','$window','$location', '$rootScope','$cookieStore','facebookService','api','userService','$interval',function($scope,$window,$location,$rootScope,$cookieStore,facebookService,api,userService,$interval){
+app.controller('navController',['$scope','$window','$location', '$rootScope','$cookieStore','facebookService','api','userService','$timeout',function($scope,$window,$location,$rootScope,$cookieStore,facebookService,api,userService,$timeout){
 	
 	$scope.user =  userService.user;
 	
@@ -97,6 +97,14 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 		$location.path('/')
 		
 	}
+
+	// $scope.errorMessage = "There seems to be a problem. Try refreshing your page";
+	// $scope.showErrorModal = false;
+	// $scope.toggleErrorModal = function(){
+ //       console.log('hl');
+ //       $scope.showErrorModal = !$scope.showErrorModal;
+ //    }
+
 
 
 

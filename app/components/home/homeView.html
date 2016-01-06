@@ -1,6 +1,10 @@
 <div ng-controller="searchEngineController" ng-include="'app/components/home/searchEngine/searchEngineView.html'"></div>
 <hr>
+
+
+
 <div class="container">
+	
 	<div ng-hide="offeringsWindow == true" class="row">
 		<div  ng-repeat="item in queriedWantPosts track by $index"
 			style="margin-bottom: 50px; background-color: #fff; padding-right: 3px; padding-left: 3px;"
@@ -62,7 +66,21 @@
 		</div>
 	</div>
 	
-	
+	<div class="container">	    
+	  <modal title="Ooops" visible="errorModal.showModal">
+	    <!--Modal's Body-->
+		<div style="text-align: center;" class="">
+			<div style="margin-bottom: 1em;">
+				<img style="height:150px;width:150px;border-radius: 50%;" src="http://www.startupdonut.co.uk/sites/default/files/oops_249x189.png">
+			</div>
+			<div style="display:block;width:80%;text-align: center;margin: 0 auto;">
+				{{errorModal.message}}  	
+			</div>
+			<div class="text-right"><button ng-click="toggleErrorModal()" class="btn btn-default ">Close</button></div>
+		</div>
+		
+	  </modal>
+	</div>
 
 
 </div>
