@@ -3,7 +3,9 @@
 var dataHelpers = require('./dataHelpers');
 var util = require('./.');
 var models = require('../models');
+var exception = require('./exception');
 
+var NoSuchPostError = exception.makeSimpleException("NoSuchPostError");
 
 /**
  * Gets a nice JSON form of a specific post.
@@ -21,6 +23,9 @@ function getPost(postModel, where) {
             where: where
         })
         .then(function(post) {
+            if(!post)
+                throw new NoSuchPostError();
+
             thePost.post = post;
             return thePost.post.getTags();
         })
@@ -39,6 +44,9 @@ function getPost(postModel, where) {
         .then(function(creator) {
             thePost.creator = creator;
             return thePost;
+        })
+        .catch(NoSuchPostError, function(exc) {
+            return null;
         });
 }
 module.exports.getPost = getPost;
