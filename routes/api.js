@@ -88,7 +88,7 @@ router
 // module with all api endpoints
 router
     .route('/accounts')
-    .get(function(req, res) {
+    .get(auth.middleware.requiresAuth, function(req, res) {
         return models.Account.findAll()
             .then(function(accounts) {
                 res.json(accounts);
@@ -149,7 +149,7 @@ router
                 res.json(sellPosts);
             });
     })
-    .post(function(req, res) {
+    .post(auth.middleware.requiresAuth, function(req, res) {
         var mkPost = req.body.post;
         var tags = req.body.tags;
 
@@ -183,7 +183,7 @@ router
             });
     })
     // Creates a new want post
-    .post(function(req, res) {
+    .post(auth.middleware.requiresAuth, function(req, res) {
         var mkPost = req.body.post;
         var tags = req.body.tags;
 
@@ -217,10 +217,19 @@ router
                 res.json(post);
             });
     })
-    .delete(function(req, res) {
+    .delete(auth.middleware.requiresAuth, function(req, res) {
+        // TODO make it so that accounts can only delete their own posts.
+        // See issue #55
+
+        var id = parseInt(req.params.id)
+        if(isNaN(id)) {
+            res.status(400).send("Invalid post id.");
+            return;
+        }
+
         return models.SellPost.destroy({
             where: {
-                id: parseInt(req.params.id)
+                id: id
             }
         })
         .then(function() {
@@ -249,7 +258,7 @@ router
                 res.json(wp.offers);
         });
     })
-    .post(function(req, res) {
+    .post(auth.middleware.requiresAuth, function(req, res) {
         var sellPostId = req.body.postId;
         var id = req.params.id;
 
@@ -288,10 +297,19 @@ router
                 res.json(post);
             });
     })
-    .delete(function(req, res) {
+    .delete(auth.middleware.requiresAuth, function(req, res) {
+        // TODO make it so that accounts can only delete their own posts.
+        // See issue #55
+
+        var id = parseInt(req.params.id)
+        if(isNaN(id)) {
+            res.status(400).send("Invalid post id.");
+            return;
+        }
+
         return models.WantPost.destroy({
             where: {
-                id: parseInt(req.params.id)
+                id: id
             }
         })
         .then(function() {
@@ -317,7 +335,7 @@ router
             res.json(tags);
         });
     })
-    .post(function(req, res) {
+    .post(auth.middleware.requiresAuth, function(req, res) {
         var body = req.body;
         var theTag;
 
