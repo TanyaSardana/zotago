@@ -1,5 +1,6 @@
 'use strict';
 
+var debug = require('debug')('zotago:api');
 var express = require('express');
 var router = express.Router();
 var Promise = require('bluebird');
@@ -32,9 +33,11 @@ router
 
         return handler(authReq)
             .then(function(zotagoToken) {
-                res.json({
+                var result = {
                     accessToken: zotagoToken
-                });
+                };
+                debug(JSON.stringify(result))
+                res.json(result);
             })
             .catch(function(e) {
                 console.error('Promise rejection causing auth failure.');
