@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * This module provides useful functions that wrap around Sequelize to perform
+ * certain tedious things for us.
+ */
+
 var debug = require('debug')('zotago:ormHelpers');
 var dataHelpers = require('./dataHelpers');
 var util = require('./.');

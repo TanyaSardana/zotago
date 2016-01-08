@@ -1,15 +1,43 @@
 'use strict';
 
+/**
+ * This module contains functions concerning the authentication/authorization
+ * system used in Zotago.
+ *
+ * Authentication is currently supported only via Facebook OAuth. Further,
+ * authorization is very coarse: either a request is authorized on not.
+ * Resource-level authorization is required before release.
+ *
+ * The auth system uses the concept of _providers_ (auth methods) indexed by
+ * names (strings). The `loginHandlers` and `registrationHandlers` dictionaries
+ * exported by this module associate the provider name with its handler
+ * function. The handlers are functions that take an authorization request and
+ * produce a Zotago token. Zotago tokens are used as authentication proof in
+ * subsequent requests.
+ *
+ * This module also exports some express middleware functions to facilitate
+ * working with auth in route handlers.
+ *
+ * Zotago tokens are cached server-side; use of the API is not entirely
+ * stateless. See the /util/cache.js module for details of the cache that is
+ * currently used.
+ *
+ * For testing/debugging, a login handler named `debug` is available.
+ */
+
 var debug = require('debug')('zotago:auth');
 var models = require('../models');
 var facebook = require('./facebook.js');
 var cache = require('./cache.js');
+
 var shortid = require('shortid');
 
+/**
+ * An exception signifying that a post could not be found.
+ *
+ * @param {string} [message] - A message associated with this exception.
+ */
 function NoSuchPostError(message) {
-    if(typeof this === 'undefined')
-        throw new Error("FUCKKK");
-
     this.message = message;
     this.name = name;
     Error.captureStackTrace(this, NoSuchPostError);
@@ -17,6 +45,11 @@ function NoSuchPostError(message) {
 NoSuchPostError.prototype = Object.create(Error.prototype);
 NoSuchPostError.prototype.constructor = NoSuchPostError;
 
+/**
+ * An exception signifying that an account is already registered.
+ *
+ * @param {string} [message] - A message associated with this exception.
+ */
 function AlreadyRegisteredError(message) {
     this.message = message;
     this.name = "AlreadyRegisteredError";
@@ -25,6 +58,11 @@ function AlreadyRegisteredError(message) {
 AlreadyRegisteredError.prototype = Object.create(Error.prototype);
 AlreadyRegisteredError.prototype.constructor = AlreadyRegisteredError;
 
+/**
+ * An exception signifying that an account is already registered.
+ *
+ * @param {string} [message] - A message associated with this exception.
+ */
 function NoSuchAccountError(message) {
     this.message = message;
     this.name = "NoSuchAccountError";
@@ -32,6 +70,18 @@ function NoSuchAccountError(message) {
 }
 NoSuchAccountError.prototype = Object.create(Error.prototype);
 NoSuchAccountError.prototype.constructor = NoSuchAccountError;
+
+/**
+ * An exception signifying that a registration request is invalid.
+ *
+ * @param {string} [message] - A message associated with this exception.
+ */
+function InvalidRegistrationError(methodName, message) {
+    this.message = message;
+    this.methodName = methodName;
+}
+InvalidRegistrationError.prototype = Object.create(Error.prototype);
+InvalidRegistrationError.prototype.constructor = InvalidRegistrationError;
 
 /**
  * Exchanges a browser token for a server token and fetches the /me endpoint.
@@ -102,10 +152,22 @@ var registrationHandlers = {
         var shortToken = authReq.shortToken;
         var username = authReq.username;
 
+        if(!username) {
+            debug("No username given for Facebook registration.");
+            throw new InvalidRegistrationError(
+                "facebook",
+                "A username is required."
+            );
+        }
+
         debug('registering with Facebook');
 
+        // Perform the facebook token exchange to obtain a long token and user
+        // information.
         return basicFacebookExchange(shortToken)
             .then(function(fbData) {
+                // Create the Account model with the Facebook information and
+                // the username.
                 return models.Account.create({
                     username: username,
                     firstName: fbData.me.first_name,

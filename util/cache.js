@@ -1,5 +1,16 @@
 'use strict';
 
+/**
+ * This module exports some extremely simple functions for interacting with a
+ * cache with promises.
+ *
+ * The cache is currently implemented as a simple in-memory hashtable keyed on
+ * strings. A real cache like Redis should be used instead. The value of this
+ * module however is that swapping out the implementations of the hashtable
+ * caching functions with something backed by Redis should not break any
+ * existing code that interacts with the cache.
+ */
+
 // TODO use a real cache.
 var cache = {};
 

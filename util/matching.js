@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * The matching algorithm.
+ */
+
 var models = require('../models');
 var events = require('./events');
 var mailer = require('./mailer');

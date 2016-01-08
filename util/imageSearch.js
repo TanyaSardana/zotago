@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * A wrapper around the Yboss image search API.
+ *
+ * This module is configed by the /config/imageSearch.json file.
+ */
+
 var request = require('request');
 var qs = require('querystring');
 
@@ -13,15 +19,21 @@ var oauth = {
 
 var Promise = require('bluebird');
 
-function makeQueryString (searchQuery) {
+function makeQueryString(searchQuery) {
     return qs.stringify({
         q: searchQuery,
         format: 'json',
         count: '35'
     });
 };
-module.exports.makeQueryString = makeQueryString;
 
+/**
+ * Performs an image search on Yboss.
+ *
+ * @param {string} searchQuery - The terms to search for.
+ * @return {Promise.<object>} - The result of hitting the /ysearch/images Yboss
+ * API endpoint.
+ */
 function search(searchQuery) {
     return new Promise(function(resolve, reject) {
         request.get({

@@ -1,3 +1,10 @@
+'use strict';
+
+/**
+ * This module exports useful functions for dealing with data URIs, which are
+ * used for image uploads.
+ */
+
 var fs = require('fs');
 var shortid = require('shortid');
 var Promise = require('bluebird');
@@ -39,6 +46,9 @@ module.exports = {
 
     /**
      * Gets an internal URL for an image with a given ID.
+     *
+     * @param {string} imageId - The image ID to obtain a URL for.
+     * @return {string} - A URL for the image.
      */
     getImageUrl: function(imageId) {
         return '/uploads/' + imageId;
