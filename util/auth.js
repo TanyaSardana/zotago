@@ -341,7 +341,7 @@ module.exports = {
         optionalAuth: optionalAuth,
     },
     checkToken: checkToken,
-    NoSuchPostError,
-    NoSuchAccountError,
-    AlreadyRegisteredError,
+    NoSuchPostError: NoSuchPostError,
+    NoSuchAccountError: NoSuchAccountError,
+    AlreadyRegisteredError: AlreadyRegisteredError,
 };
