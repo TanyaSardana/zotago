@@ -184,7 +184,7 @@ function createPost(postModel, data) {
     var tags = data.tags;
 
     var dataUrlScheme = "data";
-    var p = Promise.accept();
+    var p = Promise.resolve();
 
     if(mkPost.imageUrl.slice(0, dataUrlScheme.length) === dataUrlScheme) {
         var imageBuf = dataHelpers.parseDataUrl(mkPost.imageUrl);
