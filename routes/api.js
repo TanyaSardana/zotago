@@ -300,7 +300,7 @@ function basicFollowHandler(thisArg, method, postModel) {
             });
             return;
         })
-        .catch(ormHelpers.NoSuchAccountError, function(e) {
+        .catch(auth.NoSuchAccountError, function(e) {
             res.status(404).json({
                 message: "No such account."
             });
@@ -442,7 +442,7 @@ router
     .delete(
         auth.middleware.requiresAuth,
         parsePostAndAccountId,
-        basicFollowHandler(ormHelpers, ormHelpers.unfollowPost, models.SellPost)
+        basicFollowHandler(ormHelpers, ormHelpers.unfollowPost, models.WantPost)
     );
 
 router

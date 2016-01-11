@@ -15,8 +15,19 @@ var Promise = require('bluebird');
 // imported so that we can reexport the NoSuchAccountError
 var auth = require('./auth');
 
-module.exports.NoSuchPostError = auth.NoSuchPostErrorr;
-module.exports.NoSuchAccountError = auth.NoSuchAccountErrorr;
+/**
+ * An exception signifying that a post could not be found.
+ *
+ * @param {string} [message] - A message associated with this exception.
+ */
+function NoSuchPostError(message) {
+    this.message = message;
+    this.name = name;
+    Error.captureStackTrace(this, NoSuchPostError);
+}
+NoSuchPostError.prototype = Object.create(Error.prototype);
+NoSuchPostError.prototype.constructor = NoSuchPostError;
+module.exports.NoSuchPostError = NoSuchPostError;
 
 /**
  * Gets a nice JSON form of a specific post.
@@ -56,7 +67,7 @@ function getPost(postModel, selector) {
             thePost.creator = creator;
             return thePost;
         })
-        .catch(auth.NoSuchPostError, function(exc) {
+        .catch(NoSuchPostError, function(exc) {
             debug("Handling NoSuchPostError");
             return null;
         });
@@ -114,7 +125,7 @@ function getPosts(postModel, query, activeAccount) {
                     .then(function(followStatus) {
                         // damn that's nasty
                         post.get().isFollowed = followStatus;
-                        debug("Set post follow status.");
+                        debug("Set post " + post.id + " follow status " + followStatus);
                         return post;
                     });
             });

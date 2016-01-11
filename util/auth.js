@@ -33,19 +33,6 @@ var cache = require('./cache.js');
 var shortid = require('shortid');
 
 /**
- * An exception signifying that a post could not be found.
- *
- * @param {string} [message] - A message associated with this exception.
- */
-function NoSuchPostError(message) {
-    this.message = message;
-    this.name = name;
-    Error.captureStackTrace(this, NoSuchPostError);
-}
-NoSuchPostError.prototype = Object.create(Error.prototype);
-NoSuchPostError.prototype.constructor = NoSuchPostError;
-
-/**
  * An exception signifying that an account is already registered.
  *
  * @param {string} [message] - A message associated with this exception.
@@ -408,7 +395,6 @@ module.exports = {
         optionalAuth: optionalAuth,
     },
     checkToken: checkToken,
-    NoSuchPostError: NoSuchPostError,
     NoSuchAccountError: NoSuchAccountError,
     AlreadyRegisteredError: AlreadyRegisteredError,
 };
