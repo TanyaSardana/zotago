@@ -13,6 +13,7 @@ app.factory('userService', function($cookieStore) {
         setToken : function(val){
         	$cookieStore.put('accessToken', val);
         	user.token = val;
+            console.log('cookiestore: ', $cookieStore.get('accessToken'));
         }
     }
 });

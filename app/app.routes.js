@@ -102,7 +102,10 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
         }
       });
     }
+    
+    console.log('before cookiestore', $cookieStore);
     if(!!$cookieStore.get('accessToken')){
+      console.log('inside cookiestore');
       userService.user.token = $cookieStore.get('accessToken');
       api.me().then(function(response){
         userService.user.id  = response.data.id;
@@ -112,9 +115,8 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
         userService.setToken('');
       })
     }
-    
     facebookService.load(document,watchLoginChange);  
-    
-    
+        
+  
 }]);
 

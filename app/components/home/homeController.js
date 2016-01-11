@@ -53,8 +53,23 @@ $scope.toggleErrorModal = function(){
 }
 
 $scope.followOnClick = function(item){
-	if(!!userService.token){
-		
+	if(!!userService.user.token){
+		api.followWantPost(item.id).then(function(response){
+			console.log('follow success ', response);
+		});
+	}else{
+		$scope.toggleErrorModal();
+	}
+	
+}
+$scope.unfollowOnClick = function(item){
+	console.log('unfollow')
+	if(!!userService.user.token){
+		api.unfollowWantPost(item.id).then(function(response){
+			console.log('unfollow success', response);
+		},function(err){
+			console.log('error in unfollowing want post');
+		});
 	}else{
 		$scope.toggleErrorModal();
 	}
@@ -112,8 +127,10 @@ $scope.onTagRemoved = function(){
 	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 }
 function getImageSuccessCallback (data){
-	$scope.miniWantImage = data.data.bossresponse.images.results[0].url;
-	console.log('s', data);
+	if(!!data.data.bossresponse.images){
+		$scope.miniWantImage = data.data.bossresponse.images.results[0].url;
+		console.log('s', data);	
+	}	
 }
 function getImageErrorCallback (data){
 	console.log('e', data);
