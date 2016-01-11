@@ -300,7 +300,7 @@ function checkToken(token) {
     return cache.get('zotagoToken:' + token)
         .then(function(v) {
             debug('successfully looked up zotago token ' + token);
-            return token;
+            return v;
         })
         .catch(function() {
             debug('failed to look up zotago token ' + token);
