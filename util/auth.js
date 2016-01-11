@@ -334,7 +334,12 @@ function requiresAuth(req, res, next) {
                 return;
             }
 
-            return models.Account.findById(accountId)
+            return models.Account.findById(accountId);
+        })
+        .catch(function(e) {
+            res.status(500).json({
+                message: "Database error."
+            });
         })
         .then(function(account) {
             if(!account) {
