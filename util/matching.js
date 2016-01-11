@@ -16,6 +16,16 @@ var delta = 0.125;
 
 var Promise = require('bluebird');
 
+/**
+ * Computes the match value between two tags.
+ *
+ * If the tags are exactly the same, then the match value is 1; else, it is
+ * 0.
+ *
+ * @param {object} t1 - The first tag.
+ * @param {object} t2 - The second tag.
+ * @return {integer} - The match value of the two tags.
+ */
 function f(t1, t2) {
     return t1.id === t2.id ? 1 : 0;
 }
@@ -26,15 +36,30 @@ function f(t1, t2) {
  * score suitable for deciding whether to send notifications.
  *
  * The algorithm works by counting the following quantities:
- *     the tags in p1 that are in p2
- *     the tags in p1 that are in M(p2)
- *     the tags in M(p1) that are in p2
- *     the tags in M(p1) that are in M(p2)
+ *     q_alpha: the tags in p1 that are in p2
+ *     q_beta: the tags in p1 that are in M(p2)
+ *     q_gamma: the tags in M(p1) that are in p2
+ *     q_delta: the tags in M(p1) that are in M(p2)
  *
- * Multiplying by exponentially decreasing weights and summing gives the total
- * raw match score.
+ * where
+ *     p1: the source set of tags
+ *     p2: the target set of tags
+ *     M(P): denotes the union of the sets of metatags for each tag in P.
  *
- * This score should be normalized somehow according to |Tp1| and |Tp2|.
+ * Multiplying each count by exponentially decreasing weights and summing gives
+ * the total raw match score.
+ *
+ * These weights are presently called "alpha", "beta", "gamma", and "delta".
+ *
+ * This score should be normalized somehow according to |Tp1| and |Tp2|. A
+ * normalization scheme is currently implemented, although it probably isn't
+ * very good. We simply divide the raw match score by the total count of
+ * matched tags.
+ *
+ * @param {array} Tp1 - The source tag set.
+ * @param {array} Tp2 - The target tag set.
+ * @return {MatchData} - A match dataset representing the matching between two
+ * the two sets of tags.
  */
 function matchCount(Tp1, Tp2) {
     // TODO optimize fetching sets of metatags by using a single SQL statement.
@@ -101,6 +126,12 @@ function matchCount(Tp1, Tp2) {
     });
 }
 
+/**
+ * Computes the raw match score on a match dataset.
+ *
+ * @param {MatchData} matchData - The match data.
+ * @return {float} - The raw match score represented by the match dataset.
+ */
 function rawScore(matchData) {
     return alpha * matchData.match.alpha
         + beta * matchData.match.beta
@@ -108,6 +139,13 @@ function rawScore(matchData) {
         + delta * matchData.match.delta;
 }
 
+/**
+ * Computes a normalized match score on a match dataset.
+ *
+ * @param {MatchData} matchData - The match data.
+ * @param {float} - The normalized match score represented by the match
+ * dataset.
+ */
 function normalScore(matchData) {
     var d =
         matchData.count.alpha +
@@ -118,6 +156,23 @@ function normalScore(matchData) {
     return rawScore(matchData) / d;
 }
 
+/**
+ * Computes the matching score for a new post against all existing posts of a
+ * given post model class.
+ *
+ * This function will fetch all the posts of the given target class and compute
+ * matching data for each of them against the given full source post. The match
+ * data that is computed is persisted to the database as Match objects.
+ *
+ * For each match that is computed, the {@link events.eventTypes.MATCH_MADE}
+ * event is raised.
+ *
+ * @param {FullPost} fullSourcePost - The full post object representing the
+ * source post.
+ * @param {models.Post} targetPostModel - The model class of the target posts.
+ * @return {Promise.<Array.<Match>>} - A promise that resolves to the array of
+ * Match objects that have been created.
+ */
 var makeMatches = function(fullSourcePost, targetPostModel, options) {
     var sourcePost = fullSourcePost.post;
     var Tp1 = fullSourcePost.tags;

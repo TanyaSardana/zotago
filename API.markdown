@@ -89,6 +89,9 @@ Here is the format for each supported authorization scheme.
 Collections
 ===========
 
+The following endpoints concern the actual data that is used in the
+application.
+
 Accounts
 --------
 
