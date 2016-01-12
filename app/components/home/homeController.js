@@ -69,6 +69,7 @@ $scope.toggleFollow = function(item){
 $scope.followClick = function(item){
 		item.isFollowed = true;
 		api.followWantPost(item.id).then(function(response){
+		});
 }
 $scope.unfollowClick = function(item,event){
 		item.isFollowed = false;

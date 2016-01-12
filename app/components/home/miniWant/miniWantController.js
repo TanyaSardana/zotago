@@ -8,9 +8,14 @@ app.controller('miniWantController',['$scope','$rootScope','api','userService','
 	    },
 	    "tags": []
 	};
-	
+	$scope.txt='';
+    
+    $scope.reset = function() {
+        $scope.txt = '';
+    };
 	
 	$scope.publishWantPost = function(){
+		
 		var chosenTags = [];
 		for( var i = 0 ; i < $rootScope.tags.length; i++){
 			chosenTags.push($rootScope.tags[i].text);
@@ -21,12 +26,15 @@ app.controller('miniWantController',['$scope','$rootScope','api','userService','
 		var dataObj = $scope.wantPost;
 		console.log('dataObj is: ', dataObj);
 
-		api.createWantPost(dataObj).then(createWantPostSuccessCallback,createWantPostErrorCallback);	
+		api.createWantPost(dataObj).then(function(data){
+			console.log('wantpost is created');
+			$scope.wantPostTextArea = '';
+			$scope.getQueriedWantPosts();
+		},createWantPostErrorCallback);	
 	}
 
 	function createWantPostSuccessCallback(data){
-		console.log('wantpost is created');
-		$scope.getQueriedWantPosts();
+		
 	};
 	function createWantPostErrorCallback(data){
 		console.log('error');
