@@ -52,28 +52,31 @@ $scope.toggleErrorModal = function(){
 	$scope.errorModal.showModal = !$scope.errorModal.showModal; 
 }
 
-$scope.followOnClick = function(item){
+$scope.toggleFollow = function(item){
 	if(!!userService.user.token){
-		api.followWantPost(item.id).then(function(response){
-			console.log('follow success ', response);
-		});
+		//follow -> unfollow
+		if(item.isFollowed == true){		
+			$scope.unfollowClick(item);
+		}
+		//unfollow -> follow
+		else{		
+			$scope.followClick(item);
+		}
 	}else{
 		$scope.toggleErrorModal();
 	}
-	
 }
-$scope.unfollowOnClick = function(item){
-	console.log('unfollow')
-	if(!!userService.user.token){
+$scope.followClick = function(item){
+		item.isFollowed = true;
+		api.followWantPost(item.id).then(function(response){
+}
+$scope.unfollowClick = function(item,event){
+		item.isFollowed = false;
 		api.unfollowWantPost(item.id).then(function(response){
 			console.log('unfollow success', response);
 		},function(err){
 			console.log('error in unfollowing want post');
 		});
-	}else{
-		$scope.toggleErrorModal();
-	}
-	
 }
 
 $scope.getQueriedWantPosts = function(){
