@@ -5,7 +5,6 @@
 	</div>
 	<div styl="padding-top:40px;">	
 			<div  class="container">
-			
 					<div style="overflow-y: auto;">
 						<div ng-repeat="item in sellPosts" style="width:25%; display: inline-block;" >
 							<div  ng-class="{ 'showYourClosetSelectedThumbnail': $index == selectedIndex }" ng-click="yourClosetItemClicked($index)"  style="height: 150px;position: relative; text-align: center;margin:5px;padding:5px;">
@@ -20,10 +19,9 @@
 								</div>
 							</div>
 						</div></a>
-
 					</div>	
 					<div style="display: block;position:relative;bottom:0;right:20px;">
-						<button ng-click="offerSellPost(wantPostClickedItem)" class="pull-right btn">Offer it</button>
+						<button ng-click="offerSellPost(wantPost)" class="pull-right btn">Offer it</button>
 					</div>
 			</div>
 	</div>	

@@ -37,7 +37,6 @@
 					<div style="position:absolute;bottom:2px;left:2px;z-index:1;">
 
 						<div ng-switch on="item.isFollowed" ng-show="itemOverlay"  class="text-center">
-							{{item.isFollowed}}
 							<button  ng-switch-default ng-click="followOnClick(item)" style="font-size:11px;" class="btnWaunted">{{"Follow" | uppercase}}</button>
 							<button ng-switch-when="true" ng-click="unfollowOnClick(item)" style="font-size:11px;" class="btnWaunted">{{"Unfollow" | uppercase}}</button>
 						</div>						
@@ -52,8 +51,8 @@
 
 
 						<div style="font-size: 0.8em;height:50%;margin-top:15px;">
-							<span class="col-xs-4" style="padding: 0;"><!--{{item.followers}}-->2
-								Follows</span> <span class="col-xs-4" style="padding: 0;"><!--{{item.offerings}}-->2
+							<span class="col-xs-4" style="padding: 0;"><!--{{item.followers}}-->{{item.followerCount}}
+								Follows</span> <span class="col-xs-4" style="padding: 0;"><!--{{item.offerings}}-->{{item.offerCount}}
 								Offerings</span> <span class="col-xs-4" style="padding: 0;">
 							</span>
 						</div>
