@@ -211,6 +211,15 @@ function createPost(postModel, data) {
                     where: {
                         name: tag
                     }
+                })
+                .then(function(tagInstance) {
+                    // if the tag doesn't exist, then we need to create it
+                    if(tagInstance)
+                        return Promise.resolve(tagInstance);
+                    else
+                        return models.Tag.create({
+                            name: tag
+                        });
                 });
             }))
         })
