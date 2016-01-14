@@ -172,10 +172,11 @@ module.exports.getPosts = getPosts;
  * Creates a new post of the given model.
  *
  * @param Object postModel -- the model of the post to create
- * @param Object data -- the post parameters
- * @param string data.description -- post description
- * @param int data.creatorId -- id of the creator
- * @param string data.imageUrl -- url of image for post
+ * @param Object data -- the post and related parameters
+ * @param Object data.mkPost -- the post parameters
+ * @param string data.mkPost.description -- post description
+ * @param int data.mkPost.creatorId -- id of the creator
+ * @param string data.mkPost.imageUrl -- url of image for post
  * @param array data.tags -- names of tags to add to the post
  * @return Promise -- resolves to the post instance that has been created
  */
@@ -197,6 +198,8 @@ function createPost(postModel, data) {
 
     var thePost;
 
+    debug('creating post for account ' + mkPost.creatorId);
+
     return p
         .then(function() {
             return postModel.create(mkPost);
@@ -212,7 +215,16 @@ function createPost(postModel, data) {
             }))
         })
         .then(function(tags) {
-            return thePost.addTags(tags);
+            debug('adding the tags to the post');
+            return Promise.all([
+                models.Account.findById(mkPost.creatorId),
+                thePost.addTags(tags)
+            ]);
+        })
+        .then(function(resolved) {
+            var account = resolved[0];
+            debug('adding the creator as a follower of the post');
+            return thePost.addFollowers([account]);
         })
         .then(function() {
             return getPost(postModel, {
@@ -220,7 +232,7 @@ function createPost(postModel, data) {
                     id: thePost.id
                 }
             });
-        })
+        });
 }
 module.exports.createPost = createPost;
 
