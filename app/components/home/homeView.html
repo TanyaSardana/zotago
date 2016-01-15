@@ -1,8 +1,6 @@
 <div ng-controller="searchEngineController" ng-include="'app/components/home/searchEngine/searchEngineView.html'"></div>
 <hr>
 
-
-
 <div class="container">
 	
 	<div ng-hide="offeringsWindow == true" class="row">
@@ -37,7 +35,7 @@
 					<div style="position:absolute;bottom:2px;left:2px;z-index:1;">
 
 						<div ng-show="itemOverlay"  class="text-center">							
-							<button  ng-click="toggleFollow(item)"style="font-size:11px;" class="btnWaunted"><span ng-if="item.isFollowed == true">Unfollow</span><span ng-if="item.isFollowed == false">Follow</span></button>
+							<button  ng-click="toggleFollow(item)"style="font-size:11px;" class="btnWaunted"><span ng-if="item.isFollowed == true">Unfollow</span><span ng-if="!!!item.isFollowed">Follow</span></button>
 						</div>						
 					</div>
 
