@@ -36,8 +36,8 @@
 					
 					<div style="position:absolute;bottom:2px;left:2px;z-index:1;">
 
-						<div ng-init="toggleFollow(item)" ng-show="itemOverlay"  class="text-center">							
-							<button  ng-click="toggleFollow(item)"style="font-size:11px;" class="btnWaunted"><span ng-if="!!item.isFollowed">Unfollow</span><span ng-if="!!!item.isFollowed">Follow</span></button>
+						<div ng-show="itemOverlay"  class="text-center">							
+							<button  ng-click="toggleFollow(item)"style="font-size:11px;" class="btnWaunted"><span ng-if="item.isFollowed == true">Unfollow</span><span ng-if="item.isFollowed == false">Follow</span></button>
 						</div>						
 					</div>
 

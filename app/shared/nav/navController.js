@@ -6,9 +6,9 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
 	$scope.showNavbar = false;
 	//$rootScope.user.isLoggedIn = false;
 
-	$scope.height = '50px';
+	$scope.height = '70px';
 	$scope.company = {
-		logo : '/assets/img/gotta-find-it-logo.png',
+		logo : '/assets/img/gottafindit-logo-icon.png',
 	}
 	$scope.navbarProfileMenu = [
 		

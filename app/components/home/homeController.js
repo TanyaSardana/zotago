@@ -57,10 +57,12 @@ $scope.toggleFollow = function(item){
 		//follow -> unfollow
 		if(item.isFollowed == true){		
 			$scope.unfollowClick(item);
+			item.followerCount -= 1;
 		}
 		//unfollow -> follow
 		else{		
 			$scope.followClick(item);
+			item.followerCount += 1;
 		}
 	}else{
 		$scope.toggleErrorModal();
