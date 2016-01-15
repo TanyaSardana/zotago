@@ -23,6 +23,7 @@ app.controller('miniWantController',['$scope','$rootScope','api','userService','
 		console.log('tags are: ', chosenTags);
 		$scope.wantPost.tags = chosenTags;
 		$scope.wantPost.post.imageUrl = $scope.miniWantImage;
+		$scope.wantPost.post.description = $scope.txt;
 		var dataObj = $scope.wantPost;
 		console.log('dataObj is: ', dataObj);
 
