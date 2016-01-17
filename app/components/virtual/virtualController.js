@@ -1,8 +1,15 @@
-app.controller('virtualController',['$scope','$rootScope','$routeParams','api', function($scope,$rootScope,$routeParams,api){
+app.controller('virtualController',['$scope','$rootScope','$routeParams','api','userService', function($scope,$rootScope,$routeParams,api,userService){
 	// api.getWantPosts().then(getWantPostsSuccessCallback, getWantPostsErrorCallback);
 	// api.getSellPosts().then(getSellPostsSuccessCallback, getSellPostsErrorCallback);
 	api.getWantPostsOfUser($routeParams.id).then(getWantPostsSuccessCallback,getWantPostsErrorCallback);
 	api.getSellPostsOfUser($routeParams.id).then(getSellPostsSuccessCallback, getSellPostsErrorCallback);
+
+	console.log('userService: ', userService);
+
+	$scope.user = userService.user;
+	$scope.fullName = userService.user.firstName + " " + userService.user.lastName;
+	
+
 	$scope.myProfile = {
 		image : 'http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg',
 	};

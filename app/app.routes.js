@@ -70,14 +70,19 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
     watchLoginChange = function() {
       FB.Event.subscribe('auth.authResponseChange', function(res) {
         if (res.status === 'connected') {
-          //$rootScope.user.isLoggedIn = true;
-          //$rootScope.user.userId = FB.getUserID();
+
           userService.user.userId = FB.getUserID();
-          userService.user.isLoggedInToFb = true;
+          
           /* 
            The user is already logged, 
            is possible retrieve his personal info
           */
+          api.me().then(function(response){
+            userService.user.firstName = response.data.firstName;
+            userService.user.lastName = response.data.lastName;
+            userService.user.id = response.data.id;
+            userService.user.isLoggedInToFb = true;
+          });
           facebookService.getProfilePic(userService.user.userId).then(function(response){
             userService.user.profileImageUrl = response.data.url;
             $timeout();
@@ -109,6 +114,8 @@ app.run(['$rootScope', '$window', 'facebookService','api','userService', '$timeo
       userService.user.token = $cookieStore.get('accessToken');
       api.me().then(function(response){
         userService.user.id  = response.data.id;
+        userService.user.firstName = response.data.firstName;
+        userService.user.lastName = response.data.lastName;
       },function(err){
         //token is void
         console.log('error in me api',err);

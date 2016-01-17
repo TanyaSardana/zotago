@@ -4,6 +4,8 @@ app.factory('userService', function($cookieStore) {
     	profileImageUrl : '',
     	token : '',
     	isLoggedInToFb : false,
+        firstName : '',
+        lastName : '',
     };
 
     
