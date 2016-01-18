@@ -1,5 +1,5 @@
 var uniqueID = 0;
-app.controller('createSellController',['$scope','api','$rootScope','userService' ,function($scope,api,$rootScope,userService){
+app.controller('createSellController',['$scope','api','$rootScope','userService','$location' ,function($scope,api,$rootScope,userService,$location){
 	$rootScope.showMainSearchBar = false;
 	console.log('usertken in createsellctrl: ', userService.user.token);
 	//create post object
@@ -31,6 +31,8 @@ app.controller('createSellController',['$scope','api','$rootScope','userService'
 		api.createSellPost(dataObj)
 		.then(function(data){
 			console.log('want post is created');
+			$location.path('/');
+
 		},function(error){
 			console.log('error');
 		});	
