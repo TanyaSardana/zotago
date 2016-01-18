@@ -1,4 +1,4 @@
-app.controller('homeController',['$scope','$rootScope','api','wantPostService','userService','$timeout', function($scope,$rootScope,api,wantPostService,userService,$timeout){
+app.controller('homeController',['$scope','$rootScope','api','userService','$timeout', function($scope,$rootScope,api,userService,$timeout){
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.queriedWantPosts = {};
@@ -103,8 +103,8 @@ $scope.init = function(){
 $scope.init();
 
 function getQueriedWantPostsSuccessCallback(data){
-	wantPostService.queriedWantPosts = data.data;
-	$scope.queriedWantPosts = wantPostService.queriedWantPosts;
+	//wantPostService.queriedWantPosts = data.data;
+	$scope.queriedWantPosts = data.data;
 }
 function getQueriedWantPostsErrorCallBack(data){
 	console.log('error ', data);

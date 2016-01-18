@@ -56,8 +56,7 @@ app.factory('api', function($http,userService){
         },
         getSellPostsOfUser : function(id){
             return $http.get( baseUrl + '/sellposts' , withBasicOptions({ params: { "creator" : id} }));
-        },
-
+        },    
 
         getOfferingsOfWantPost: function(id){
             return $http.get( baseUrl + '/wantposts/' + id + '/offers',basicOptions());

@@ -10,9 +10,6 @@ app.controller('virtualController',['$scope','$rootScope','$routeParams','api','
 	$scope.fullName = userService.user.firstName + " " + userService.user.lastName;
 	
 
-	$scope.myProfile = {
-		image : 'http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/203/481/datas/profile.jpg',
-	};
 	$scope.tabs = {
 		currentTab : 1,
 		postSelected : true,
