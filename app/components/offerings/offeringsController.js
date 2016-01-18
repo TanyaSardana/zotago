@@ -1,10 +1,11 @@
-app.controller('offeringsController',['$scope','$location','$rootScope','api','$routeParams','$interval', function($scope,$location,$rootScope,api,$routeParams,$interval){
+app.controller('offeringsController',['$scope','$location','$rootScope','api','$routeParams','$interval','userService', function($scope,$location,$rootScope,api,$routeParams,$interval,userService){
 	$scope.showYourCloset = false;
 	$scope.selectedIndex = 0;
 	$scope.sellPosts = {};
 	$scope.wantPost = {};
 	$scope.offerPost = {};
 
+	$scope.user = userService.user;
 	$scope.getOfferingInfo = function(){
 		console.log('hello', $scope.wantPost);
 	}
