@@ -1,3 +1,4 @@
 {
-    "matchThreshold": 0.33
+    "matchThreshold": 0.33,
+    "dummyRecipientEmail": ""
 }

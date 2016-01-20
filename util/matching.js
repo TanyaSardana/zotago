@@ -2,7 +2,16 @@
 
 /**
  * The matching algorithm.
+ *
+ * This module also contains some event-related logic for handling match events
+ * that occur by sending email notifications.
+ *
+ * The database currently doesn't store email addresses (the fields are there,
+ * but they're just NULL), so the emails are sent to a fixed address stored in
+ * `../config/gottafindit.json`.
  */
+
+var debug = require('debug')('matching');
 
 var models = require('../models');
 var events = require('./events');
@@ -244,12 +253,48 @@ events.on(events.eventTypes.MATCH_MADE, function(matchData, options) {
     var wantPost = options.wantPost;
     var sellPost = options.sellPost;
 
-    if(normalScore(matchData) < zotagoConfig.matchThreshold)
-        return;
+    var normalizedScore = normalScore(matchData);
+    var threshold = zotagoConfig.matchThreshold;
 
-    console.log("STUB: MATCH_MADE event handler");
-    // TODO get email address of wanter and seller from database
-    // dispatch HTML email by rendering templates.
+    if(normalizedScore < threshold) {
+        debug('score too low for sending notification');
+        return;
+    }
+
+    Promise.all([wantPost.getCreator(), sellPost.getCreator()])
+        .then(function(resolved) {
+            var wantPostCreator = resolved[0];
+            var sellPostCreator = resolved[1];
+
+            var wantPostCreatorName = wantPostCreator.firstName +
+                ' ' + wantPostCreator.lastName;
+            var sellPostCreatorName = sellPostCreator.firstName +
+                ' ' + sellPostCreator.lastName;
+
+            debug('dispatching match notification ' +
+                    '(normalized score ' +
+                    normalizedScore + ' >= ' + threshold + ')');
+            debug('want post creator ' + wantPostCreatorName);
+            debug('sell post creator ' + sellPostCreatorName);
+
+            var recipientEmail = zotagoConfig.dummyRecipientEmail;
+            if(!recipientEmail) {
+                debug('No dummyRecipientEmail field in zotagoConfig; ' +
+                        'refusing to send emails.');
+                return;
+            }
+
+            return mailer.sendMail({
+                to: recipientEmail,
+                from: "notifications@gottafind.it",
+                subject: "Dummy notification",
+                text: "This is a dummy notification to tell you that the " +
+                    "want post id " + wantPost.id + " by " +
+                    wantPostCreatorName + " and sell post id " + sellPost.id +
+                    " by " + sellPostCreatorName + " match"
+            });
+        });
+
 });
 
 module.exports = {
