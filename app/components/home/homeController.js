@@ -114,7 +114,7 @@ $scope.onTagAdded = function(addedTag){
 	formatTagList(addedTag);
 	api.getQueriedWantPosts('' + $scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 
-	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	//api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 	
 }
 $scope.onTagRemoved = function(){
@@ -130,7 +130,7 @@ $scope.onTagRemoved = function(){
 	
 	api.getQueriedWantPosts($scope.parsedListOfTag).then(getQueriedWantPostsSuccessCallback,getQueriedWantPostsErrorCallBack);	
 
-	api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
+	//api.getImage($scope.parsedListOfTag).then(getImageSuccessCallback,getImageErrorCallback);
 }
 function getImageSuccessCallback (data){
 	if(!!data.data.bossresponse.images){
