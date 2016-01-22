@@ -115,12 +115,6 @@ app.factory('api', function($http,userService){
 
         
         me : function(){
-            // var options = {}
-            // if(!!userService.user.token){
-            //     options.headers = {
-            //         'Authorization' : 'Zotago ' + userService.user.token,
-            //     };
-            // }
             return $http.get(baseUrl + '/me', basicOptions());
         }
     };

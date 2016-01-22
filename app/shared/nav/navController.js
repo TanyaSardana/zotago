@@ -63,6 +63,12 @@ app.controller('navController',['$scope','$window','$location', '$rootScope','$c
           .then(function(response){            
             console.log('responsssse: ', response);            
             userService.setToken(response.data.accessToken);
+         	api.me().then(function(response){
+	            userService.user.firstName = response.data.firstName;
+	            userService.user.lastName = response.data.lastName;
+	            userService.user.id = response.data.id;
+	            userService.user.isLoggedInToFb = true;
+          	});
             console.log('3contd: ', userService.user.token);
           });
         }else if(response.status === 'not_authorized'){

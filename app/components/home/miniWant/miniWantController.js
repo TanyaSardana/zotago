@@ -1,10 +1,10 @@
-app.controller('miniWantController',['$scope','$rootScope','api','userService','$timeout', function($scope,$rootScope,api,userService,$timeout){
+app.controller('miniWantController',['$scope','$rootScope','api','$timeout', function($scope,$rootScope,api,$timeout){
 
 	$scope.wantPost = {
 	    "post": {
 	        imageUrl: $scope.miniWantImage,
 	        description: '',
-	        creatorId: userService.user.id,
+	        creatorId: $scope.userService.user.id,
 	    },
 	    "tags": []
 	};
@@ -24,6 +24,7 @@ app.controller('miniWantController',['$scope','$rootScope','api','userService','
 		$scope.wantPost.tags = chosenTags;
 		$scope.wantPost.post.imageUrl = $scope.miniWantImage;
 		$scope.wantPost.post.description = $scope.txt;
+		$scope.wantPost.post.creatorId = $scope.userService.user.id;
 		var dataObj = $scope.wantPost;
 		console.log('dataObj is: ', dataObj);
 

@@ -2,6 +2,7 @@ app.controller('homeController',['$scope','$rootScope','api','userService','$tim
 $scope.miniWantImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_(2011).svg/2000px-Google_Chrome_icon_(2011).svg.png';
 $rootScope.showMainSearchBar = true;
 $scope.queriedWantPosts = {};
+$scope.userService = userService;
 $scope.store = [
 
 	{
